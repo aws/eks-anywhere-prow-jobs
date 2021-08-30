@@ -48,7 +48,7 @@ type UnmarshaledJobConfig struct {
 type presubmitCheck func(presubmitConfig config.Presubmit, fileContentsString string) (passed bool, lineNo int, errorMessage string)
 
 func (jc *JobConstants) Init() {
-	jc.Bucket = "s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-a8z3fg9jrzai"
+	jc.Bucket = "s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp"
 	jc.Cluster = "prow-presubmits-cluster"
 	jc.ServiceAccountName = "presubmits-build-account"
 	jc.DefaultMakeTarget = "build"
