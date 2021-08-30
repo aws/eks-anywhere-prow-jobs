@@ -116,7 +116,7 @@ func ServiceAccountCheck(jc *JobConstants) presubmitCheck {
 
 func MakeTargetCheck(jc *JobConstants) presubmitCheck {
 	return presubmitCheck(func(presubmitConfig config.Presubmit, fileContentsString string) (bool, int, string) {
-		if strings.Contains(presubmitConfig.JobBase.Name, "e2e") || strings.Contains(presubmitConfig.JobBase.Name, "lint") || strings.Contains(presubmitConfig.JobBase.Name, "mocks") || presubmitConfig.JobBase.Name == "cli-attribution-files-presubmit" {
+		if strings.Contains(presubmitConfig.JobBase.Name, "e2e") || strings.Contains(presubmitConfig.JobBase.Name, "lint") || strings.Contains(presubmitConfig.JobBase.Name, "mocks") || presubmitConfig.JobBase.Name == "eks-anywhere-attribution-files-presubmit" {
 			return true, 0, ""
 		}
 		jobMakeTargetMatches := regexp.MustCompile(`make (\w+[-\w]+?).*`).FindStringSubmatch(strings.Join(presubmitConfig.JobBase.Spec.Containers[0].Command, " "))
