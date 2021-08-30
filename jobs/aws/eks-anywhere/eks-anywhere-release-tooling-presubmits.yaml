@@ -15,7 +15,7 @@
 
 presubmits:
   aws/eks-anywhere:
-  - name: release-tooling-presubmit
+  - name: eks-anywhere-release-tooling-presubmit
     always_run: false
     run_if_changed: "release/.*"
     cluster: "prow-presubmits-cluster"
@@ -24,7 +24,7 @@ presubmits:
     clone_uri: "git@github.com:aws/eks-anywhere.git"
     decoration_config:
       gcs_configuration:
-        bucket: s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-a8z3fg9jrzai
+        bucket: s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp
         path_strategy: explicit
       s3_credentials_secret: s3-credentials
       ssh_key_secrets:

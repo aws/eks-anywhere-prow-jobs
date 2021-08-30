@@ -20,7 +20,7 @@ periodics:
     decoration_config:
       timeout: 3h
       gcs_configuration:
-        bucket: s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-a8z3fg9jrzai
+        bucket: s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp
         path_strategy: explicit
       s3_credentials_secret: s3-credentials
       ssh_key_secrets:
