@@ -36,13 +36,13 @@ presubmits:
         image: public.ecr.aws/eks-distro-build-tooling/builder-base:930624e251df041349f3d3089c983fcf394f1c60
         env:
         - name: TEST_ROLE_ARN
-          value: "arn:aws:iam::389870312627:role/EksaTestBetaRole"
+          value: "arn:aws:iam::025778587028:role/EksaTestBuildRole"
         - name: INTEGRATION_TEST_AL2_AMI_ID
           value: "ami-04abe306a92d95223"
         - name: INTEGRATION_TEST_STORAGE_BUCKET
-          value: "testbuildstack-389870312-eksaintegrationtestresou-16c6ww2eisb6u"
+          value: "testbuildstack-025778587-eksaintegrationtestresou-1tqbb00woona4"
         - name: INTEGRATION_TEST_INSTANCE_PROFILE
-          value: "EksaE2eSsmBetaRole"
+          value: "EksaE2eSsmBuildRole"
         command:
         - bash
         - -c
