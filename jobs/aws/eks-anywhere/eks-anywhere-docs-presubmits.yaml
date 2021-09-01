@@ -15,7 +15,7 @@ presubmits:
   aws/eks-anywhere:
   - name: eks-anywhere-docs-presubmit
     always_run: false
-    run_if_changed: "docs/.*"
+    #run_if_changed: "docs/.*"
     max_concurrency: 10
     cluster: "prow-presubmits-cluster"
     skip_report: false
