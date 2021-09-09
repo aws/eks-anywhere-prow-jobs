@@ -20,14 +20,11 @@ presubmits:
     cluster: "prow-presubmits-cluster"
     max_concurrency: 10
     skip_report: false
-    clone_uri: "git@github.com:aws/eks-anywhere-build-tooling.git"
     decoration_config:
       gcs_configuration:
         bucket: s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp
         path_strategy: explicit
       s3_credentials_secret: s3-credentials
-      ssh_key_secrets:
-      - ssh-secret
     # We need to clone the MR CLI repo to build the controller binary and image. Since
     # it is a private repo, running git clone in the scripts would require mounting of
     # the SSH key secret. Instead of taking that route, we can have Prow clone it for us
@@ -36,7 +33,6 @@ presubmits:
     - org: aws
       repo: eks-anywhere
       base_ref: main
-      clone_uri: "git@github.com:aws/eks-anywhere.git"
     labels:
       image-build: "true"
     spec:
