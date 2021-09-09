@@ -23,13 +23,10 @@ periodics:
         bucket: s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp
         path_strategy: explicit
       s3_credentials_secret: s3-credentials
-      ssh_key_secrets:
-      - ssh-secret
     extra_refs:
     - org: aws
       repo: eks-anywhere
       base_ref: main
-      clone_uri: git@github.com:aws/eks-anywhere.git
     spec:
       serviceaccountName: presubmits-build-account
       automountServiceAccountToken: false
