@@ -39,7 +39,7 @@ presubmits:
               - >
                 build/lib/buildkit_check.sh
                 &&
-                make build
+                make build-cluster-controller
                 &&
                 touch /status/done
             livenessProbe:
