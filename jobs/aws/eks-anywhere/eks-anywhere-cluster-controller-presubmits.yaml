@@ -39,7 +39,7 @@ presubmits:
               - >
                 build/lib/buildkit_check.sh
                 &&
-                make build -C projects/aws/eks-anywhere
+                make build
                 &&
                 touch /status/done
             livenessProbe:
