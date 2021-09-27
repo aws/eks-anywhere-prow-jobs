@@ -39,7 +39,18 @@ periodics:
         - bash
         - -c
         - >
+          build/lib/buildkit_check.sh
+          &&
           make update-attribution-files
+          &&
+          touch /status/done
+        livenessProbe:
+          exec:
+            command:
+            - bash
+            - -c
+            - date +%s > /status/pending
+          periodSeconds: 10
         resources:
           requests:
             memory: "16Gi"
