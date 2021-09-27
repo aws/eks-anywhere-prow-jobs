@@ -39,7 +39,11 @@ periodics:
         - bash
         - -c
         - >
+          build/lib/buildkit_check.sh
+          &&
           make update-attribution-files
+          &&
+          touch /status/done
         livenessProbe:
           exec:
             command:
