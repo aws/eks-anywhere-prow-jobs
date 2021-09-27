@@ -40,6 +40,13 @@ periodics:
         - -c
         - >
           make update-attribution-files
+        livenessProbe:
+          exec:
+            command:
+            - bash
+            - -c
+            - date +%s > /status/pending
+          periodSeconds: 10
         resources:
           requests:
             memory: "16Gi"
