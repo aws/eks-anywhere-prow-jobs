@@ -19,6 +19,8 @@ presubmits:
     run_if_changed: "Makefile|cmd/.*|flux/.*|go.mod|go.sum|hack/.*|internal/.*|pkg/.*|test/.*|release/.*|controllers/.*"
     max_concurrency: 10
     cluster: "prow-presubmits-cluster"
+    branches:
+    - ^main$
     skip_report: false
     decoration_config:
       gcs_configuration:
