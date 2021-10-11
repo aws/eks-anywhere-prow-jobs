@@ -20,24 +20,19 @@ presubmits:
     cluster: "prow-presubmits-cluster"
     max_concurrency: 10
     skip_report: false
-    clone_uri: "git@github.com:aws/eks-anywhere-build-tooling.git"
     decoration_config:
       gcs_configuration:
         bucket: s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp
         path_strategy: explicit
       s3_credentials_secret: s3-credentials
-      ssh_key_secrets:
-      - ssh-secret
     spec:
       serviceaccountName: presubmits-build-account
       automountServiceAccountToken: false
       containers:
-      - image: public.ecr.aws/eks-distro-build-tooling/builder-base:930624e251df041349f3d3089c983fcf394f1c60
+      - image: public.ecr.aws/eks-distro-build-tooling/builder-base:3123b9ad4e3c1d37496ecfb78798d7947a46b0d0
         env:
         - name: ARTIFACTS_BUCKET
           value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
-        - name: ARTIFACTS_READ_ROLE_ARN
-          value: "arn:aws:iam::857151390494:role/ArtifactsReadRole"
         command:
         - bash
         - -c
@@ -45,8 +40,8 @@ presubmits:
           make build -C projects/kubernetes-sigs/image-builder
         resources:
           requests:
-            memory: "4Gi"
-            cpu: "1024m"
+            memory: "16Gi"
+            cpu: "4"
           limits:
-            memory: "4Gi"
-            cpu: "1024m"
+            memory: "16Gi"
+            cpu: "4"
