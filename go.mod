@@ -4,7 +4,7 @@ go 1.13
 
 replace (
 	github.com/containerd/containerd => github.com/containerd/containerd v1.4.8
-	github.com/dgrijalva/jwt-go/v3 => github.com/golang-jwt/jwt/v3 v3.2.1
+	github.com/dgrijalva/jwt-go/v3 => github.com/golang-jwt/jwt/v4 v4.0.0
 	github.com/miekg/dns => github.com/miekg/dns v1.1.25
 	github.com/nats-io/nats-server/v2 => github.com/nats-io/nats-server/v2 v2.2.0
 	github.com/opencontainers/runc => github.com/opencontainers/runc v1.0.0-rc95
