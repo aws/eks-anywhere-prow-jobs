@@ -38,7 +38,7 @@ periodics:
         - name: INTEGRATION_TEST_STORAGE_BUCKET
           value: "testbuildstack-025778587-eksaintegrationtestresou-1tqbb00woona4"
         - name: INTEGRATION_TEST_MAX_INSTANCE_AGE
-          value: "10800"
+          value: "16200"
         - name: INTEGRATION_TEST_INSTANCE_TAG
           value: "EKSA-E2E"
         command:
