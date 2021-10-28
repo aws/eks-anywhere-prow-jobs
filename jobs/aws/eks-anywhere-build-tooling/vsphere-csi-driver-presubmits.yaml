@@ -16,7 +16,7 @@ presubmits:
   aws/eks-anywhere-build-tooling:
   - name: vsphere-csi-driver-tooling-presubmit
     always_run: false
-    run_if_changed: "EKS_DISTRO_MINIMAL_BASE_CSI_TAG_FILE|projects/kubernetes-sigs/vsphere-csi-driver/.*"
+    run_if_changed: "EKS_DISTRO_MINIMAL_BASE_CSI_TAG_FILE|^build/lib/.*|Common.mk|projects/kubernetes-sigs/vsphere-csi-driver/.*"
     cluster: "prow-presubmits-cluster"
     max_concurrency: 10
     skip_report: false

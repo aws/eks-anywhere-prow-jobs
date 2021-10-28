@@ -16,7 +16,7 @@ presubmits:
   aws/eks-anywhere-build-tooling:
   - name: imagebuilder-presubmit
     always_run: false
-    run_if_changed: "EKSD_LATEST_RELEASES|projects/kubernetes-sigs/image-builder/.*"
+    run_if_changed: "EKSD_LATEST_RELEASES|^build/lib/.*|Common.mk|projects/kubernetes-sigs/image-builder/.*"
     cluster: "prow-presubmits-cluster"
     max_concurrency: 10
     skip_report: false

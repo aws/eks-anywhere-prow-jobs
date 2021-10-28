@@ -16,7 +16,7 @@ presubmits:
   aws/eks-anywhere-build-tooling:
   - name: etcdadm-controller-tooling-presubmit
     always_run: false
-    run_if_changed: "EKS_DISTRO_MINIMAL_BASE_TAG_FILE|projects/mrajashree/etcdadm-controller/.*"
+    run_if_changed: "EKS_DISTRO_MINIMAL_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/mrajashree/etcdadm-controller/.*"
     cluster: "prow-presubmits-cluster"
     max_concurrency: 10
     skip_report: false

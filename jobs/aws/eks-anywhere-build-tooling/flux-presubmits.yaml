@@ -16,7 +16,7 @@ presubmits:
   aws/eks-anywhere-build-tooling:
   - name: flux-tooling-presubmit
     always_run: false
-    run_if_changed: "EKSD_LATEST_RELEASES|projects/fluxcd/flux2/.*"
+    run_if_changed: "EKSD_LATEST_RELEASES|^build/lib/.*|Common.mk|projects/fluxcd/flux2/.*"
     cluster: "prow-presubmits-cluster"
     max_concurrency: 10
     skip_report: false
