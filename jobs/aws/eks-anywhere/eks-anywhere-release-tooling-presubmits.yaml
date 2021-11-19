@@ -35,7 +35,7 @@ presubmits:
         - bash
         - -c
         - >
-          make build -C release
+          make dev-release -C release
         resources:
           requests:
             memory: "4Gi"
