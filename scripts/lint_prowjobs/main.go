@@ -27,15 +27,32 @@ import (
 	"strings"
 	"text/tabwriter"
 
+	core "k8s.io/api/core/v1"
 	"k8s.io/test-infra/prow/config"
 	yaml "sigs.k8s.io/yaml"
 )
 
+const (
+	PULL_BASE_SHA_ENV			string = "PULL_BASE_SHA"
+	PULL_PULL_SHA_ENV			string = "PULL_PULL_SHA"
+	CONSTANTS_CONFIG_FILE_ENV	string = "CONSTANTS_CONFIG_FILE"
+)
+
 type JobConstants struct {
-	Bucket             string
-	Cluster            string
-	ServiceAccountName string
-	DefaultMakeTarget  string
+	Bucket             string				`yaml:"bucket"`
+	Cluster            string				`yaml:"cluster"`
+	ServiceAccountName string				`yaml:"serviceAccountName"`
+	DefaultMakeTarget  string				`yaml:"defaultMakeTarget"`
+	EnvVars			   []core.EnvVar		`json:"env,omitempty"` // format has to be json to match core.EnvVar ((https://pkg.go.dev/k8s.io/api/core/v1#EnvVar)) in order to unmarshall embedded struct 
+}
+
+func (jc *JobConstants) envVarExist(key string) (int, bool) {
+	for index, env := range jc.EnvVars {
+		if env.Name == key {
+			return index, true
+		}
+	}
+	return -1, false
 }
 
 type UnmarshaledJobConfig struct {
@@ -47,13 +64,6 @@ type UnmarshaledJobConfig struct {
 
 type presubmitCheck func(presubmitConfig config.Presubmit, fileContentsString string) (passed bool, lineNo int, errorMessage string)
 
-func (jc *JobConstants) Init() {
-	jc.Bucket = "s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp"
-	jc.Cluster = "prow-presubmits-cluster"
-	jc.ServiceAccountName = "presubmits-build-account"
-	jc.DefaultMakeTarget = "build"
-}
-
 func findLineNumber(fileContentsString string, searchString string) int {
 	fileLines := strings.Split(fileContentsString, "\n")
 
@@ -64,6 +74,24 @@ func findLineNumber(fileContentsString string, searchString string) int {
 	}
 
 	return 0
+}
+
+func EnvVarsCheck(jc *JobConstants) presubmitCheck {
+	return presubmitCheck(func(presubmitConfig config.Presubmit, fileContentsString string) (bool, int, string) {
+		for _, container := range presubmitConfig.JobBase.Spec.Containers {
+			for _, env := range container.Env {
+				if index, exists := jc.envVarExist(env.Name); exists {
+					// check deepequal in case we decide to support EnvVarSource values in the future
+					if env != jc.EnvVars[index] {
+						lineToFind := fmt.Sprintf("name: %s", env.Name)
+						correctiveAction := fmt.Sprintf("Incorrect env var declared for %s in the %s container, update it to %s", env.Name, container.Name, env)
+						return false, findLineNumber(fileContentsString, lineToFind), correctiveAction
+					}
+				}
+			}
+		}
+		return true, 0, ""
+	})
 }
 
 func AlwaysRunCheck() presubmitCheck {
@@ -145,22 +173,36 @@ func getFilesChanged(gitRoot string, pullBaseSha string, pullPullSha string) ([]
 	return presubmitFiles, err
 }
 
-func unmarshalJobFile(filePath string, jobConfig *config.JobConfig) (*UnmarshaledJobConfig, error, error) {
+func unmarshalJobFile(filePath string, jobConfig *config.JobConfig) *UnmarshaledJobConfig {
 	if _, err := os.Stat(filePath); os.IsNotExist(err) {
-		return nil, nil, nil
+		return nil
 	}
+
 	unmarshaledJobConfig := new(UnmarshaledJobConfig)
 	unmarshaledJobConfig.GithubRepo = strings.Replace(filepath.Dir(filePath), "jobs/", "", 1)
 	unmarshaledJobConfig.FileName = filepath.Base(filePath)
-
-	fileContents, fileReadError := ioutil.ReadFile(filePath)
-	unmarshaledJobConfig.FileContents = string(fileContents)
-
-	fileUnmarshalError := yaml.Unmarshal(fileContents, &jobConfig)
+	unmarshaledJobConfig.FileContents = unmarshalYamlFile(filePath, &jobConfig)
 	unmarshaledJobConfig.ProwjobConfig = jobConfig
 
-	return unmarshaledJobConfig, fileReadError, fileUnmarshalError
+	return unmarshaledJobConfig
 }
+
+func unmarshalYamlFile(filePath string, data interface{}) string {
+	fileContents, fileReadError := ioutil.ReadFile(filePath)
+
+	if fileReadError != nil {
+		log.Fatalf("Error reading contents of %s: %v", filePath, fileReadError)
+	}
+
+	unmarshalError := yaml.Unmarshal(fileContents, data)
+
+	if unmarshalError != nil {
+		log.Fatalf("Error unmarshaling contents of %s: %v", filePath, unmarshalError)
+	}
+
+	return string(fileContents)
+}
+
 
 func displayConfigErrors(fileErrorMap map[string][]string) bool {
 	w := new(tabwriter.Writer)
@@ -184,11 +226,16 @@ func main() {
 	var jobConfig config.JobConfig
 	var presubmitErrors = make(map[string][]string)
 
-	presubmitConstants := new(JobConstants)
-	presubmitConstants.Init()
+	pullBaseSha := os.Getenv(PULL_BASE_SHA_ENV)
+	pullPullSha := os.Getenv(PULL_PULL_SHA_ENV)
+	constantsConfigFile := os.Getenv(CONSTANTS_CONFIG_FILE_ENV)
 
-	pullBaseSha := os.Getenv("PULL_BASE_SHA")
-	pullPullSha := os.Getenv("PULL_PULL_SHA")
+	if _, err := os.Stat(constantsConfigFile); os.IsNotExist(err) {
+		log.Fatalf("Job Constants yaml file does not exist in the env var %s!", CONSTANTS_CONFIG_FILE_ENV)
+	}
+
+	var presubmitConstants JobConstants
+	unmarshalYamlFile(constantsConfigFile, &presubmitConstants)
 
 	gitRootOutput, err := exec.Command("git", "rev-parse", "--show-toplevel").Output()
 	if err != nil {
@@ -203,24 +250,19 @@ func main() {
 
 	presubmitCheckFunctions := []presubmitCheck{
 		AlwaysRunCheck(),
-		ClusterCheck(presubmitConstants),
+		EnvVarsCheck(&presubmitConstants),
+		ClusterCheck(&presubmitConstants),
 		SkipReportCheck(),
-		BucketCheck(presubmitConstants),
-		ServiceAccountCheck(presubmitConstants),
-		MakeTargetCheck(presubmitConstants),
+		BucketCheck(&presubmitConstants),
+		ServiceAccountCheck(&presubmitConstants),
+		MakeTargetCheck(&presubmitConstants),
 	}
 
 	for _, presubmitFile := range presubmitFiles {
-		unmarshaledJobConfig, fileReadError, fileUnmarshalError := unmarshalJobFile(presubmitFile, &jobConfig)
+		unmarshaledJobConfig := unmarshalJobFile(presubmitFile, &jobConfig)
 		// Skip linting if file is not found
 		if unmarshaledJobConfig == nil {
 			continue
-		}
-		if fileReadError != nil {
-			log.Fatalf("Error reading contents of %s: %v", presubmitFile, fileReadError)
-		}
-		if fileUnmarshalError != nil {
-			log.Fatalf("Error unmarshaling contents of %s: %v", presubmitFile, fileUnmarshalError)
 		}
 
 		presubmitConfigs, ok := unmarshaledJobConfig.ProwjobConfig.PresubmitsStatic[unmarshaledJobConfig.GithubRepo]
