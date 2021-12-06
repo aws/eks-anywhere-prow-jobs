@@ -3,6 +3,9 @@ export PULL_BASE_SHA?=$(shell git show -s --format=%H main)
 export PULL_PULL_SHA?=$(shell git show -s --format=%H)
 
 BIN_DIR := bin
+CONFIG_DIR := config
+
+export CONSTANTS_CONFIG_FILE ?= $(CONFIG_DIR)/job-constants.yaml
 
 .PHONY: default
 default: build lint
