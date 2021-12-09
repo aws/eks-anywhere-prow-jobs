@@ -46,7 +46,7 @@ presubmits:
         - bash
         - -c
         - >
-          make docker-e2e-test
+          'make docker-e2e-test | while IFS= read -r line; do printf "%s %s\n" "$(date "+%F %T")" "$line"; done'
         resources:
           requests:
             memory: "4Gi"
