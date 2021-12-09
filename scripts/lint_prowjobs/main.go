@@ -33,17 +33,17 @@ import (
 )
 
 const (
-	PULL_BASE_SHA_ENV			string = "PULL_BASE_SHA"
-	PULL_PULL_SHA_ENV			string = "PULL_PULL_SHA"
-	CONSTANTS_CONFIG_FILE_ENV	string = "CONSTANTS_CONFIG_FILE"
+	PULL_BASE_SHA_ENV         string = "PULL_BASE_SHA"
+	PULL_PULL_SHA_ENV         string = "PULL_PULL_SHA"
+	CONSTANTS_CONFIG_FILE_ENV string = "CONSTANTS_CONFIG_FILE"
 )
 
 type JobConstants struct {
-	Bucket             string				`yaml:"bucket"`
-	Cluster            string				`yaml:"cluster"`
-	ServiceAccountName string				`yaml:"serviceAccountName"`
-	DefaultMakeTarget  string				`yaml:"defaultMakeTarget"`
-	EnvVars			   []core.EnvVar		`json:"env,omitempty"` // format has to be json to match core.EnvVar ((https://pkg.go.dev/k8s.io/api/core/v1#EnvVar)) in order to unmarshall embedded struct 
+	Bucket             string        `yaml:"bucket"`
+	Cluster            string        `yaml:"cluster"`
+	ServiceAccountName string        `yaml:"serviceAccountName"`
+	DefaultMakeTarget  string        `yaml:"defaultMakeTarget"`
+	EnvVars            []core.EnvVar `json:"env,omitempty"` // format has to be json to match core.EnvVar ((https://pkg.go.dev/k8s.io/api/core/v1#EnvVar)) in order to unmarshall embedded struct
 }
 
 func (jc *JobConstants) envVarExist(key string) (int, bool) {
@@ -202,7 +202,6 @@ func unmarshalYamlFile(filePath string, data interface{}) string {
 
 	return string(fileContents)
 }
-
 
 func displayConfigErrors(fileErrorMap map[string][]string) bool {
 	w := new(tabwriter.Writer)
