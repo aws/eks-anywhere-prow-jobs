@@ -10,8 +10,16 @@ export CONSTANTS_CONFIG_FILE ?= $(CONFIG_DIR)/job-constants.yaml
 .PHONY: default
 default: build lint
 
+.PHONY: fmt
+fmt: ## Run go fmt against code.
+	go fmt scripts/lint_prowjobs/main.go
+
+.PHONY: vet
+vet: ## Run go vet against code.
+	go vet scripts/lint_prowjobs/main.go
+
 .PHONY: build
-build:  ## Build linter
+build: fmt vet ## Build linter
 	go build -o ./$(BIN_DIR)/prow-linter github.com/aws/eks-anywhere-prow-jobs/scripts/lint_prowjobs
 
 .PHONY: lint
