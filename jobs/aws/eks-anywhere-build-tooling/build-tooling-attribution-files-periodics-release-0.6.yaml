@@ -1,0 +1,95 @@
+# Copyright Amazon.com Inc. or its affiliates. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+periodics:
+  - name: build-tooling-attribution-files-periodic
+    # Runs every weekday (M-F) at 2PM PST
+    cron: "0 21 * * 1-5"
+    cluster: "prow-postsubmits-cluster"
+    decoration_config:
+      timeout: 4h
+      gcs_configuration:
+        bucket: s3://prowdataclusterstack-316434458-prowbucket7c73355c-1n9f9v93wpjcm
+        path_strategy: explicit
+      s3_credentials_secret: s3-credentials
+    extra_refs:
+    - org: aws
+      repo: eks-anywhere-build-tooling
+      base_ref: release-0.6
+    labels:
+      image-build: "true"
+    spec:
+      serviceaccountName: postsubmits-build-account
+      automountServiceAccountToken: false
+      containers:
+      - name: build-container
+        image: public.ecr.aws/eks-distro-build-tooling/builder-base:57d72a06719916cd715f07a716fa2d4b8a1e2235
+        env:
+        - name: PULL_BASE_REF
+          value: release-0.6
+        command: 
+        - bash
+        - -c
+        - >
+          build/lib/buildkit_check.sh
+          &&
+          make update-attribution-files
+          &&
+          touch /status/done
+        livenessProbe:
+          exec:
+            command:
+            - bash
+            - -c
+            - date +%s > /status/pending
+          periodSeconds: 10
+        resources:
+          requests:
+            memory: "16Gi"
+            cpu: "4"
+          limits:
+            memory: "16Gi"
+            cpu: "4"
+        volumeMounts:
+        - name: ssh-auth
+          mountPath: /secrets/ssh-secrets
+          readOnly: true
+        - name: github-auth
+          mountPath: /secrets/github-secrets
+          readOnly: true
+      - name: buildkitd
+        image: moby/buildkit:v0.9.0-rootless
+        command:
+        - sh
+        args:
+        - /script/entrypoint.sh
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - test $(($(date +%s) - 15)) -lt $(cat /status/pending)
+          periodSeconds: 15
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+      volumes:
+      - name: ssh-auth
+        secret:
+          defaultMode: 256
+          secretName: pr-bot-ssh-secret
+      - name: github-auth
+        secret:
+          defaultMode: 256
+          secretName: pr-bot-github-token
