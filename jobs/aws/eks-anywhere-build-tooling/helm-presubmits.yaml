@@ -19,6 +19,8 @@ presubmits:
     run_if_changed: "^build/lib/.*|Common.mk|projects/helm/helm/.*"
     cluster: "prow-presubmits-cluster"
     max_concurrency: 10
+    skip_branches:
+    - release-0.6
     skip_report: false
     decoration_config:
       gcs_configuration:
