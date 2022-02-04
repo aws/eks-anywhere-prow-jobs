@@ -54,10 +54,10 @@ presubmits:
           periodSeconds: 10
         resources:
           requests:
-            memory: "16Gi" # Higher memory for kernel builds
+            memory: "26Gi" # Higher memory for kernel builds
             cpu: "4"
           limits:
-            memory: "16Gi"
+            memory: "26Gi"
             cpu: "4"
       - name: buildkitd
         image: moby/buildkit:v0.9.3-rootless
