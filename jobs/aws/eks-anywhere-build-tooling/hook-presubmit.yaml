@@ -99,10 +99,3 @@ presubmits:
             port: 5000
           initialDelaySeconds: 5
           periodSeconds: 3
-        resources:
-          requests:
-            memory: "1Gi"
-            cpu: "256m"
-          limits:
-            memory: "1Gi"
-            cpu: "256m"
