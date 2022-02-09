@@ -30,6 +30,7 @@ presubmits:
       s3_credentials_secret: s3-credentials
     labels:
       image-build: "true"
+      local-registry: "true"
     spec:
       serviceaccountName: presubmits-build-account
       automountServiceAccountToken: false
@@ -45,6 +46,9 @@ presubmits:
           make build -C projects/tinkerbell/hook
           &&
           touch /status/done
+        env:
+        - name: IMAGE_REPO
+          value: "localhost:5000"
         livenessProbe:
           exec:
             command:
@@ -75,3 +79,30 @@ presubmits:
         securityContext:
           runAsUser: 1000
           runAsGroup: 1000
+      - name: registry
+        image: registry:2
+        command:
+        - sh
+        args:
+        - /registry-script/entrypoint.sh
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - test $(($(date +%s) - 15)) -lt $(cat /status/pending)
+          periodSeconds: 15
+          initialDelaySeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 5000
+          initialDelaySeconds: 5
+          periodSeconds: 3
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "256m"
+          limits:
+            memory: "1Gi"
+            cpu: "256m"
