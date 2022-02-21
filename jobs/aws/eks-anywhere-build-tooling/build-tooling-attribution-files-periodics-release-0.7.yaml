@@ -13,7 +13,7 @@
 # limitations under the License.
 
 periodics:
-  - name: build-tooling-attribution-files-periodic-release-0-6
+  - name: build-tooling-attribution-files-periodic-release-0-7
     # Runs every weekday (M-F) at 2PM PST
     cron: "0 21 * * 1-5"
     cluster: "prow-postsubmits-cluster"
@@ -26,7 +26,7 @@ periodics:
     extra_refs:
     - org: aws
       repo: eks-anywhere-build-tooling
-      base_ref: release-0.6
+      base_ref: release-0.7
     labels:
       image-build: "true"
     spec:
@@ -37,7 +37,7 @@ periodics:
         image: public.ecr.aws/eks-distro-build-tooling/builder-base:7d7d0c45f8beb0dec31c8a35ccab6d1b3377dc1d.2
         env:
         - name: PULL_BASE_REF
-          value: release-0.6
+          value: release-0.7
         command: 
         - bash
         - -c
