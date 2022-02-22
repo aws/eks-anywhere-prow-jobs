@@ -147,7 +147,7 @@ func MakeTargetCheck(jc *JobConstants) presubmitCheck {
 		if strings.Contains(presubmitConfig.JobBase.Name, "e2e") || strings.Contains(presubmitConfig.JobBase.Name, "lint") || strings.Contains(presubmitConfig.JobBase.Name, "mocks") || presubmitConfig.JobBase.Name == "eks-anywhere-attribution-files-presubmit" || presubmitConfig.JobBase.Name == "eks-anywhere-cluster-controller-tooling-presubmit" || presubmitConfig.JobBase.Name == "eks-anywhere-release-tooling-presubmit" {
 			return true, 0, ""
 		}
-		jobMakeTargetMatches := regexp.MustCompile(`make (\w+[-\w]+?).*`).FindStringSubmatch(strings.Join(presubmitConfig.JobBase.Spec.Containers[0].Command, " "))
+		jobMakeTargetMatches := regexp.MustCompile(`make (\w+[-\w]+?) -C .*`).FindStringSubmatch(strings.Join(presubmitConfig.JobBase.Spec.Containers[0].Command, " "))
 		jobMakeTarget := jobMakeTargetMatches[len(jobMakeTargetMatches)-1]
 		makeCommandLineNo := findLineNumber(fileContentsString, "make")
 		if jobMakeTarget != jc.DefaultMakeTarget {

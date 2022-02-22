@@ -44,9 +44,12 @@ presubmits:
         - >
           build/lib/buildkit_check.sh
           &&
-          make build -C projects/fluxcd/source-controller
+          if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
           &&
           touch /status/done
+        env:
+        - name: PROJECT_PATH
+          value: projects/fluxcd/source-controller
         livenessProbe:
           exec:
             command:

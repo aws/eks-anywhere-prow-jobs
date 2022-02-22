@@ -37,7 +37,10 @@ presubmits:
         - bash
         - -c
         - >
-          make build -C projects/kubernetes-sigs/image-builder
+          if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+        env:
+        - name: PROJECT_PATH
+          value: projects/kubernetes-sigs/image-builder
         resources:
           requests:
             memory: "16Gi"
