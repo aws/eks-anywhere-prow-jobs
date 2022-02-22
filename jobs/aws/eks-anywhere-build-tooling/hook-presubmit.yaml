@@ -43,12 +43,14 @@ presubmits:
         - >
           build/lib/buildkit_check.sh
           &&
-          make build -C projects/tinkerbell/hook
+          if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
           &&
           touch /status/done
         env:
         - name: IMAGE_REPO
           value: "localhost:5000"
+        - name: PROJECT_PATH
+          value: projects/tinkerbell/hook
         livenessProbe:
           exec:
             command:

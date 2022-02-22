@@ -39,9 +39,12 @@ presubmits:
         - >
           build/lib/buildkit_check.sh
           &&
-          make build -C projects/aws/cluster-api-provider-cloudstack
+          if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
           &&
           touch /status/done
+        env:
+        - name: PROJECT_PATH
+          value: projects/aws/cluster-api-provider-cloudstack
         livenessProbe:
           exec:
             command:

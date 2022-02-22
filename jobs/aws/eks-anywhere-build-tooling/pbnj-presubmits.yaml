@@ -44,9 +44,12 @@ presubmits:
         - >
           build/lib/buildkit_check.sh
           &&
-          make build -C projects/tinkerbell/pbnj
+          if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
           &&
           touch /status/done
+        env:
+        - name: PROJECT_PATH
+          value: projects/tinkerbell/pbnj
         livenessProbe:
           exec:
             command:

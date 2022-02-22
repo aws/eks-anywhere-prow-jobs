@@ -36,7 +36,10 @@ presubmits:
         - bash
         - -c
         - >
-          make build -C projects/helm/helm
+          if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+        env:
+        - name: PROJECT_PATH
+          value: projects/helm/helm
         resources:
           requests:
             memory: "4Gi"
