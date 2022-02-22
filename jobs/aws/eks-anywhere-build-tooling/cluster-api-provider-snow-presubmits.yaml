@@ -39,7 +39,7 @@ presubmits:
         - >
           build/lib/buildkit_check.sh
           &&
-          make build -C projects/aws/cluster-api-provider-snow
+          if [ -d projects/aws/cluster-api-provider-snow ]; then make build -C projects/aws/cluster-api-provider-snow; fi
           &&
           touch /status/done
         livenessProbe:
