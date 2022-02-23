@@ -56,11 +56,11 @@ presubmits:
           requests:
             memory: "16Gi"
             cpu: "4"
-            ephemeral-storage: "8Gi"
+            ephemeral-storage: "4Gi"
           limits:
             memory: "16Gi"
             cpu: "4"
-            ephemeral-storage: "8Gi"
+            ephemeral-storage: "4Gi"
       - name: buildkitd
         image: moby/buildkit:v0.9.3-rootless
         command:
