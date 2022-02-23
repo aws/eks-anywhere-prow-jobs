@@ -33,9 +33,6 @@ presubmits:
       containers:
       - name: build-container
         image: public.ecr.aws/eks-distro-build-tooling/builder-base:dbaf51a45b1656b1c5ab6fea48de7bd725bf91dc.2
-        env:
-        - name: ARTIFACTS_BUCKET
-          value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
         command:
         - bash
         - -c
@@ -46,6 +43,8 @@ presubmits:
           &&
           touch /status/done
         env:
+        - name: ARTIFACTS_BUCKET
+          value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
         - name: PROJECT_PATH
           value: projects/aws/eks-anywhere-build-tooling
         livenessProbe:
