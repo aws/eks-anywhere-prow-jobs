@@ -37,18 +37,13 @@ presubmits:
               - bash
               - -c
               - >
+                trap 'touch /status/done' EXIT
+                &&
                 build/lib/buildkit_check.sh
                 &&
                 make build-cluster-controller
                 &&
                 touch /status/done
-            livenessProbe:
-              exec:
-                command:
-                  - bash
-                  - -c
-                  - date +%s > /status/pending
-              periodSeconds: 10
             resources:
               requests:
                 memory: "8Gi"
@@ -59,13 +54,6 @@ presubmits:
               - sh
             args:
               - /script/entrypoint.sh
-            livenessProbe:
-              exec:
-                command:
-                  - sh
-                  - -c
-                  - test $(($(date +%s) - 15)) -lt $(cat /status/pending)
-              periodSeconds: 15
             securityContext:
               runAsUser: 1000
               runAsGroup: 1000

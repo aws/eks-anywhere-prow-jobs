@@ -39,18 +39,11 @@ periodics:
         - bash
         - -c
         - >
+          trap 'touch /status/done' EXIT
+          &&
           build/lib/buildkit_check.sh
           &&
           make update-attribution-files
-          &&
-          touch /status/done
-        livenessProbe:
-          exec:
-            command:
-            - bash
-            - -c
-            - date +%s > /status/pending
-          periodSeconds: 10
         resources:
           requests:
             memory: "16Gi"
@@ -71,13 +64,6 @@ periodics:
         - sh
         args:
         - /script/entrypoint.sh
-        livenessProbe:
-          exec:
-            command:
-            - sh
-            - -c
-            - test $(($(date +%s) - 15)) -lt $(cat /status/pending)
-          periodSeconds: 15
         securityContext:
           runAsUser: 1000
           runAsGroup: 1000
