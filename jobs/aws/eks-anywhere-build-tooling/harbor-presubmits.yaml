@@ -53,12 +53,10 @@ presubmits:
             - date +%s > /status/pending
           periodSeconds: 10
         resources:
-          requests:
-            memory: "16Gi"
-            cpu: "4"
           limits:
             memory: "16Gi"
             cpu: "4"
+            ephemeral-storage: "4Gi"
       - name: buildkitd
         image: moby/buildkit:v0.9.3-rootless
         command:
