@@ -14,9 +14,9 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: cluster-api-provider-snow-tooling-presubmit
+  - name: cluster-api-provider-aws-snow-tooling-presubmit
     always_run: false
-    run_if_changed: "^build/lib/.*|Common.mk|projects/aws/cluster-api-provider-snow/.*"
+    run_if_changed: "^build/lib/.*|Common.mk|projects/aws/cluster-api-provider-aws-snow/.*"
     cluster: "prow-presubmits-cluster"
     max_concurrency: 10
     skip_report: false
@@ -44,7 +44,7 @@ presubmits:
           touch /status/done
         env:
         - name: PROJECT_PATH
-          value: projects/aws/cluster-api-provider-snow
+          value: projects/aws/cluster-api-provider-aws-snow
         livenessProbe:
           exec:
             command:
