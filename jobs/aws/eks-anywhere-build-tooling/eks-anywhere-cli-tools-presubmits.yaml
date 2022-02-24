@@ -37,23 +37,16 @@ presubmits:
         - bash
         - -c
         - >
+          trap 'touch /status/done' EXIT
+          &&
           build/lib/buildkit_check.sh
           &&
           if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
-          &&
-          touch /status/done
         env:
         - name: ARTIFACTS_BUCKET
           value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
         - name: PROJECT_PATH
           value: projects/aws/eks-anywhere-build-tooling
-        livenessProbe:
-          exec:
-            command:
-            - bash
-            - -c
-            - date +%s > /status/pending
-          periodSeconds: 10
         resources:
           requests:
             memory: "8Gi"
@@ -64,13 +57,6 @@ presubmits:
         - sh
         args:
         - /script/entrypoint.sh
-        livenessProbe:
-          exec:
-            command:
-            - sh
-            - -c
-            - test $(($(date +%s) - 15)) -lt $(cat /status/pending)
-          periodSeconds: 15
         securityContext:
           runAsUser: 1000
           runAsGroup: 1000

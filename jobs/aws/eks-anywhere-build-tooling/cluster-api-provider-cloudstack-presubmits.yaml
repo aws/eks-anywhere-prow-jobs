@@ -37,20 +37,14 @@ presubmits:
         - bash
         - -c
         - >
+          trap 'touch /status/done' EXIT
+          &&
           build/lib/buildkit_check.sh
           &&
           if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
-          &&
-          touch /status/done
         env:
         - name: PROJECT_PATH
           value: projects/aws/cluster-api-provider-cloudstack
-        livenessProbe:
-          exec:
-            command:
-            - bash
-            - -c
-            - date +%s > /status/pending
         resources:
           requests:
             memory: "4Gi"
@@ -64,13 +58,6 @@ presubmits:
         - sh
         args:
         - /script/entrypoint.sh
-        livenessProbe:
-          exec:
-            command:
-            - sh
-            - -c
-            - test $(($(date +%s) - 15)) -lt $(cat /status/pending)
-          periodSeconds: 15
         securityContext:
           runAsUser: 1000
           runAsGroup: 1000  
