@@ -43,6 +43,8 @@ presubmits:
           &&
           if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
         env:
+        - name: ARTIFACTS_BUCKET
+          value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
         - name: PROJECT_PATH
           value: projects/goharbor/harbor
         resources:
