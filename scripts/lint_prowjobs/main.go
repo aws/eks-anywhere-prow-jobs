@@ -153,10 +153,13 @@ func MakeTargetCheck(jc *JobConstants) presubmitCheck {
 			presubmitConfig.JobBase.Name == "eks-anywhere-packages-presubmit" {
 			return true, 0, ""
 		}
-		jobMakeTargetMatches := regexp.MustCompile(`make (\w+[-\w]+?) -C .*`).FindStringSubmatch(strings.Join(presubmitConfig.JobBase.Spec.Containers[0].Command, " "))
+		jobMakeTargetMatches := regexp.MustCompile(`make (\w+[-\w]+?)(?: -C \S+)?`).FindAllStringSubmatch(strings.Join(presubmitConfig.JobBase.Spec.Containers[0].Command, " "), -1)
 		jobMakeTarget := ""
 		if len(jobMakeTargetMatches) > 0 {
-			jobMakeTarget = jobMakeTargetMatches[len(jobMakeTargetMatches)-1]
+			jobTargetMatch := jobMakeTargetMatches[len(jobMakeTargetMatches)-1]
+			if len(jobTargetMatch) > 0 {
+				jobMakeTarget = jobTargetMatch[len(jobTargetMatch)-1]
+			}
 		}
 		makeCommandLineNo := findLineNumber(fileContentsString, "make")
 		if jobMakeTarget != jc.DefaultMakeTarget {
