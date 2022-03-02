@@ -144,14 +144,26 @@ func ServiceAccountCheck(jc *JobConstants) presubmitCheck {
 
 func MakeTargetCheck(jc *JobConstants) presubmitCheck {
 	return presubmitCheck(func(presubmitConfig config.Presubmit, fileContentsString string) (bool, int, string) {
-		if strings.Contains(presubmitConfig.JobBase.Name, "e2e") || strings.Contains(presubmitConfig.JobBase.Name, "lint") || strings.Contains(presubmitConfig.JobBase.Name, "mocks") || presubmitConfig.JobBase.Name == "eks-anywhere-attribution-files-presubmit" || presubmitConfig.JobBase.Name == "eks-anywhere-cluster-controller-tooling-presubmit" || presubmitConfig.JobBase.Name == "eks-anywhere-release-tooling-presubmit" {
+		if strings.Contains(presubmitConfig.JobBase.Name, "e2e") ||
+			strings.Contains(presubmitConfig.JobBase.Name, "lint") ||
+			strings.Contains(presubmitConfig.JobBase.Name, "mocks") ||
+			presubmitConfig.JobBase.Name == "eks-anywhere-attribution-files-presubmit" ||
+			presubmitConfig.JobBase.Name == "eks-anywhere-cluster-controller-tooling-presubmit" ||
+			presubmitConfig.JobBase.Name == "eks-anywhere-release-tooling-presubmit" ||
+			presubmitConfig.JobBase.Name == "eks-anywhere-packages-presubmit" {
 			return true, 0, ""
 		}
-		jobMakeTargetMatches := regexp.MustCompile(`make (\w+[-\w]+?) -C .*`).FindStringSubmatch(strings.Join(presubmitConfig.JobBase.Spec.Containers[0].Command, " "))
-		jobMakeTarget := jobMakeTargetMatches[len(jobMakeTargetMatches)-1]
+		jobMakeTargetMatches := regexp.MustCompile(`make (\w+[-\w]+?)(?: -C \S+)?`).FindAllStringSubmatch(strings.Join(presubmitConfig.JobBase.Spec.Containers[0].Command, " "), -1)
+		jobMakeTarget := ""
+		if len(jobMakeTargetMatches) > 0 {
+			jobTargetMatch := jobMakeTargetMatches[len(jobMakeTargetMatches)-1]
+			if len(jobTargetMatch) > 0 {
+				jobMakeTarget = jobTargetMatch[len(jobTargetMatch)-1]
+			}
+		}
 		makeCommandLineNo := findLineNumber(fileContentsString, "make")
 		if jobMakeTarget != jc.DefaultMakeTarget {
-			return false, makeCommandLineNo, fmt.Sprintf(`Invalid make target, please use the "%s" target`, jc.DefaultMakeTarget)
+			return false, makeCommandLineNo, fmt.Sprintf(`Invalid make target %q, please use the %q target`, jobMakeTarget, jc.DefaultMakeTarget)
 		}
 		return true, 0, ""
 	})
