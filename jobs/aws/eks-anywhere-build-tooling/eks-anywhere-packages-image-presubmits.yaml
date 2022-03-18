@@ -14,7 +14,7 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: eks-anywhere-package-image-tooling-presubmit
+  - name: eks-anywhere-packages-image-tooling-presubmit
     always_run: false
     run_if_changed: "EKS_DISTRO_MINIMAL_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/aws/eks-anywhere-packages/.*"
     cluster: "prow-presubmits-cluster"
@@ -44,7 +44,7 @@ presubmits:
           if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
         env:
         - name: PROJECT_PATH
-          value: projects/aws/eks-anywhere-package
+          value: projects/aws/eks-anywhere-packages
         resources:
           requests:
             memory: "8Gi"
