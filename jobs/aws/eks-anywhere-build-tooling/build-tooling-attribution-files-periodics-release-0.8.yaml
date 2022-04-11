@@ -28,6 +28,7 @@ periodics:
       repo: eks-anywhere-build-tooling
       base_ref: release-0.8
     labels:
+      ci-build-image: public.ecr.aws/eks-distro-build-tooling/builder-base:c78bfebd3c6a0a0307cd0982fedd9548268273df.2
       image-build: "true"
     spec:
       serviceaccountName: postsubmits-build-account
