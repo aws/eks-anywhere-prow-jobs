@@ -47,7 +47,7 @@ presubmits:
           value: projects/kubernetes-sigs/vsphere-csi-driver
         resources:
           requests:
-            memory: "8Gi"
+            memory: "16Gi"
             cpu: "4096m"
       - name: buildkitd
         image: moby/buildkit:v0.9.3-rootless

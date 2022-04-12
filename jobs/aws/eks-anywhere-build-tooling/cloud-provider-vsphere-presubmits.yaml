@@ -47,8 +47,8 @@ presubmits:
           value: projects/kubernetes/cloud-provider-vsphere
         resources:
           requests:
-            memory: "8Gi"
-            cpu: "1024m"
+            memory: "16Gi"
+            cpu: "4096m"
       - name: buildkitd
         image: moby/buildkit:v0.9.3-rootless
         command:
