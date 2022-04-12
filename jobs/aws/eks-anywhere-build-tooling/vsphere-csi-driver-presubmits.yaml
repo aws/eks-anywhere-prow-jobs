@@ -48,7 +48,7 @@ presubmits:
         resources:
           requests:
             memory: "16Gi"
-            cpu: "4096m"
+            cpu: "4"
       - name: buildkitd
         image: moby/buildkit:v0.9.3-rootless
         command:
