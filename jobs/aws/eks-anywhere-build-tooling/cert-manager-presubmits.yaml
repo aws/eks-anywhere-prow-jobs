@@ -47,10 +47,10 @@ presubmits:
           value: projects/jetstack/cert-manager
         resources:
           requests:
-            memory: "8Gi"
+            memory: "16Gi"
             cpu: "4096m"
           limits:
-            memory: "8Gi"
+            memory: "16Gi"
             cpu: "4096m"
       - name: buildkitd
         image: moby/buildkit:v0.9.3-rootless

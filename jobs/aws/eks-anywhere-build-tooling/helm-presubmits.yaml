@@ -42,8 +42,8 @@ presubmits:
           value: projects/helm/helm
         resources:
           requests:
-            memory: "8Gi"
+            memory: "16Gi"
             cpu: "4096m"
           limits:
-            memory: "8Gi"
+            memory: "16Gi"
             cpu: "4096m"
