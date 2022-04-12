@@ -49,11 +49,11 @@ presubmits:
           value: projects/tinkerbell/cluster-api-provider-tinkerbell
         resources:
           requests:
-            memory: "4Gi"
-            cpu: "1024m"
+            memory: "8Gi"
+            cpu: "4096m"
           limits:
-            memory: "4Gi"
-            cpu: "1024m"
+            memory: "8Gi"
+            cpu: "4096m"
       - name: buildkitd
         image: moby/buildkit:v0.9.3-rootless
         command:

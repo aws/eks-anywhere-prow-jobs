@@ -47,11 +47,15 @@ presubmits:
           value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
         - name: PROJECT_PATH
           value: projects/goharbor/harbor
+        - name: PRUNE_BUILDCTL
+          value: true
         resources:
+          requests:
+            memory: "8Gi"
+            cpu: "4096m"
           limits:
-            memory: "16Gi"
-            cpu: "4"
-            ephemeral-storage: "4Gi"
+            memory: "8Gi"
+            cpu: "4096m"
       - name: buildkitd
         image: moby/buildkit:v0.9.3-rootless
         command:
