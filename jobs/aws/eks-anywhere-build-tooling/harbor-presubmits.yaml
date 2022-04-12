@@ -48,7 +48,7 @@ presubmits:
         - name: PROJECT_PATH
           value: projects/goharbor/harbor
         - name: PRUNE_BUILDCTL
-          value: true
+          value: "true"
         resources:
           requests:
             memory: "8Gi"
