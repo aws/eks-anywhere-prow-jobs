@@ -150,6 +150,7 @@ func MakeTargetCheck(jc *JobConstants) presubmitCheck {
 			presubmitConfig.JobBase.Name == "eks-anywhere-attribution-files-presubmit" ||
 			presubmitConfig.JobBase.Name == "eks-anywhere-cluster-controller-tooling-presubmit" ||
 			presubmitConfig.JobBase.Name == "eks-anywhere-release-tooling-presubmit" ||
+			presubmitConfig.JobBase.Name == "eks-anywhere-release-tooling-test-presubmit" ||
 			presubmitConfig.JobBase.Name == "eks-anywhere-packages-presubmit" {
 			return true, 0, ""
 		}
