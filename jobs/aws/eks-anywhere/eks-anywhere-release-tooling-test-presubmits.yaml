@@ -19,6 +19,8 @@ presubmits:
     always_run: false
     run_if_changed: "release/.*"
     cluster: "prow-presubmits-cluster"
+    branches:
+    - ^main$
     max_concurrency: 1
     skip_report: false
     decoration_config:
