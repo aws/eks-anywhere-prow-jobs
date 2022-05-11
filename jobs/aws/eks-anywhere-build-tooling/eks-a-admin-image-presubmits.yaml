@@ -16,7 +16,7 @@ presubmits:
   aws/eks-anywhere-build-tooling:
   - name: eks-a-admin-image-presubmit
     always_run: false
-    run_if_changed: "EKSD_LATEST_RELEASES|^build/lib/.*|Common.mk|projects/aws/eks-a-snow-admin-image/.*"
+    run_if_changed: "EKSD_LATEST_RELEASES|^build/lib/.*|Common.mk|projects/aws/eks-a-admin-image/.*"
     cluster: "prow-presubmits-cluster"
     max_concurrency: 10
     skip_report: false
@@ -39,7 +39,7 @@ presubmits:
         - name: ARTIFACTS_BUCKET
           value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
         - name: PROJECT_PATH
-          value: projects/aws/eks-a-snow-admin-image
+          value: projects/aws/eks-a-admin-image
         resources:
           requests:
             memory: "8Gi"
