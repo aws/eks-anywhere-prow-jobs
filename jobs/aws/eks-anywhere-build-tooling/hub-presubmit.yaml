@@ -19,9 +19,6 @@ presubmits:
     run_if_changed: "EKS_DISTRO_MINIMAL_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/tinkerbell/hub/.*"
     cluster: "prow-presubmits-cluster"
     max_concurrency: 10
-    skip_branches:
-    - release-0.6
-    - release-0.7
     skip_report: false
     decoration_config:
       gcs_configuration:
