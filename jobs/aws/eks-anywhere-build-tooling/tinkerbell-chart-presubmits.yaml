@@ -14,9 +14,9 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: tinkerbell-helm-presubmit
+  - name: tinkerbell-chart-presubmit
     always_run: false
-    run_if_changed: "^build/lib/.*|Common.mk|projects/tinkerbell/tinkerbell-helm/.*"
+    run_if_changed: "^build/lib/.*|Common.mk|projects/tinkerbell/tinkerbell-chart/.*"
     cluster: "prow-presubmits-cluster"
     max_concurrency: 10
     skip_report: false
@@ -46,7 +46,7 @@ presubmits:
         - name: ARTIFACTS_BUCKET
           value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
         - name: PROJECT_PATH
-          value: projects/tinkerbell/tinkerbell-helm
+          value: projects/tinkerbell/tinkerbell-chart
         resources:
           requests:
             memory: "8Gi"
