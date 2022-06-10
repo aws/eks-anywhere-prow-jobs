@@ -38,8 +38,8 @@ presubmits:
           make build
         resources:
           requests:
-            memory: "4Gi"
-            cpu: "1024m"
+            memory: "8Gi"
+            cpu: "2048m"
           limits:
-            memory: "4Gi"
-            cpu: "1024m"
+            memory: "8Gi"
+            cpu: "2048m"
