@@ -16,7 +16,7 @@ presubmits:
   aws/eks-anywhere-build-tooling:
   - name: validate-generated-presubmit
     always_run: false
-    run_if_changed: "^build/lib/.*|Common.mk|Makefile|GIT_TAG|staging-build.yml|*buildspec*"
+    run_if_changed: "^build/lib/.*|Common.mk|Makefile|GIT_TAG|staging-build.yml|.*buildspec.*"
     cluster: "prow-presubmits-cluster"
     max_concurrency: 10
     skip_report: false
