@@ -25,7 +25,7 @@ postsubmits:
       extra_refs:
         - org: eks-anywhere-brew-pr-bot
           repo: homebrew-tap
-          base_ref: main
+          base_ref: master
       decoration_config:
         gcs_configuration:
           bucket: s3://prowdataclusterstack-316434458-prowbucket7c73355c-1n9f9v93wpjcm
