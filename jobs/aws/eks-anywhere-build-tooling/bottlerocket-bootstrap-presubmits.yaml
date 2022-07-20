@@ -47,6 +47,8 @@ presubmits:
           value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
         - name: PROJECT_PATH
           value: projects/aws/bottlerocket-bootstrap
+        - name: PRUNE_BUILDCTL
+          value: "true"
         resources:
           requests:
             memory: "16Gi"
