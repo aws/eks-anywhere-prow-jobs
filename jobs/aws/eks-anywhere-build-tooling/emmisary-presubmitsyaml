@@ -16,7 +16,7 @@ presubmits:
   aws/eks-anywhere-build-tooling:
   - name: emmisary-tooling-presubmit
     always_run: false
-    run_if_changed: "EKS_DISTRO_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/emmisary-ingress/emmisary/.*"
+    run_if_changed: "EKS_DISTRO_MINIMAL_BASE_PYTHON_TAG_FILE|^build/lib/.*|Common.mk|projects/emmisary-ingress/emmisary/.*"
     cluster: "prow-presubmits-cluster"
     max_concurrency: 10
     skip_report: false
