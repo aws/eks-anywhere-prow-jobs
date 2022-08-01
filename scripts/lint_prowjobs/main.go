@@ -151,7 +151,8 @@ func MakeTargetCheck(jc *JobConstants) presubmitCheck {
 			presubmitConfig.JobBase.Name == "eks-anywhere-cluster-controller-tooling-presubmit" ||
 			presubmitConfig.JobBase.Name == "eks-anywhere-release-tooling-presubmit" ||
 			presubmitConfig.JobBase.Name == "eks-anywhere-release-tooling-test-presubmit" ||
-			presubmitConfig.JobBase.Name == "eks-anywhere-packages-presubmit" {
+			presubmitConfig.JobBase.Name == "eks-anywhere-packages-presubmit" ||
+			presubmitConfig.JobBase.Name == "eks-anywhere-packages-generatebundle-presubmit" {
 			return true, 0, ""
 		}
 		jobMakeTargetMatches := regexp.MustCompile(`make (\w+[-\w]+?)(?: -C \S+)?`).FindAllStringSubmatch(strings.Join(presubmitConfig.JobBase.Spec.Containers[0].Command, " "), -1)
