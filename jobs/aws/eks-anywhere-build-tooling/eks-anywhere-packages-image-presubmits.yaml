@@ -47,11 +47,11 @@ presubmits:
           value: projects/aws/eks-anywhere-packages
         resources:
           requests:
-            memory: "8Gi"
-            cpu: "1024m"
+            memory: "16Gi"
+            cpu: "4"
           limits:
-            memory: "8Gi"
-            cpu: "1024m"
+            memory: "16Gi"
+            cpu: "4"
       - name: buildkitd
         image: moby/buildkit:v0.10.1-rootless
         command:
