@@ -29,3 +29,5 @@ env:
   value: testbuildstack-025778587-eksaintegrationtestresou-1tqbb00woona4
 - name: INTEGRATION_TEST_INSTANCE_PROFILE
   value: EksaE2eSsmBuildRole
+- name: IMAGE_REPO
+  value: public.ecr.aws/h1r8a7l5

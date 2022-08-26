@@ -27,6 +27,8 @@ presubmits:
         bucket: s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp
         path_strategy: explicit
       s3_credentials_secret: s3-credentials
+    labels:
+        image-build: "true"
     spec:
       serviceaccountName: presubmits-build-account
       automountServiceAccountToken: false
@@ -42,11 +44,19 @@ presubmits:
           value: "testbuildstack-025778587-eksaintegrationtestresou-1tqbb00woona4"
         - name: INTEGRATION_TEST_INSTANCE_PROFILE
           value: "EksaE2eSsmBuildRole"
+        - name: IMAGE_REPO
+          value: "public.ecr.aws/h1r8a7l5"
         command:
         - bash
         - -c
         - >
+          trap 'touch /status/done && rm -rf /home/prow/go/src/' EXIT
+          &&
+          build/lib/buildkit_check.sh
+          &&
           set -o pipefail && make docker-e2e-test | while IFS= read -r line; do printf "%s %s\n" "$(date --rfc-3339=seconds)" "$line"; done
+          &&
+          touch /status/done
         resources:
           requests:
             memory: "16Gi"
@@ -54,3 +64,12 @@ presubmits:
           limits:
             memory: "16Gi"
             cpu: "4"
+      - name: buildkitd
+        image: moby/buildkit:v0.10.1-rootless
+        command:
+        - sh
+        args:
+        - /script/entrypoint.sh
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
