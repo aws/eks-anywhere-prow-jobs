@@ -16,7 +16,7 @@ presubmits:
   aws/eks-anywhere-build-tooling:
   - name: cluster-autoscaler-tooling-presubmit
     always_run: false
-    run_if_changed: "EKS_DISTRO_MINIMAL_BASE_PYTHON_TAG_FILE|^build/lib/.*|Common.mk|projects/autoscaler/cluster-autoscaler/.*"
+    run_if_changed: "EKS_DISTRO_MINIMAL_BASE_PYTHON_TAG_FILE|^build/lib/.*|Common.mk|projects/kubernetes/autoscaler/.*"
     cluster: "prow-presubmits-cluster"
     max_concurrency: 10
     skip_report: false
@@ -44,7 +44,7 @@ presubmits:
           if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
         env:
         - name: PROJECT_PATH
-          value: projects/autoscaler/cluster-autoscaler
+          value: projects/kubernetes/autoscaler
         resources:
           requests:
             memory: "16Gi"
