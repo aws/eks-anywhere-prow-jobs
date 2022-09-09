@@ -14,7 +14,7 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: cluster-autoscaler-tooling-presubmit
+  - name: autoscaler-1-21-presubmit
     always_run: false
     run_if_changed: "EKS_DISTRO_MINIMAL_BASE_PYTHON_TAG_FILE|^build/lib/.*|Common.mk|projects/kubernetes/autoscaler/.*"
     cluster: "prow-presubmits-cluster"
@@ -47,6 +47,8 @@ presubmits:
           value: projects/kubernetes/autoscaler
         - name: PRUNE_BUILDCTL
           value: "true"
+        - name: RELEASE_BRANCH
+          value: "1-21"
         resources:
           requests:
             memory: "16Gi"
