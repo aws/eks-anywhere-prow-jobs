@@ -38,7 +38,7 @@ presubmits:
         resources:
           requests:
             memory: "8Gi"
-            cpu: "2"
+            cpu: "4"
           limits:
             memory: "8Gi"
-            cpu: "2"
+            cpu: "4"
