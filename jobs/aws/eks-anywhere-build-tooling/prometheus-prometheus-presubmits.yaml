@@ -14,7 +14,7 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: prometheus-tooling-presubmit
+  - name: prometheus-prometheus-tooling-presubmit
     always_run: false
     run_if_changed: "EKS_DISTRO_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/prometheus/prometheus/.*"
     cluster: "prow-presubmits-cluster"
