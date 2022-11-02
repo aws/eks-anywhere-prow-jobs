@@ -15,7 +15,7 @@
 periodics:
   - name: eks-anywhere-attribution-files-periodic
     # Runs every weekday (M-F) at 2PM PST
-    cron: "0 21 * * 1-5"
+    cron: "0 8 * * 1-5"
     cluster: "prow-presubmits-cluster"
     decoration_config:
       timeout: 3h
@@ -28,6 +28,8 @@ periodics:
       repo: eks-anywhere
       base_ref: main
     spec:
+      nodeSelector:
+        arch: "AMD64"
       serviceaccountName: presubmits-build-account
       automountServiceAccountToken: false
       containers:
