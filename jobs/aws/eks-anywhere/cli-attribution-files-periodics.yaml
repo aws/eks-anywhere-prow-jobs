@@ -14,7 +14,7 @@
 
 periodics:
   - name: eks-anywhere-attribution-files-periodic
-    # Runs every weekday (M-F) at 2PM PST
+    # Runs every weekday (M-F) at 1AM PDT
     cron: "0 8 * * 1-5"
     cluster: "prow-presubmits-cluster"
     decoration_config:

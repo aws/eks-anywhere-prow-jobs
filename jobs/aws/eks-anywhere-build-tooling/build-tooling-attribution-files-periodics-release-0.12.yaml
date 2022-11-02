@@ -14,7 +14,7 @@
 
 periodics:
   - name: build-tooling-attribution-files-periodic-release-0-12
-    # Runs every weekday (M-F) at 2PM PST
+    # Runs every weekday (M-F) at 1AM PDT
     cron: "0 8 * * 1-5"
     cluster: "prow-postsubmits-cluster"
     decoration_config:
