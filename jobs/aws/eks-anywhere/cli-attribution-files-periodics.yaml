@@ -28,8 +28,6 @@ periodics:
       repo: eks-anywhere
       base_ref: main
     spec:
-      nodeSelector:
-        arch: "AMD64"
       serviceaccountName: presubmits-build-account
       automountServiceAccountToken: false
       containers:
