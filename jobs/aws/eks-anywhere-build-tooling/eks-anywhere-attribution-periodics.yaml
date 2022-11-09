@@ -13,7 +13,7 @@
 # limitations under the License.
 
 periodics:
-  - name: build-tooling-attribution-files-periodic
+  - name: eks-anywhere-attribution-periodic
     # Runs every weekday (M-F) at 1AM PDT 
     cron: "0 8 * * 1-5"
     cluster: "prow-postsubmits-cluster"
@@ -49,10 +49,7 @@ periodics:
         resources:
           requests:
             memory: "16Gi"
-            cpu: "4"
-          limits:
-            memory: "16Gi"
-            cpu: "4"
+            cpu: "5"
         volumeMounts:
         - name: ssh-auth
           mountPath: /secrets/ssh-secrets
