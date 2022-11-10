@@ -47,6 +47,8 @@ presubmits:
         env:
         - name: BINARY_PLATFORMS
           value: "linux/arm64"
+        - name: IMAGE_PLATFORMS
+          value: "linux/arm64"
         - name: PROJECT_PATH
           value: projects/fluxcd/source-controller
         - name: ARTIFACTS_BUCKET
