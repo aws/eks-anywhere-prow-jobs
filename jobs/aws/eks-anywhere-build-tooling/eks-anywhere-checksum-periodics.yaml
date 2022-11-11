@@ -14,7 +14,7 @@
 
 periodics:
   - name: eks-anywhere-checksum-periodic
-    # Runs every weekday (M-F) at 1AM PDT 
+    # Runs every weekday (M-F) at 1AM PDT
     cron: "0 8 * * 1-5"
     cluster: "prow-postsubmits-cluster"
     decoration_config:
