@@ -40,7 +40,7 @@ periodics:
         env:
         - name: PULL_BASE_REF
           value: release-0.12
-        command: 
+        command:
         - bash
         - -c
         - >
