@@ -13,7 +13,7 @@
 # limitations under the License.
 
 periodics:
-  - name: eks-anywhere-attribution-periodic-release-0-12
+  - name: eks-anywhere-checksum-periodic-release-0-12
     # Runs every weekday (M-F) at 1AM PDT
     cron: "0 8 * * 1-5"
     cluster: "prow-postsubmits-cluster"
