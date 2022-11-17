@@ -14,7 +14,7 @@
 
 presubmits:
   aws/eks-anywhere:
-  - name: eks-anywhere-attribution-files-presubmit
+  - name: eks-anywhere-cli-attribution-presubmit
     always_run: false
     run_if_changed: "Makefile|cmd/.*|flux/.*|go.mod|go.sum|hack/.*|internal/.*|pkg/.*|test/.*|release/.*|controllers/.*"
     max_concurrency: 10
