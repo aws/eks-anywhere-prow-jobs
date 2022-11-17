@@ -31,7 +31,6 @@ postsubmits:
     {{- end }}
     {{- end }}
     max_concurrency: {{or .maxConcurrency 10 }}
-    error_on_eviction: true
     cluster: "{{ .cluster }}"
     skip_report: false
     {{- if .extraRefs }}
@@ -65,8 +64,10 @@ postsubmits:
     spec:
       serviceaccountName: {{ .serviceAccountName }}
       automountServiceAccountToken: {{ or .automountServiceAccountToken false}}
+      {{- if .architecture }}
       nodeSelector:
-        arch: {{ or .architecture "AMD64" }}
+        arch: {{ or .architecture }}
+      {{- end }}
       containers:
       - name: build-container
         image: {{ or .runtimeImage $builderBaseImage }}
