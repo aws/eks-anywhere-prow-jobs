@@ -60,4 +60,10 @@ postsubmits:
           readOnly: true
       volumes:
       - name: github-auth
+        secret:
+          secretName: 
+          defaultMode: 256
       - name: ssh-auth
+        secret:
+          secretName: 
+          defaultMode: 256

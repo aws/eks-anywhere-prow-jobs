@@ -17,10 +17,12 @@ volumeMounts:
     ReadOnly: true
 volumes:
   - name: github-auth
+    VolumeType: secret
     secret:
       secretName: eksa-brew-pr-bot-github-token
       defaultMode: 256
   - name: ssh-auth
+    VolumeType: secret
     secret:
       secretName: eksa-brew-pr-bot-ssh-secret
       defaultMode: 256
