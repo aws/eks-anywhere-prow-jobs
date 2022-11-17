@@ -58,9 +58,9 @@ postsubmits:
       volumes:
       - name: github-auth
         secret:
-          secretName: 
+          secretName: eksa-brew-pr-bot-github-token
           defaultMode: 256
       - name: ssh-auth
         secret:
-          secretName: 
+          secretName: eksa-brew-pr-bot-ssh-secret
           defaultMode: 256
