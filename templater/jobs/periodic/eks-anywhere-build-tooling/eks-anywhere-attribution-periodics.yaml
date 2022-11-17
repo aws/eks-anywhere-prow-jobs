@@ -1,21 +1,24 @@
 jobName: eks-anywhere-attribution-periodic
 cronExpression: 0 8 * * 1-5
-image-build: true
 timeout: 4h
 commands:
 - make update-attribution-files
 image-build: true
-envVars:
-- name: REPO_OWNER
-  value: aws
 extraRefs:
-- baseRef: main
-  org: aws
+- org: aws
   repo: eks-anywhere-build-tooling
+  base_ref: main
 resources:
   requests:
     cpu: 5
     memory: 16Gi
+volumeMounts:
+- name: ssh-auth
+  mountPath: /secrets/ssh-secrets
+  readOnly: true
+- name: github-auth
+  mountPath: /secrets/github-secrets
+  readOnly: true
 volumes:
 - name: ssh-auth
   secret:

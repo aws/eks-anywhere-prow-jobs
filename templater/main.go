@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/aws/eks-distro-prow-jobs/templater/jobs"
+	"github.com/aws/eks-anywhere-prow-jobs/templater/jobs"
 	"github.com/aws/eks-distro-prow-jobs/templater/jobs/types"
 	"github.com/aws/eks-distro-prow-jobs/templater/jobs/utils"
 )
@@ -106,7 +106,7 @@ func main() {
 					"automountServiceAccountToken": jobConfig.AutomountServiceAccountToken,
 					"cluster":                      cluster,
 					"bucket":                       bucket,
-					"projectPath":                  jobConfig.
+					"projectPath":                  jobConfig.ProjectPath,
 				}
 
 				err := GenerateProwjob(fileName, template, data)

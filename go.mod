@@ -18,7 +18,7 @@ replace (
 )
 
 require (
-	github.com/aws/eks-distro-prow-jobs v0.0.0-20221101164703-d34e4a401abd
+	github.com/aws/eks-distro-prow-jobs v0.0.0-20221115202949-6831b5aff817
 	k8s.io/api v0.21.1
 	k8s.io/test-infra v0.0.0-20210608224924-94f3f2343d63
 	sigs.k8s.io/yaml v1.2.0

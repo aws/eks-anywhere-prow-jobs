@@ -80,21 +80,18 @@ postsubmits:
           build/lib/buildkit_check.sh
           &&
           {{- end }}
-        {{- if .envs }}
-        env:
-        {{- range .envs }}
-        - name: {{ .Name }}
-          value: "{{ .Value }}"
-        {{- end }}
-        {{- end }}
 {{ .command | indent 10 }}
+        {{- if or .projectPath .envVars }}
         env:
+        {{- if .projectPath }}
         - name: PROJECT_PATH
           value: "{{ .projectPath }}"
+        {{- end }}
         {{- if .envVars }}
         {{- range .envVars }}
         - name: {{ .Name }}
           value: "{{ .Value }}"
+        {{- end }}
         {{- end }}
         {{- end }}
         {{- if .resources }}

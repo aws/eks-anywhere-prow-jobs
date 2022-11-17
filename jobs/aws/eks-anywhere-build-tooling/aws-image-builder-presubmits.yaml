@@ -31,6 +31,8 @@ presubmits:
         bucket: s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp
         path_strategy: explicit
       s3_credentials_secret: s3-credentials
+    labels:
+      image-build: "true"
     spec:
       serviceaccountName: presubmits-build-account
       automountServiceAccountToken: false
@@ -41,10 +43,14 @@ presubmits:
         - bash
         - -c
         - >
-          make build -C $PROJECT_PATH
+          trap 'touch /status/done && rm -rf /home/prow/go/src/' EXIT
+          &&
+          build/lib/buildkit_check.sh
+          &&
+          if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
         env:
         - name: PROJECT_PATH
-          value: "<no value>"
+          value: "projects/aws/image-builder"
         resources:
           requests:
             memory: "4Gi"
@@ -52,3 +58,12 @@ presubmits:
           limits:
             memory: "4Gi"
             cpu: "1024m"
+      - name: buildkitd
+        image: moby/buildkit:v0.10.5-rootless
+        command:
+        - sh
+        args:
+        - /script/entrypoint.sh
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000

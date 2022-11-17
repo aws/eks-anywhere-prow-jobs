@@ -1,19 +1,27 @@
 jobName: brew-update-postsubmit
 runIfChanged: release/triggers/brew-version-release/*
-image-build: true
 branches:  
 - ^release-.*$
-extra_refs:
-  - org: eks-anywhere-brew-pr-bot
-    repo: homebrew-tap
-    base_ref: master
+extraRefs:
+  - Org: eks-anywhere-brew-pr-bot
+    Repo: homebrew-tap
+    BaseRef: master
 commands:
 - make update-brew-formula
-resources:
-  requests:
-    cpu: 1024m
-    memory: 8Gi
-  limits:
-    memory: 8Gi
-    cpu: 1024m
+volumeMounts:
+  - Name: github-auth
+    MountPath: /secrets/github-secrets
+    ReadOnly: true
+  - Name: ssh-auth
+    MountPath: /secrets/ssh-secrets
+    ReadOnly: true
+volumes:
+  - name: github-auth
+    secret:
+      secretName: eksa-brew-pr-bot-github-token
+      defaultMode: 256
+  - name: ssh-auth
+    secret:
+      secretName: eksa-brew-pr-bot-ssh-secret
+      defaultMode: 256
         

@@ -50,7 +50,7 @@ presubmits:
           if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
         env:
         - name: PROJECT_PATH
-          value: "<no value>"
+          value: "projects/kubernetes/autoscaler"
         - name: RELEASE_BRANCH
           value: "1-21"
         - name: PRUNE_BUILDCTL

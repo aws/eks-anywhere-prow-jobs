@@ -1,8 +1,8 @@
 jobName: helm-tooling-presubmit
 runIfChanged: ^build/lib/.*|Common.mk|projects/helm/helm/.*
-image-build: true
+imageBuild: true
 commands:
-- make build -C $PROJECT_PATH
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
 projectPath: projects/helm/helm
 resources:
   requests:

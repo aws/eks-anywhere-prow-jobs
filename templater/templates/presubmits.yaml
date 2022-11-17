@@ -78,13 +78,17 @@ presubmits:
           &&
           {{- end}}
 {{ .command | indent 10 }}
+        {{- if or .projectPath .envVars }}
         env:
+        {{- if .projectPath }}
         - name: PROJECT_PATH
           value: "{{ .projectPath }}"
+        {{- end }}
         {{- if .envVars }}
         {{- range .envVars }}
         - name: {{ .Name }}
           value: "{{ .Value }}"
+        {{- end }}
         {{- end }}
         {{- end }}
         {{- if .resources }}

@@ -18,7 +18,7 @@
 periodics:
 - name: {{ .prowjobName }}
   cron: "{{ .cronExpression }}"
-  cluster: "{{ .cluster }}
+  cluster: "{{ .cluster }}"
   error_on_eviction: true
   decoration_config:
     {{- if .timeout }}
@@ -28,7 +28,7 @@ periodics:
       bucket: {{ .bucket }}
       path_strategy: explicit
     s3_credentials_secret: s3-credentials
-      {{- if .extraRefs }}
+  {{- if .extraRefs }}
   extra_refs:
   {{- range .extraRefs }}
   - org: {{ .Org }}
@@ -67,13 +67,17 @@ periodics:
         &&
         {{- end }}
 {{ .command | indent 8 }}
+      {{- if or .projectPath .envVars }}
       env:
+      {{- if .projectPath }}
       - name: PROJECT_PATH
         value: "{{ .projectPath }}"
+      {{- end }}
       {{- if .envVars }}
       {{- range .envVars }}
       - name: {{ .Name }}
         value: "{{ .Value }}"
+      {{- end }}
       {{- end }}
       {{- end }}
       {{- if .resources }}
@@ -107,10 +111,6 @@ periodics:
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
-      resources:
-        requests:
-          memory: "2Gi"
-          cpu: "1024m"
     {{- end }}
     {{- if .localRegistry }}
     - name: registry
