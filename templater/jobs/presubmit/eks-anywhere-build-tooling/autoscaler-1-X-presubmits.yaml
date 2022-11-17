@@ -1,0 +1,20 @@
+jobName: autoscaler-{{ .releaseBranch }}-presubmit
+runIfChanged: EKS_DISTRO_MINIMAL_BASE_PYTHON_TAG_FILE|^build/lib/.*|Common.mk|projects/kubernetes/autoscaler/.*
+imageBuild: true
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/kubernetes/autoscaler
+envVars:
+- name: RELEASE_BRANCH
+  value: {{ .releaseBranch }}
+- name: PRUNE_BUILDCTL
+  value: true
+resources:
+  requests:
+    cpu: 4
+    memory: 16Gi
+  limits:
+    memory: 16Gi
+    cpu: 4
+        
+        

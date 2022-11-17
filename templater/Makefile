@@ -9,6 +9,9 @@ build:  ## Build templater binary
 build: fmt generate vet
 	go build -o ./$(BIN_DIR)/generate-prowjobs github.com/aws/eks-anywhere-prow-jobs/templater
 
+get:
+	go get -u ./...
+
 fmt: ## Run go fmt against code.
 	go fmt ./...
 

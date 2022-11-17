@@ -20,9 +20,9 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: aws-otel-collector-tooling-presubmit
+  - name: autoscaler-1-20-presubmit
     always_run: false
-    run_if_changed: "EKS_DISTRO_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/aws-observability/aws-otel-collector/.*"
+    run_if_changed: "EKS_DISTRO_MINIMAL_BASE_PYTHON_TAG_FILE|^build/lib/.*|Common.mk|projects/kubernetes/autoscaler/.*"
     max_concurrency: 10
     cluster: "prow-presubmits-cluster"
     skip_report: false
@@ -31,6 +31,8 @@ presubmits:
         bucket: s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp
         path_strategy: explicit
       s3_credentials_secret: s3-credentials
+    labels:
+      image-build: "true"
     spec:
       serviceaccountName: presubmits-build-account
       automountServiceAccountToken: false
@@ -41,10 +43,18 @@ presubmits:
         - bash
         - -c
         - >
-          make build -C $PROJECT_PATH
+          trap 'touch /status/done && rm -rf /home/prow/go/src/' EXIT
+          &&
+          build/lib/buildkit_check.sh
+          &&
+          if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
         env:
         - name: PROJECT_PATH
           value: "<no value>"
+        - name: RELEASE_BRANCH
+          value: "1-20"
+        - name: PRUNE_BUILDCTL
+          value: "true"
         resources:
           requests:
             memory: "16Gi"
@@ -52,3 +62,12 @@ presubmits:
           limits:
             memory: "16Gi"
             cpu: "4"
+      - name: buildkitd
+        image: moby/buildkit:v0.10.5-rootless
+        command:
+        - sh
+        args:
+        - /script/entrypoint.sh
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000

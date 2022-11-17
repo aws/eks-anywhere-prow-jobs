@@ -1,0 +1,15 @@
+jobName: bottlerocket-bootstrap-tooling-presubmit
+runIfChanged: EKS_DISTRO_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/aws/bottlerocket-bootstrap/.*
+image-build: true
+commands:
+- make build -C $PROJECT_PATH
+projectPath: projects/aws/bottlerocket-bootstrap
+envVars:
+- name: ARTIFACTS_BUCKET
+  value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
+- name: PRUNE_BUILDCTL
+  value: "true"
+resources:
+  requests:
+    memory: 16Gi
+    cpu: 4

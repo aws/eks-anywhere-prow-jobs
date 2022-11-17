@@ -1,0 +1,27 @@
+jobName: eks-anywhere-attribution-periodic
+cronExpression: 0 8 * * 1-5
+image-build: true
+timeout: 4h
+commands:
+- make update-attribution-files
+image-build: true
+envVars:
+- name: REPO_OWNER
+  value: aws
+extraRefs:
+- baseRef: main
+  org: aws
+  repo: eks-anywhere-build-tooling
+resources:
+  requests:
+    cpu: 5
+    memory: 16Gi
+volumes:
+- name: ssh-auth
+  secret:
+    defaultMode: 256
+    secretName: pr-bot-ssh-secret
+- name: github-auth
+  secret:
+    defaultMode: 256
+    secretName: pr-bot-github-token

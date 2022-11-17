@@ -21,6 +21,12 @@ var jobTypes = []string{"periodic", "postsubmit", "presubmit"}
 //go:embed templates/presubmits.yaml
 var presubmitTemplate string
 
+//go:embed templates/postsubmits.yaml
+var postsubmitTemplate string
+
+//go:embed templates/periodics.yaml
+var periodicTemplate string
+
 //go:embed templates/warning.txt
 var editWarning string
 
@@ -78,7 +84,7 @@ func main() {
 					"prowjobName":                  jobConfig.JobName,
 					"runIfChanged":                 jobConfig.RunIfChanged,
 					"skipIfOnlyChanged":            jobConfig.SkipIfOnlyChanged,
-					"branches":                     branches,
+					"branches":                     jobConfig.Branches,
 					"cronExpression":               jobConfig.CronExpression,
 					"maxConcurrency":               jobConfig.MaxConcurrency,
 					"timeout":                      jobConfig.Timeout,
@@ -100,6 +106,7 @@ func main() {
 					"automountServiceAccountToken": jobConfig.AutomountServiceAccountToken,
 					"cluster":                      cluster,
 					"bucket":                       bucket,
+					"projectPath":                  jobConfig.
 				}
 
 				err := GenerateProwjob(fileName, template, data)
@@ -147,10 +154,10 @@ func getJobsFolderPath() (string, error) {
 
 func useTemplate(jobType string) (string, error) {
 	switch jobType {
-	//case "periodic":
-	//	return periodicTemplate, nil
-	//case "postsubmit":
-	//	return postsubmitTemplate, nil
+	case "periodic":
+		return periodicTemplate, nil
+	case "postsubmit":
+		return postsubmitTemplate, nil
 	case "presubmit":
 		return presubmitTemplate, nil
 	default:

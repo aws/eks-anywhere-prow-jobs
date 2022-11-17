@@ -15,18 +15,23 @@
 {{ .editWarning }}
 
 {{ $builderBaseImage := printf "%s:%s" "public.ecr.aws/eks-anywhere-build-tooling/builder-base" .builderBaseTag -}}
-presubmits:
+postsubmits:
   {{ .repoName }}:
   - name: {{ .prowjobName }}
     always_run: false
+    {{- if .runIfChanged }}
     run_if_changed: "{{ .runIfChanged }}"
-    {{- if .branches }}
+    {{- else if .skipIfOnlyChanged  }}
+    skip_if_only_changed: "{{ .skipIfOnlyChanged }}"
+    {{- end }}
     branches:
+    {{- if .branches }}
     {{- range .branches }}
     - {{ . }}
     {{- end }}
     {{- end }}
     max_concurrency: {{or .maxConcurrency 10 }}
+    error_on_eviction: true
     cluster: "{{ .cluster }}"
     skip_report: false
     {{- if .extraRefs }}
@@ -60,10 +65,8 @@ presubmits:
     spec:
       serviceaccountName: {{ .serviceAccountName }}
       automountServiceAccountToken: {{ or .automountServiceAccountToken false}}
-      {{- if .architecture }}
       nodeSelector:
-        arch: {{ or .architecture }}
-      {{- end }}
+        arch: {{ or .architecture "AMD64" }}
       containers:
       - name: build-container
         image: {{ or .runtimeImage $builderBaseImage }}
@@ -72,11 +75,18 @@ presubmits:
         - -c
         - >
           {{- if .imageBuild }}
-          trap 'touch /status/done && rm -rf /home/prow/go/src/' EXIT
+          trap 'touch /status/done' EXIT
           &&
           build/lib/buildkit_check.sh
           &&
-          {{- end}}
+          {{- end }}
+        {{- if .envs }}
+        env:
+        {{- range .envs }}
+        - name: {{ .Name }}
+          value: "{{ .Value }}"
+        {{- end }}
+        {{- end }}
 {{ .command | indent 10 }}
         env:
         - name: PROJECT_PATH
@@ -118,10 +128,14 @@ presubmits:
         securityContext:
           runAsUser: 1000
           runAsGroup: 1000
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "1024m"
       {{- end }}
       {{- if .localRegistry }}
       - name: registry
-        image: public.ecr.aws/docker/library/registry:2
+        image: registry:2
         command:
         - sh
         args:
@@ -134,6 +148,9 @@ presubmits:
           periodSeconds: 3
         resources:
           requests:
+            memory: "1Gi"
+            cpu: "256m"
+          limits:
             memory: "1Gi"
             cpu: "256m"
       {{- end }}
