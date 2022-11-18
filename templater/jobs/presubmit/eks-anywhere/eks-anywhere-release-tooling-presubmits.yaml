@@ -1,0 +1,13 @@
+jobName: eks-anywhere-release-tooling-presubmit
+runIfChanged: release/.*
+maxConcurrency: 1
+commands:
+- make dev-release -C $PROJECT_PATH
+projectPath: release
+resources:
+  requests:
+    memory: 4Gi
+    cpu: 1024m
+  limits:
+    memory: 4Gi
+    cpu: 1024m

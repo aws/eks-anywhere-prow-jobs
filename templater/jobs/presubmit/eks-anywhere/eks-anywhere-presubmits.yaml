@@ -1,0 +1,11 @@
+jobName: eks-anywhere-presubmits
+runIfChanged: Makefile|cmd/.*|flux/.*|go.mod|go.sum|hack/.*|internal/.*|pkg/.*|test/.*|release/.*|controllers/.*
+commands:
+- make build
+resources:
+  requests:
+    memory: 16Gi
+    cpu: 4
+  limits:
+    memory: 16Gi
+    cpu: 4
