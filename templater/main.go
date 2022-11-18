@@ -178,7 +178,9 @@ func clusterDetails(jobType string, cluster string, serviceAccountName string) (
 		bucket = "s3://prowdataclusterstack-316434458-prowbucket7c73355c-1n9f9v93wpjcm"
 	}
 
-	if len(serviceAccountName) == 0 {
+	if jobType == "periodic" || jobType == "postsubmit" {
+		serviceAccountName = "postsubmits-build-account"
+	} else {
 		serviceAccountName = jobType + "s-build-account"
 	}
 

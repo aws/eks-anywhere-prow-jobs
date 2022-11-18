@@ -51,8 +51,10 @@ periodics:
   spec:
     serviceaccountName: {{ .serviceAccountName }}
     automountServiceAccountToken: {{ or .automountServiceAccountToken false}}
+    {{- if .architecture }}
     nodeSelector:
-      arch: {{ or .architecture "AMD64" }}
+      arch: "{{ .architecture }}"
+    {{- end }}
     containers:
     - name: build-container
       image: {{ or .runtimeImage $builderBaseImage }}

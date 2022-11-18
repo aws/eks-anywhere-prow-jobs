@@ -1,18 +1,20 @@
-jobName: eks-anywhere-attribution-periodic
+jobName: eks-anywhere-attribution-files-periodic
 cronExpression: 0 8 * * 1-5
-timeout: 4h
+timeout: 3h
 commands:
 - make update-attribution-files
-imageBuild: true
 architecture: AMD64
 extraRefs:
 - org: aws
-  repo: eks-anywhere-build-tooling
+  repo: eks-anywhere
   baseRef: main
 resources:
   requests:
-    cpu: 5
+    cpu: 4
     memory: 16Gi
+  limits:
+    memory: 16Gi
+    cpu: 4
 volumeMounts:
 - name: ssh-auth
   mountPath: /secrets/ssh-secrets

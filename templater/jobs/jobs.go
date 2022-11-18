@@ -10,7 +10,7 @@ import (
 func GetJobList(jobType string) (map[string]map[string]types.JobConfig, error) {
 	switch jobType {
 	case "periodic":
-		repos := []string{"eks-anywhere-build-tooling"}
+		repos := []string{"eks-anywhere", "eks-anywhere-build-tooling"}
 		periodicsList, err := utils.GetJobsByType(repos, "periodic")
 		if err != nil {
 			return nil, fmt.Errorf("error getting periodic list:%v", err)

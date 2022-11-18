@@ -1,18 +1,19 @@
-jobName: eks-anywhere-attribution-periodic
-cronExpression: 0 8 * * 1-5
-timeout: 4h
+jobName: eks-anywhere-e2e-cleanup-periodic
+cronExpression: 0 */1 * * *
 commands:
 - make update-attribution-files
-imageBuild: true
 architecture: AMD64
 extraRefs:
 - org: aws
-  repo: eks-anywhere-build-tooling
+  repo: eks-anywhere
   baseRef: main
 resources:
   requests:
-    cpu: 5
+    cpu: 4
     memory: 16Gi
+  limits:
+    memory: 16Gi
+    cpu: 4
 volumeMounts:
 - name: ssh-auth
   mountPath: /secrets/ssh-secrets

@@ -1,14 +1,17 @@
-jobName: eks-anywhere-attribution-periodic
+jobName: eks-anywhere-attribution-periodic-release-0-12
 cronExpression: 0 8 * * 1-5
 timeout: 4h
 commands:
 - make update-attribution-files
 imageBuild: true
 architecture: AMD64
+envVars:
+- name: PULL_BASE_REF
+  value: release-0.12
 extraRefs:
 - org: aws
   repo: eks-anywhere-build-tooling
-  baseRef: main
+  baseRef: release-0.12
 resources:
   requests:
     cpu: 5

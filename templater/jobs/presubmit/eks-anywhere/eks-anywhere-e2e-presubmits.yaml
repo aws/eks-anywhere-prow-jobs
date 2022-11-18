@@ -1,6 +1,6 @@
 jobName: eks-anywhere-e2e-presubmit
 runIfChanged: Makefile|cmd/.*|flux/.*|go.mod|go.sum|hack/.*|internal/.*|pkg/.*|test/.*|release/.*|controllers/.*
-image-build: true
+imageBuild: true
 envVars:
 - name: TEST_ROLE_ARN
   value: arn:aws:iam::025778587028:role/EksaTestBuildRole

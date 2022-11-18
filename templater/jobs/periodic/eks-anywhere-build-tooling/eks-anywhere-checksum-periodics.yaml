@@ -1,8 +1,8 @@
-jobName: eks-anywhere-attribution-periodic
+jobName: eks-anywhere-checksum-periodic
 cronExpression: 0 8 * * 1-5
 timeout: 4h
 commands:
-- make update-attribution-files
+- make update-checksum-files
 imageBuild: true
 architecture: AMD64
 extraRefs:
@@ -22,12 +22,12 @@ volumeMounts:
   readOnly: true
 volumes:
 - name: ssh-auth
-  VolumeType: secret
-  Secret:
-    DefaultMode: 256
-    Name: pr-bot-ssh-secret
+  volumeType: secret
+  secret:
+    defaultMode: 256
+    name: pr-bot-ssh-secret
 - name: github-auth
-  VolumeType: secret
-  Secret:
-    DefaultMode: 256
-    Name: pr-bot-github-token
+  volumeType: secret
+  secret:
+    defaultMode: 256
+    name: pr-bot-github-token

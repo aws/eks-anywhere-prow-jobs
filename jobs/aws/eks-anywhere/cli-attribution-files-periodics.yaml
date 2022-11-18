@@ -19,22 +19,20 @@
 ################################################################################
 
 periodics:
-- name: eks-anywhere-attribution-periodic
+- name: eks-anywhere-attribution-files-periodic
   cron: "0 8 * * 1-5"
   cluster: "prow-postsubmits-cluster"
   error_on_eviction: true
   decoration_config:
-    timeout: 4h
+    timeout: 3h
     gcs_configuration:
       bucket: s3://prowdataclusterstack-316434458-prowbucket7c73355c-1n9f9v93wpjcm
       path_strategy: explicit
     s3_credentials_secret: s3-credentials
   extra_refs:
   - org: aws
-    repo: eks-anywhere-build-tooling
+    repo: eks-anywhere
     base_ref: main
-  labels:
-    image-build: "true"
   spec:
     serviceaccountName: postsubmits-build-account
     automountServiceAccountToken: false
@@ -47,15 +45,14 @@ periodics:
       - bash
       - -c
       - >
-        trap 'touch /status/done && rm -rf /home/prow/go/src/' EXIT
-        &&
-        build/lib/buildkit_check.sh
-        &&
         make update-attribution-files
       resources:
         requests:
           memory: "16Gi"
-          cpu: "5"
+          cpu: "4"
+        limits:
+          memory: "16Gi"
+          cpu: "4"
       volumeMounts:
       - name: ssh-auth
         mountPath: /secrets/ssh-secrets
@@ -63,15 +60,6 @@ periodics:
       - name: github-auth
         mountPath: /secrets/github-secrets
         readOnly: true
-    - name: buildkitd
-      image: moby/buildkit:v0.10.5-rootless
-      command:
-      - sh
-      args:
-      - /script/entrypoint.sh
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
     volumes:
     - name: ssh-auth
       secret:
