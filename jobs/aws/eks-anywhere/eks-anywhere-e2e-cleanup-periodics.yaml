@@ -19,12 +19,11 @@
 ################################################################################
 
 periodics:
-- name: eks-anywhere-attribution-files-periodic
-  cron: "0 8 * * 1-5"
+- name: eks-anywhere-e2e-cleanup-periodic
+  cron: "0 */1 * * *"
   cluster: "prow-presubmits-cluster"
   error_on_eviction: true
   decoration_config:
-    timeout: 3h
     gcs_configuration:
       bucket: s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp
       path_strategy: explicit
@@ -36,8 +35,6 @@ periodics:
   spec:
     serviceaccountName: presubmits-build-account
     automountServiceAccountToken: false
-    nodeSelector:
-      arch: "AMD64"
     containers:
     - name: build-container
       image: public.ecr.aws/eks-distro-build-tooling/builder-base:standard-8026816b32209021fe189380fb51e25690f08d37.2
@@ -45,27 +42,20 @@ periodics:
       - bash
       - -c
       - >
-        make update-attribution-files
+        make e2e-cleanup
+      env:
+      - name: TEST_ROLE_ARN
+        value: "arn:aws:iam::025778587028:role/EksaTestCleanUpBuildRole"
+      - name: INTEGRATION_TEST_STORAGE_BUCKET
+        value: "testbuildstack-025778587-eksaintegrationtestresou-1tqbb00woona4"
+      - name: INTEGRATION_TEST_MAX_INSTANCE_AGE
+        value: "16200"
+      - name: INTEGRATION_TEST_INSTANCE_TAG
+        value: "EKSA-E2E"
       resources:
         requests:
-          memory: "16Gi"
-          cpu: "4"
+          memory: "4Gi"
+          cpu: "1024m"
         limits:
-          memory: "16Gi"
-          cpu: "4"
-      volumeMounts:
-      - name: ssh-auth
-        mountPath: /secrets/ssh-secrets
-        readOnly: true
-      - name: github-auth
-        mountPath: /secrets/github-secrets
-        readOnly: true
-    volumes:
-    - name: ssh-auth
-      secret:
-        secretName: pr-bot-ssh-secret
-        defaultMode: 256
-    - name: github-auth
-      secret:
-        secretName: pr-bot-github-token
-        defaultMode: 256
+          memory: "4Gi"
+          cpu: "1024m"

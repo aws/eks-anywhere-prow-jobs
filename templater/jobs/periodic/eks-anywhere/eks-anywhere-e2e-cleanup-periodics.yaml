@@ -1,34 +1,24 @@
 jobName: eks-anywhere-e2e-cleanup-periodic
 cronExpression: 0 */1 * * *
 commands:
-- make update-attribution-files
-architecture: AMD64
+- make e2e-cleanup
+envVars:
+- name: TEST_ROLE_ARN
+  value: arn:aws:iam::025778587028:role/EksaTestCleanUpBuildRole
+- name: INTEGRATION_TEST_STORAGE_BUCKET
+  value: testbuildstack-025778587-eksaintegrationtestresou-1tqbb00woona4
+- name: INTEGRATION_TEST_MAX_INSTANCE_AGE
+  value: 16200
+- name: INTEGRATION_TEST_INSTANCE_TAG
+  value: EKSA-E2E
 extraRefs:
 - org: aws
   repo: eks-anywhere
   baseRef: main
 resources:
   requests:
-    cpu: 4
-    memory: 16Gi
+    cpu: 1024m
+    memory: 4Gi
   limits:
-    memory: 16Gi
-    cpu: 4
-volumeMounts:
-- name: ssh-auth
-  mountPath: /secrets/ssh-secrets
-  readOnly: true
-- name: github-auth
-  mountPath: /secrets/github-secrets
-  readOnly: true
-volumes:
-- name: ssh-auth
-  VolumeType: secret
-  Secret:
-    DefaultMode: 256
-    Name: pr-bot-ssh-secret
-- name: github-auth
-  VolumeType: secret
-  Secret:
-    DefaultMode: 256
-    Name: pr-bot-github-token
+    memory: 4Gi
+    cpu: 1024m
