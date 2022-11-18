@@ -2,6 +2,7 @@ jobName: brew-update-postsubmit
 runIfChanged: release/triggers/brew-version-release/*
 branches:  
 - ^release-.*$
+architecture: AMD64
 extraRefs:
   - Org: eks-anywhere-brew-pr-bot
     Repo: homebrew-tap
