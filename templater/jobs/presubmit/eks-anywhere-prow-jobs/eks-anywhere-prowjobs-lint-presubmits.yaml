@@ -1,0 +1,11 @@
+jobName: eks-anywhere-prowjobs-lint-presubmit
+runIfChanged: EKS_DISTRO_BASE_TAG_FILE|jobs/aws/.*
+commands:
+- make
+resources:
+  requests:
+    memory: 8Gi
+    cpu: 2
+  limits:
+    memory: 8Gi
+    cpu: 2

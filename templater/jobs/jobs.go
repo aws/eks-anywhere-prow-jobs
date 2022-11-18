@@ -24,7 +24,7 @@ func GetJobList(jobType string) (map[string]map[string]types.JobConfig, error) {
 		}
 		return postsubmitsList, nil
 	case "presubmit":
-		repos := []string{"eks-anywhere", "eks-anywhere-build-tooling"}
+		repos := []string{"eks-anywhere", "eks-anywhere-build-tooling", "eks-anywhere-packages", "eks-anywhere-prow-jobs"}
 		presubmitsList, err := utils.GetJobsByType(repos, "presubmit")
 		if err != nil {
 			return nil, fmt.Errorf("error getting presubmits list:%v", err)
