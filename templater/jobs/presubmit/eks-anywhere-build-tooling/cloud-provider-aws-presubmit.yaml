@@ -1,0 +1,13 @@
+jobName: cloud-provider-aws-tooling-presubmit
+runIfChanged: ^build/lib/.*|Common.mk|projects/kubernetes/cloud-provider-aws/.*
+imageBuild: true
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/kubernetes/cloud-provider-aws
+resources:
+  requests:
+    memory: 16Gi
+    cpu: 4
+  limits:
+    memory: 16Gi
+    cpu: 4

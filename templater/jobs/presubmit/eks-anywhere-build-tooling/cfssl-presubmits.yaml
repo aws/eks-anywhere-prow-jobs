@@ -1,0 +1,13 @@
+jobName: cfssl-tooling-presubmit
+runIfChanged: EKS_DISTRO_MINIMAL_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/cloudflare/cfssl/.*
+imageBuild: true
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/cloudflare/cfssl
+resources:
+  requests:
+    memory: 8Gi
+    cpu: 1024m
+  limits:
+    memory: 8Gi
+    cpu: 1024m

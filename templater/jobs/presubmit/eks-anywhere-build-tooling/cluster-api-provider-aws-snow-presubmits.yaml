@@ -1,0 +1,13 @@
+jobName: cluster-api-provider-aws-snow-tooling-presubmit
+runIfChanged: ^build/lib/.*|Common.mk|projects/aws/cluster-api-provider-aws-snow/.*
+imageBuild: true
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/aws/cluster-api-provider-aws-snow
+resources:
+  requests:
+    memory: 4Gi
+    cpu: 1024m
+  limits:
+    memory: 4Gi
+    cpu: 1024m

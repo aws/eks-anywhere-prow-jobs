@@ -1,0 +1,13 @@
+jobName: cluster-api-provider-tinkerbell-tooling-presubmit
+runIfChanged: EKS_DISTRO_MINIMAL_BASE_NONROOT_TAG_FILE|^build/lib/.*|Common.mk|projects/tinkerbell/cluster-api-provider-tinkerbell/.*
+imageBuild: true
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/tinkerbell/cluster-api-provider-tinkerbell
+resources:
+  requests:
+    memory: 16Gi
+    cpu: 4
+  limits:
+    memory: 16Gi
+    cpu: 4

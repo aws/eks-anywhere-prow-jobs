@@ -70,10 +70,6 @@ func main() {
 					envVars = append(envVars, &types.EnvVar{Name: "BUILDKITD_IMAGE", Value: "moby/buildkit:" + buildkitImageTag})
 					envVars = append(envVars, &types.EnvVar{Name: "USE_BUILDX", Value: "true"})
 				}
-				branches := jobConfig.Branches
-				if jobType == "postsubmit" && len(branches) == 0 {
-					branches = append(branches, "^main$")
-				}
 
 				cluster, bucket, serviceAccountName := clusterDetails(jobType, repoName, jobConfig.Cluster, jobConfig.ServiceAccountName)
 
@@ -83,7 +79,7 @@ func main() {
 					"prowjobName":                  jobConfig.JobName,
 					"runIfChanged":                 jobConfig.RunIfChanged,
 					"skipIfOnlyChanged":            jobConfig.SkipIfOnlyChanged,
-					"branches":                     branches,
+					"branches":                     jobConfig.Branches,
 					"cronExpression":               jobConfig.CronExpression,
 					"maxConcurrency":               jobConfig.MaxConcurrency,
 					"timeout":                      jobConfig.Timeout,

@@ -1,0 +1,13 @@
+jobName: cluster-api-provider-nutanix-tooling-presubmit
+runIfChanged: EKS_DISTRO_MINIMAL_BASE_NONROOT_TAG_FILE|^build/lib/.*|Common.mk|projects/nutanix-cloud-native/cluster-api-provider-nutanix/.*
+imageBuild: true
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/nutanix-cloud-native/cluster-api-provider-nutanix
+resources:
+  requests:
+    memory: 16Gi
+    cpu: 4
+  limits:
+    memory: 16Gi
+    cpu: 4

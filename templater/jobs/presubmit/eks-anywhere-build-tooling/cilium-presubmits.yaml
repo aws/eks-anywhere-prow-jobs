@@ -1,0 +1,12 @@
+jobName: cilium-tooling-presubmit
+runIfChanged: projects/cilium/cilium/.*
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/cilium/cilium
+resources:
+  requests:
+    memory: 8Gi
+    cpu: 1024m
+  limits:
+    memory: 8Gi
+    cpu: 1024m

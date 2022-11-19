@@ -1,0 +1,13 @@
+jobName: cluster-api-tooling-presubmit
+runIfChanged: EKS_DISTRO_BASE_TAG_FILE|EKS_DISTRO_MINIMAL_BASE_DOCKER_CLIENT_TAG_FILE|EKSD_LATEST_RELEASES|^build/lib/.*|Common.mk|projects/kubernetes-sigs/cluster-api/.*
+imageBuild: true
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/kubernetes-sigs/cluster-api
+resources:
+  requests:
+    memory: 8Gi
+    cpu: 2048m
+  limits:
+    memory: 8Gi
+    cpu: 2048m

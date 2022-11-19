@@ -1,0 +1,13 @@
+jobName: cloudstack-cloudmonkey-tooling-presubmit
+runIfChanged: ^build/lib/.*|Common.mk|projects/apache/cloudstack-cloudmonkey/.*
+imageBuild: true
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/apache/cloudstack-cloudmonkey
+resources:
+  requests:
+    memory: 4Gi
+    cpu: 1024m
+  limits:
+    memory: 4Gi
+    cpu: 1024m
