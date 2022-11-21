@@ -1,0 +1,12 @@
+jobName: distribution-tooling-presubmit
+runIfChanged: ^build/lib/.*|Common.mk|projects/distribution/distribution/.*
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/distribution/distribution
+resources:
+  requests:
+    memory: 8Gi
+    cpu: 1024m
+  limits:
+    memory: 8Gi
+    cpu: 1024m
