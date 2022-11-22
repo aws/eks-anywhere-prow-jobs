@@ -117,7 +117,7 @@ func BucketCheck(jc *JobConstants) presubmitCheck {
 		if strings.Contains(presubmitConfig.JobBase.Name, "arm64") {
 			return true, 0, ""
 		}
-		
+
 		if presubmitConfig.JobBase.UtilityConfig.DecorationConfig.GCSConfiguration.Bucket != jc.Bucket {
 			return false, findLineNumber(fileContentsString, "bucket:"), fmt.Sprintf(`Incorrect bucket configuration, please configure S3 bucket as => bucket: %s`, jc.Bucket)
 		}

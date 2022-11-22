@@ -1,0 +1,13 @@
+jobName: etcdadm-tooling-presubmit
+runIfChanged: ^build/lib/.*|Common.mk|projects/kubernetes-sigs/etcdadm/.*
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/kubernetes-sigs/etcdadm
+imageBuild: true
+resources:
+  requests:
+    memory: 4Gi
+    cpu: 1024m
+  limits:
+    memory: 4Gi
+    cpu: 1024m
