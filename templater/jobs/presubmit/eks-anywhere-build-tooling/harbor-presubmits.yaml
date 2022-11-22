@@ -1,0 +1,18 @@
+jobName: harbor-tooling-presubmit
+runIfChanged: EKS_DISTRO_BASE_TAG_FILE|EKS_DISTRO_MINIMAL_BASE_NGINX_TAG_FILE|EKS_DISTRO_MINIMAL_BASE_GLIBC_TAG_FILE|^build/lib/.*|Common.mk|projects/goharbor/harbor/.*
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/goharbor/harbor
+imageBuild: true
+envVars:
+- name: ARTIFACTS_BUCKET
+  value: s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f
+- name: PRUNE_BUILDCTL
+  value: true
+resources:
+  requests:
+    memory: 16Gi
+    cpu: 4
+  limits:
+    memory: 16Gi
+    cpu: 4
