@@ -1,0 +1,15 @@
+jobName: linux-bootconfig-presubmit
+runIfChanged: ^build/lib/.*|Common.mk|projects/torvalds/linux/.*
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/torvalds/linux
+envVars:
+- name: ARTIFACTS_BUCKET
+  value: s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f
+resources:
+  requests:
+    memory: 16Gi
+    cpu: 4
+  limits:
+    memory: 16Gi
+    cpu: 4

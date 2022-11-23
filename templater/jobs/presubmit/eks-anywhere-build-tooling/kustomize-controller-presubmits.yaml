@@ -1,0 +1,13 @@
+jobName: kustomize-controller-tooling-presubmit
+runIfChanged: EKS_DISTRO_MINIMAL_BASE_GIT_TAG_FILE|EKSD_LATEST_RELEASES|^build/lib/.*|Common.mk|projects/fluxcd/kustomize-controller/.*
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/fluxcd/kustomize-controller
+imageBuild: true
+resources:
+  requests:
+    memory: 16Gi
+    cpu: 4
+  limits:
+    memory: 16Gi
+    cpu: 4
