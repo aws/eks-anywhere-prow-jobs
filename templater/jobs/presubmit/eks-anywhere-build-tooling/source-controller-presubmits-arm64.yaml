@@ -1,5 +1,8 @@
 jobName: source-controller-tooling-presubmit-arm64
 runIfChanged: EKS_DISTRO_MINIMAL_BASE_GIT_TAG_FILE|^build/lib/.*|Common.mk|projects/fluxcd/source-controller/.*
+cluster: prow-postsubmits-cluster
+serviceaccountName: postsubmits-build-account
+bucket: s3://prowdataclusterstack-316434458-prowbucket7c73355c-1n9f9v93wpjcm
 commands:
 - if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
 projectPath: projects/fluxcd/source-controller

@@ -244,6 +244,8 @@ github.com/aws/eks-distro-prow-jobs v0.0.0-20221101164703-d34e4a401abd h1:LsKroj
 github.com/aws/eks-distro-prow-jobs v0.0.0-20221101164703-d34e4a401abd/go.mod h1:IAhdXyA40FAr/57NKGMOgtq9KLzLml0q5ttQVcnxFkY=
 github.com/aws/eks-distro-prow-jobs v0.0.0-20221115202949-6831b5aff817 h1:qBa5F3E9m14c4c8OZ/SXD0AvqckdtrXzqiRQ4JjZra0=
 github.com/aws/eks-distro-prow-jobs v0.0.0-20221115202949-6831b5aff817/go.mod h1:IAhdXyA40FAr/57NKGMOgtq9KLzLml0q5ttQVcnxFkY=
+github.com/aws/eks-distro-prow-jobs v0.0.0-20221129183858-71bf109ed586 h1:Z6KPt3PyIaeV8jVxOlm/r5Mdsf+0U6cWYIj6rSaYgiE=
+github.com/aws/eks-distro-prow-jobs v0.0.0-20221129183858-71bf109ed586/go.mod h1:IAhdXyA40FAr/57NKGMOgtq9KLzLml0q5ttQVcnxFkY=
 github.com/aybabtme/rgbterm v0.0.0-20170906152045-cc83f3b3ce59/go.mod h1:q/89r3U2H7sSsE2t6Kca0lfwTK8JdoNGS/yzM/4iH5I=
 github.com/bazelbuild/buildtools v0.0.0-20190917191645-69366ca98f89/go.mod h1:5JP0TXzWDHXv8qvxRC4InIazwdyDseBDbzESUMKk1yU=
 github.com/bazelbuild/buildtools v0.0.0-20200922170545-10384511ce98/go.mod h1:5JP0TXzWDHXv8qvxRC4InIazwdyDseBDbzESUMKk1yU=

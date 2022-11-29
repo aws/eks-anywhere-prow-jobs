@@ -42,9 +42,6 @@ presubmits:
         - -c
         - >
           if [ -f build/lib/generate_staging_buildspec.sh ]; then make validate-generated; fi
-        env:
-        - name: PROJECT_PATH
-          value: "projects/replicatedhq/troubleshoot"
         resources:
           requests:
             memory: "8Gi"

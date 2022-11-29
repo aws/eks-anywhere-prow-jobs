@@ -3,6 +3,9 @@ cronExpression: 0 8 * * 1-5
 timeout: 3h
 commands:
 - make update-attribution-files
+cluster: prow-presubmits-cluster
+serviceaccountName: presubmits-build-account
+bucket: s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp
 architecture: AMD64
 extraRefs:
 - org: aws

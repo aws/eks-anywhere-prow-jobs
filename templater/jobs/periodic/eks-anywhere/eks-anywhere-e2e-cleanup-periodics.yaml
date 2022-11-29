@@ -1,5 +1,8 @@
 jobName: eks-anywhere-e2e-cleanup-periodic
 cronExpression: 0 */1 * * *
+cluster: prow-presubmits-cluster
+serviceaccountName: presubmits-build-account
+bucket: s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp
 commands:
 - make e2e-cleanup
 envVars:

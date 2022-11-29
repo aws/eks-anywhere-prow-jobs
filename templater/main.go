@@ -71,7 +71,7 @@ func main() {
 					envVars = append(envVars, &types.EnvVar{Name: "USE_BUILDX", Value: "true"})
 				}
 
-				cluster, bucket, serviceAccountName := clusterDetails(jobType, repoName, jobConfig.Cluster, jobConfig.ServiceAccountName)
+				cluster, bucket, serviceAccountName := clusterDetails(jobType, jobConfig.Cluster, jobConfig.Bucket, jobConfig.ServiceAccountName)
 
 				data := map[string]interface{}{
 					"architecture":                 jobConfig.Architecture,
@@ -160,19 +160,14 @@ func useTemplate(jobType string) (string, error) {
 	}
 }
 
-func clusterDetails(jobType string, reporName string, cluster string, serviceAccountName string) (string, string, string) {
-
-	var bucket string
-	if jobType == "presubmit" || jobType == "periodic" {
+func clusterDetails(jobType string, cluster string, bucket string, serviceAccountName string) (string, string, string) {
+	if jobType == "presubmit" && len(cluster) == 0 {
 		cluster = "prow-presubmits-cluster"
 		bucket = "s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp"
 		serviceAccountName = "presubmits-build-account"
-		if reporName == "aws/eks-anywhere" && jobType == "periodic" {
-			return cluster, bucket, serviceAccountName
-		}
 	}
 
-	if jobType == "postsubmit" || jobType == "periodic" {
+	if (jobType == "postsubmit" || jobType == "periodic") && len(cluster) == 0 {
 		cluster = "prow-postsubmits-cluster"
 		bucket = "s3://prowdataclusterstack-316434458-prowbucket7c73355c-1n9f9v93wpjcm"
 		serviceAccountName = "postsubmits-build-account"
