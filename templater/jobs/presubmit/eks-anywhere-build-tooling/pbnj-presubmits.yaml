@@ -1,0 +1,16 @@
+jobName: pbnj-tooling-presubmit
+runIfChanged: EKS_DISTRO_MINIMAL_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/tinkerbell/pbnj/.*
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/tinkerbell/pbnj
+imageBuild: true
+envVars:
+- name: ARTIFACTS_BUCKET
+  value: s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f
+resources:
+  requests:
+    memory: 8Gi
+    cpu: 1024m
+  limits:
+    memory: 8Gi
+    cpu: 1024m

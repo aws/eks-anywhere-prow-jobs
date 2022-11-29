@@ -1,0 +1,13 @@
+jobName: prometheus-node-exporter-tooling-presubmit
+runIfChanged: EKS_DISTRO_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/prometheus/node_exporter/.*
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/prometheus/node_exporter
+imageBuild: true
+resources:
+  requests:
+    memory: 16Gi
+    cpu: 4
+  limits:
+    memory: 16Gi
+    cpu: 4

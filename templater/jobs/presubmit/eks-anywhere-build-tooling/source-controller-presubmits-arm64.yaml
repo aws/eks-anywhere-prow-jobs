@@ -1,0 +1,20 @@
+jobName: source-controller-tooling-presubmit-arm64
+runIfChanged: EKS_DISTRO_MINIMAL_BASE_GIT_TAG_FILE|^build/lib/.*|Common.mk|projects/fluxcd/source-controller/.*
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/fluxcd/source-controller
+envVars:
+- name: ARTIFACTS_BUCKET
+  value: s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f
+- name: BINARY_PLATFORMS
+  value: linux/arm64
+- name: IMAGE_PLATFORMS
+  value: linux/arm64
+imageBuild: true
+resources:
+  requests:
+    memory: 8Gi
+    cpu: 1024m
+  limits:
+    memory: 8Gi
+    cpu: 1024m
