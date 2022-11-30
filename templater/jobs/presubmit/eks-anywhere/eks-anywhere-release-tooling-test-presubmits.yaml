@@ -1,4 +1,4 @@
-jobName: eks-anyweks-anywhere-release-tooling-test-presubmit
+jobName: eks-anywhere-release-tooling-test-presubmit
 runIfChanged: release/.*
 maxConcurrency: 1
 branches:

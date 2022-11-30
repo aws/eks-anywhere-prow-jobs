@@ -20,7 +20,7 @@
 
 presubmits:
   aws/eks-anywhere:
-  - name: eks-anyweks-anywhere-release-tooling-test-presubmit
+  - name: eks-anywhere-release-tooling-test-presubmit
     always_run: false
     run_if_changed: "release/.*"
     branches:

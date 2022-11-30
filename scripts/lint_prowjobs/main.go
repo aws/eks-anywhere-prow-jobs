@@ -191,7 +191,7 @@ func getFilesChanged(gitRoot string, pullBaseSha string, pullPullSha string) ([]
 
 	filesChanged := strings.Fields(string(gitDiffOutput))
 	for _, file := range filesChanged {
-		if strings.Contains(file, "presubmits") {
+		if strings.Contains(file, "presubmits") && strings.HasPrefix(file, "jobs") && strings.HasSuffix(file, "yaml") {
 			presubmitFiles = append(presubmitFiles, file)
 		}
 	}
