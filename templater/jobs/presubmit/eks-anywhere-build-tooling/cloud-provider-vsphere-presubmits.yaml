@@ -1,4 +1,4 @@
-jobName: cloud-provider-aws-tooling-presubmit
+jobName: cloud-provider-vsphere-tooling-presubmit
 runIfChanged: EKS_DISTRO_MINIMAL_BASE_TAG_FILE|EKSD_LATEST_RELEASES|^build/lib/.*|Common.mk|projects/kubernetes/cloud-provider-vsphere/.*
 imageBuild: true
 commands:

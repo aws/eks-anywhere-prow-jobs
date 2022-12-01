@@ -1,4 +1,4 @@
-jobName: eks-anywhere-attribution-periodic-release-0-12
+jobName: eks-anywhere-checksum-periodic-release-0-12
 cronExpression: 0 8 * * 1-5
 timeout: 4h
 commands:
