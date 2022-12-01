@@ -3,7 +3,6 @@ runIfChanged: ^config/.*|^controllers/.*
 imageBuild: true
 commands:
 - make build-cluster-controller
-- touch /status/done
 resources:
   requests:
     memory: 8Gi

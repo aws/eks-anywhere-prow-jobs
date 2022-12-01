@@ -62,7 +62,7 @@ presubmits:
       automountServiceAccountToken: {{ or .automountServiceAccountToken false}}
       {{- if .architecture }}
       nodeSelector:
-        arch: "{{ .architecture }}"
+        arch: "{{ or .architecture }}"
       {{- end }}
       containers:
       - name: build-container

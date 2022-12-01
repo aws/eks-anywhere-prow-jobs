@@ -1,5 +1,5 @@
 jobName: envoy-presubmit
-runIfChanged: ^build/lib/.*|Common.mk|projects/envoyproxy/envoy/.*
+runIfChanged: EKS_DISTRO_MINIMAL_BASE_GLIBC_TAG_FILE|^build/lib/.*|Common.mk|projects/envoyproxy/envoy/.*
 commands:
 - if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
 projectPath: projects/envoyproxy/envoy

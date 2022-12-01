@@ -1,5 +1,5 @@
 jobName: autoscaler-{{ .releaseBranch }}-presubmit
-runIfChanged: EKS_DISTRO_MINIMAL_BASE_PYTHON_TAG_FILE|^build/lib/.*|Common.mk|projects/kubernetes/autoscaler/.*
+runIfChanged: EKS_DISTRO_MINIMAL_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/kubernetes/autoscaler/.*
 imageBuild: true
 commands:
 - if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
