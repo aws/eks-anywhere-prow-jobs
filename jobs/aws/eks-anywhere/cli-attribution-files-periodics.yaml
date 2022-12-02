@@ -21,12 +21,12 @@
 periodics:
 - name: eks-anywhere-attribution-files-periodic
   cron: "0 8 * * 1-5"
-  cluster: "prow-postsubmits-cluster"
+  cluster: "prow-presubmits-cluster"
   error_on_eviction: true
   decoration_config:
     timeout: 3h
     gcs_configuration:
-      bucket: s3://prowdataclusterstack-316434458-prowbucket7c73355c-1n9f9v93wpjcm
+      bucket: s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp
       path_strategy: explicit
     s3_credentials_secret: s3-credentials
   extra_refs:

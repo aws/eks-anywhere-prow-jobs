@@ -71,7 +71,7 @@ func main() {
 					envVars = append(envVars, &types.EnvVar{Name: "USE_BUILDX", Value: "true"})
 				}
 
-				cluster, bucket, serviceAccountName := clusterDetails(jobType, jobConfig.Cluster, jobConfig.ServiceAccountName)
+				cluster, bucket, serviceAccountName := clusterDetails(jobType, jobConfig.Cluster, jobConfig.Bucket, jobConfig.ServiceAccountName)
 
 				data := map[string]interface{}{
 					"architecture":                 jobConfig.Architecture,
@@ -160,26 +160,8 @@ func useTemplate(jobType string) (string, error) {
 	}
 }
 
-func clusterDetails(jobType string, cluster string, serviceAccountName string) (string, string, string) {
+func clusterDetails(jobType string, cluster string, bucket string, serviceAccountName string) (string, string, string) {
 
-	if cluster == "prow-postsubmits-cluster" {
-		jobType = "postsubmit"
-	}
-
-	cluster = "prow-presubmits-cluster"
-	bucket := "s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp"
-
-	if jobType == "postsubmit" || jobType == "periodic" {
-		cluster = "prow-postsubmits-cluster"
-		bucket = "s3://prowdataclusterstack-316434458-prowbucket7c73355c-1n9f9v93wpjcm"
-	}
-
-	if len(serviceAccountName) == 0 {
-		serviceAccountName = jobType + "s-build-account"
-	}
-
-	return cluster, bucket, serviceAccountName
-	/**
 	if jobType == "presubmit" && len(cluster) == 0 {
 		cluster = "prow-presubmits-cluster"
 		bucket = "s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp"
@@ -192,5 +174,5 @@ func clusterDetails(jobType string, cluster string, serviceAccountName string) (
 		serviceAccountName = "postsubmits-build-account"
 	}
 
-	return cluster, bucket, serviceAccountName**/
+	return cluster, bucket, serviceAccountName
 }
