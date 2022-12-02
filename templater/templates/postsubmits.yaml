@@ -30,8 +30,8 @@ postsubmits:
     - {{ . }}
     {{- end }}
     {{- end }}
-    max_concurrency: {{or .maxConcurrency 10 }}
     cluster: "{{ .cluster }}"
+    max_concurrency: {{or .maxConcurrency 10 }}
     skip_report: false
     {{- if .extraRefs }}
     extra_refs:

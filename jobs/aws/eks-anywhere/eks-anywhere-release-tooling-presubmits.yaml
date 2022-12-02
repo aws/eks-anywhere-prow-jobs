@@ -23,8 +23,8 @@ presubmits:
   - name: eks-anywhere-release-tooling-presubmit
     always_run: false
     run_if_changed: "release/.*"
-    max_concurrency: 1
     cluster: "prow-presubmits-cluster"
+    max_concurrency: 1
     skip_report: false
     decoration_config:
       gcs_configuration:

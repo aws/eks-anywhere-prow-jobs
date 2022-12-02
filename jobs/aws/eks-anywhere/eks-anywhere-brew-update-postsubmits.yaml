@@ -25,8 +25,8 @@ postsubmits:
     run_if_changed: "release/triggers/brew-version-release/*"
     branches:
     - ^release-.*$
-    max_concurrency: 10
     cluster: "prow-postsubmits-cluster"
+    max_concurrency: 10
     skip_report: false
     extra_refs:
     - org: eks-anywhere-brew-pr-bot

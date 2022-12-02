@@ -23,8 +23,8 @@ presubmits:
   - name: harbor-tooling-presubmit
     always_run: false
     run_if_changed: "EKS_DISTRO_BASE_TAG_FILE|EKS_DISTRO_MINIMAL_BASE_NGINX_TAG_FILE|EKS_DISTRO_MINIMAL_BASE_GLIBC_TAG_FILE|^build/lib/.*|Common.mk|projects/goharbor/harbor/.*"
-    max_concurrency: 10
     cluster: "prow-presubmits-cluster"
+    max_concurrency: 10
     skip_report: false
     decoration_config:
       gcs_configuration:

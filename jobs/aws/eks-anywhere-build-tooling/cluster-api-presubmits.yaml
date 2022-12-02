@@ -23,8 +23,8 @@ presubmits:
   - name: cluster-api-tooling-presubmit
     always_run: false
     run_if_changed: "EKS_DISTRO_BASE_TAG_FILE|EKS_DISTRO_MINIMAL_BASE_DOCKER_CLIENT_TAG_FILE|EKSD_LATEST_RELEASES|^build/lib/.*|Common.mk|projects/kubernetes-sigs/cluster-api/.*"
-    max_concurrency: 10
     cluster: "prow-presubmits-cluster"
+    max_concurrency: 10
     skip_report: false
     decoration_config:
       gcs_configuration:

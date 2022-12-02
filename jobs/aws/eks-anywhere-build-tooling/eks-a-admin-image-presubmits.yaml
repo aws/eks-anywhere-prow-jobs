@@ -23,8 +23,8 @@ presubmits:
   - name: eks-a-admin-image-presubmit
     always_run: false
     run_if_changed: "EKSD_LATEST_RELEASES|^build/lib/.*|Common.mk|projects/aws/eks-a-admin-image/.*"
-    max_concurrency: 10
     cluster: "prow-presubmits-cluster"
+    max_concurrency: 10
     skip_report: false
     decoration_config:
       gcs_configuration:
