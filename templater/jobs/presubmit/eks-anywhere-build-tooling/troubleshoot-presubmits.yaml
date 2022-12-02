@@ -1,7 +1,7 @@
 jobName: troubleshoot-tooling-presubmit
 runIfChanged: ^build/lib/.*|Common.mk|projects/replicatedhq/troubleshoot/.*
 commands:
-- make build -C $PROJECT_PATH; fi
+- make build -C $PROJECT_PATH
 projectPath: projects/replicatedhq/troubleshoot
 imageBuild: true
 resources:

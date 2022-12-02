@@ -1,4 +1,4 @@
-jobName: eeks-anywhere-docs-presubmit
+jobName: eks-anywhere-docs-presubmit
 runIfChanged: docs/.*
 commands: 
 - make build -C docs

@@ -36,7 +36,7 @@ periodics:
   labels:
     image-build: "true"
   spec:
-    serviceaccountName: postsubmits-build-account
+    serviceaccountName: periodics-build-account
     automountServiceAccountToken: false
     nodeSelector:
       arch: "AMD64"

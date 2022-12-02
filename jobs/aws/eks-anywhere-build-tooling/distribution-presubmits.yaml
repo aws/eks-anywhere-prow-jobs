@@ -19,7 +19,7 @@
 ################################################################################
 
 presubmits:
-  aws/eks-anywhere:
+  aws/eks-anywhere-build-tooling:
   - name: distribution-tooling-presubmit
     always_run: false
     run_if_changed: "^build/lib/.*|Common.mk|projects/distribution/distribution/.*"

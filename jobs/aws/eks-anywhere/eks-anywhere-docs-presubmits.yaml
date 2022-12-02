@@ -20,7 +20,7 @@
 
 presubmits:
   aws/eks-anywhere:
-  - name: eeks-anywhere-docs-presubmit
+  - name: eks-anywhere-docs-presubmit
     always_run: false
     run_if_changed: "docs/.*"
     max_concurrency: 10

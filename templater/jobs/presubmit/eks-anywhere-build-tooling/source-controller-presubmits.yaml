@@ -5,7 +5,7 @@ commands:
 projectPath: projects/fluxcd/source-controller
 envVars:
 - name: BINARY_PLATFORMS
-  value: linux/arm64
+  value: linux/amd64
 - name: FAKE_ARM_ARTIFACTS_FOR_VALIDATION
   value: true
 - name: ARTIFACTS_BUCKET

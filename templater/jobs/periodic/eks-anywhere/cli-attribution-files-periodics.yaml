@@ -15,9 +15,6 @@ resources:
   requests:
     cpu: 4
     memory: 16Gi
-  limits:
-    memory: 16Gi
-    cpu: 4
 volumeMounts:
 - name: ssh-auth
   mountPath: /secrets/ssh-secrets

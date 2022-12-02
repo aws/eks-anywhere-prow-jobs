@@ -1,4 +1,4 @@
-jobName: eks-anywhere-presubmits
+jobName: eks-anywhere-presubmit
 runIfChanged: Makefile|cmd/.*|flux/.*|go.mod|go.sum|hack/.*|internal/.*|pkg/.*|test/.*|release/.*|controllers/.*
 commands:
 - make build

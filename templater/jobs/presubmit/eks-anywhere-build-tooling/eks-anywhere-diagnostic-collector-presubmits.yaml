@@ -4,9 +4,6 @@ commands:
 - if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
 projectPath: projects/aws/eks-anywhere
 imageBuild: true
-envVars:
-- name: ARTIFACTS_BUCKET
-  value: s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f
 resources:
   requests:
     memory: 8Gi

@@ -23,6 +23,8 @@ presubmits:
   - name: eks-anywhere-e2e-presubmit
     always_run: false
     run_if_changed: "Makefile|cmd/.*|flux/.*|go.mod|go.sum|hack/.*|internal/.*|pkg/.*|test/.*|release/.*|controllers/.*"
+    branches:
+    - ^main$
     max_concurrency: 10
     cluster: "prow-presubmits-cluster"
     skip_report: false
@@ -48,8 +50,6 @@ presubmits:
           build/lib/buildkit_check.sh
           &&
           set -o pipefail && make docker-e2e-test | while IFS= read -r line; do printf "%s %s\n" "$(date --rfc-3339=seconds)" "$line"; /status/done
-          &&
-          touch /status/done
         env:
         - name: TEST_ROLE_ARN
           value: "arn:aws:iam::025778587028:role/EksaTestBuildRole"
