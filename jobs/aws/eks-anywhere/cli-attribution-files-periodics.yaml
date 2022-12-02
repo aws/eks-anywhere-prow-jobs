@@ -22,7 +22,6 @@ periodics:
 - name: eks-anywhere-attribution-files-periodic
   cron: "0 8 * * 1-5"
   cluster: "prow-presubmits-cluster"
-  error_on_eviction: true
   decoration_config:
     timeout: 3h
     gcs_configuration:
@@ -34,8 +33,6 @@ periodics:
     repo: eks-anywhere
     base_ref: main
   spec:
-    nodeSelector:
-      arch: "AMD64"
     serviceaccountName: presubmits-build-account
     automountServiceAccountToken: false
     containers:

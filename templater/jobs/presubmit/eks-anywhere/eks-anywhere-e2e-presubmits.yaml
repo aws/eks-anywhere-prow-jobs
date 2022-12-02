@@ -15,7 +15,7 @@ envVars:
 - name: IMAGE_REPO
   value: public.ecr.aws/h1r8a7l5
 commands:
-- set -o pipefail && make docker-e2e-test | while IFS= read -r line; do printf "%s %s\n" "$(date --rfc-3339=seconds)" "$line"; /status/done
+- set -o pipefail && make docker-e2e-test | while IFS= read -r line; do printf "%s %s\n" "$(date --rfc-3339=seconds)" "$line"; done
 resources:
   requests:
     memory: 16Gi

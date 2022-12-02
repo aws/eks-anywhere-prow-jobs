@@ -22,7 +22,6 @@ periodics:
 - name: eks-anywhere-e2e-cleanup-periodic
   cron: "0 */1 * * *"
   cluster: "prow-presubmits-cluster"
-  error_on_eviction: true
   decoration_config:
     gcs_configuration:
       bucket: s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp
@@ -54,8 +53,5 @@ periodics:
         value: "EKSA-E2E"
       resources:
         requests:
-          memory: "4Gi"
-          cpu: "1024m"
-        limits:
           memory: "4Gi"
           cpu: "1024m"

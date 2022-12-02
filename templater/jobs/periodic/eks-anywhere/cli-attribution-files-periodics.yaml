@@ -6,7 +6,6 @@ commands:
 cluster: prow-presubmits-cluster
 serviceaccountName: presubmits-build-account
 bucket: s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp
-architecture: AMD64
 extraRefs:
 - org: aws
   repo: eks-anywhere

@@ -49,7 +49,7 @@ presubmits:
           &&
           build/lib/buildkit_check.sh
           &&
-          set -o pipefail && make docker-e2e-test | while IFS= read -r line; do printf "%s %s\n" "$(date --rfc-3339=seconds)" "$line"; /status/done
+          set -o pipefail && make docker-e2e-test | while IFS= read -r line; do printf "%s %s\n" "$(date --rfc-3339=seconds)" "$line"; done
         env:
         - name: TEST_ROLE_ARN
           value: "arn:aws:iam::025778587028:role/EksaTestBuildRole"
