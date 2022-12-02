@@ -20,7 +20,7 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: cloud-provider-aws-tooling-presubmit
+  - name: cloud-provider-vsphere-tooling-presubmit
     always_run: false
     run_if_changed: "EKS_DISTRO_MINIMAL_BASE_TAG_FILE|EKSD_LATEST_RELEASES|^build/lib/.*|Common.mk|projects/kubernetes/cloud-provider-vsphere/.*"
     max_concurrency: 10

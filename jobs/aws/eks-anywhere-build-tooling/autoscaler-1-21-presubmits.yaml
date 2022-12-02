@@ -22,7 +22,7 @@ presubmits:
   aws/eks-anywhere-build-tooling:
   - name: autoscaler-1-21-presubmit
     always_run: false
-    run_if_changed: "EKS_DISTRO_MINIMAL_BASE_PYTHON_TAG_FILE|^build/lib/.*|Common.mk|projects/kubernetes/autoscaler/.*"
+    run_if_changed: "EKS_DISTRO_MINIMAL_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/kubernetes/autoscaler/.*"
     max_concurrency: 10
     cluster: "prow-presubmits-cluster"
     skip_report: false
@@ -57,9 +57,6 @@ presubmits:
           value: "true"
         resources:
           requests:
-            memory: "16Gi"
-            cpu: "4"
-          limits:
             memory: "16Gi"
             cpu: "4"
       - name: buildkitd

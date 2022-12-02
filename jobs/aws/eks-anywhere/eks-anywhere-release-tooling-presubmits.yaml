@@ -49,6 +49,3 @@ presubmits:
           requests:
             memory: "4Gi"
             cpu: "1024m"
-          limits:
-            memory: "4Gi"
-            cpu: "1024m"

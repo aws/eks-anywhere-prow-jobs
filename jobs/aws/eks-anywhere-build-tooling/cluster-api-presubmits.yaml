@@ -55,9 +55,6 @@ presubmits:
           requests:
             memory: "8Gi"
             cpu: "2048m"
-          limits:
-            memory: "8Gi"
-            cpu: "2048m"
       - name: buildkitd
         image: moby/buildkit:v0.10.5-rootless
         command:

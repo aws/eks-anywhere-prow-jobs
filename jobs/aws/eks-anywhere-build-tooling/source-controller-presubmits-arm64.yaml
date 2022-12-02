@@ -36,6 +36,8 @@ presubmits:
     spec:
       serviceaccountName: postsubmits-build-account
       automountServiceAccountToken: false
+      nodeSelector:
+        arch: "ARM64"
       containers:
       - name: build-container
         image: public.ecr.aws/eks-distro-build-tooling/builder-base:standard-8026816b32209021fe189380fb51e25690f08d37.2
@@ -51,17 +53,14 @@ presubmits:
         env:
         - name: PROJECT_PATH
           value: "projects/fluxcd/source-controller"
-        - name: ARTIFACTS_BUCKET
-          value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
         - name: BINARY_PLATFORMS
           value: "linux/arm64"
         - name: IMAGE_PLATFORMS
           value: "linux/arm64"
+        - name: ARTIFACTS_BUCKET
+          value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
         resources:
           requests:
-            memory: "8Gi"
-            cpu: "1024m"
-          limits:
             memory: "8Gi"
             cpu: "1024m"
       - name: buildkitd

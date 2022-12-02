@@ -8,6 +8,3 @@ resources:
   requests:
     cpu: 1024m
     memory: 8Gi
-  limits:
-    memory: 8Gi
-    cpu: 1024m

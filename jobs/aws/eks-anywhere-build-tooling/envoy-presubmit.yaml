@@ -22,7 +22,7 @@ presubmits:
   aws/eks-anywhere-build-tooling:
   - name: envoy-presubmit
     always_run: false
-    run_if_changed: "^build/lib/.*|Common.mk|projects/envoyproxy/envoy/.*"
+    run_if_changed: "EKS_DISTRO_MINIMAL_BASE_GLIBC_TAG_FILE|^build/lib/.*|Common.mk|projects/envoyproxy/envoy/.*"
     max_concurrency: 10
     cluster: "prow-presubmits-cluster"
     skip_report: false
@@ -55,9 +55,6 @@ presubmits:
           value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
         resources:
           requests:
-            memory: "8Gi"
-            cpu: "1024m"
-          limits:
             memory: "8Gi"
             cpu: "1024m"
       - name: buildkitd

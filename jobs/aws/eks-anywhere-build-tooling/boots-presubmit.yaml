@@ -22,7 +22,7 @@ presubmits:
   aws/eks-anywhere-build-tooling:
   - name: boots-tooling-presubmit
     always_run: false
-    run_if_changed: "EKS_DISTRO_MINIMAL_BASE_PYTHON_TAG_FILE|^build/lib/.*|Common.mk|projects/kubernetes/autoscaler/.*"
+    run_if_changed: "EKS_DISTRO_MINIMAL_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/tinkerbell/boots/.*"
     max_concurrency: 10
     cluster: "prow-presubmits-cluster"
     skip_report: false
@@ -53,9 +53,6 @@ presubmits:
           value: "projects/tinkerbell/boots"
         resources:
           requests:
-            memory: "8Gi"
-            cpu: "1024m"
-          limits:
             memory: "8Gi"
             cpu: "1024m"
       - name: buildkitd

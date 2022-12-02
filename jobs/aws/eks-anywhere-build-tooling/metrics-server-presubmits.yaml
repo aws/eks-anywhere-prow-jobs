@@ -22,7 +22,7 @@ presubmits:
   aws/eks-anywhere-build-tooling:
   - name: metrics-server-presubmit
     always_run: false
-    run_if_changed: "EKS_DISTRO_MINIMAL_BASE_PYTHON_TAG_FILE|^build/lib/.*|Common.mk|projects/kubernetes-sigs/metrics-server/.*"
+    run_if_changed: "^build/lib/.*|Common.mk|projects/kubernetes-sigs/metrics-server/.*"
     max_concurrency: 10
     cluster: "prow-presubmits-cluster"
     skip_report: false
@@ -53,9 +53,6 @@ presubmits:
           value: "projects/kubernetes-sigs/metrics-server"
         resources:
           requests:
-            memory: "16Gi"
-            cpu: "4"
-          limits:
             memory: "16Gi"
             cpu: "4"
       - name: buildkitd
