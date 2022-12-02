@@ -49,12 +49,12 @@ periodics:
     {{- end }}
   {{- end }}
   spec:
-    serviceaccountName: {{ .serviceAccountName }}
-    automountServiceAccountToken: {{ or .automountServiceAccountToken false}}
     {{- if .architecture }}
     nodeSelector:
       arch: "{{ .architecture }}"
     {{- end }}
+    serviceaccountName: {{ .serviceAccountName }}
+    automountServiceAccountToken: {{ or .automountServiceAccountToken false}}
     containers:
     - name: build-container
       image: {{ or .runtimeImage $builderBaseImage }}
@@ -144,8 +144,8 @@ periodics:
         path: {{ .HostPath.Path }}
       {{- else if eq .VolumeType "secret" }}
       secret:
-        secretName: {{ .Secret.Name }}
         defaultMode: {{ .Secret.DefaultMode }}
+        secretName: {{ .Secret.Name }}
       {{- end}}
     {{- end }}
     {{- end }}
