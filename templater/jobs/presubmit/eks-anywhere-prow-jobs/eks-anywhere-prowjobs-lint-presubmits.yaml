@@ -1,7 +1,12 @@
 jobName: eks-anywhere-prowjobs-lint-presubmit
 runIfChanged: EKS_DISTRO_BASE_TAG_FILE|jobs/aws/.*
 commands:
-- make
+- make verify-prowjobs -C $PROJECT_PATH
+- make lint -C $LINT_PROJECT_PATH
+projectPath: templater
+envVars:
+- name: LINT_PROJECT_PATH
+  value: "linter"
 resources:
   requests:
     memory: 8Gi
