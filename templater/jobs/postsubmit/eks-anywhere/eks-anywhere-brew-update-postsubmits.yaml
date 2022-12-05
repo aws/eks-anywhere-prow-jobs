@@ -1,0 +1,30 @@
+jobName: brew-update-postsubmit
+runIfChanged: release/triggers/brew-version-release/*
+branches:  
+- ^release-.*$
+architecture: AMD64
+extraRefs:
+  - Org: eks-anywhere-brew-pr-bot
+    Repo: homebrew-tap
+    BaseRef: master
+commands:
+- make update-brew-formula
+volumeMounts:
+  - Name: github-auth
+    MountPath: /secrets/github-secrets
+    ReadOnly: true
+  - Name: ssh-auth
+    MountPath: /secrets/ssh-secrets
+    ReadOnly: true
+volumes:
+  - name: github-auth
+    VolumeType: secret
+    Secret:
+      Name: eksa-brew-pr-bot-github-token
+      DefaultMode: 256
+  - name: ssh-auth
+    VolumeType: secret
+    Secret:
+      Name: eksa-brew-pr-bot-ssh-secret
+      DefaultMode: 256
+        

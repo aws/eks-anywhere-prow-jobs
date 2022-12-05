@@ -1,0 +1,9 @@
+jobName: eks-anywhere-packages-generatebundle-presubmit
+runIfChanged: ^generatebundlefile/
+commands:
+- cd generatebundlefile
+- make presubmit
+resources:
+  requests:
+    memory: 4Gi
+    cpu: 1024m

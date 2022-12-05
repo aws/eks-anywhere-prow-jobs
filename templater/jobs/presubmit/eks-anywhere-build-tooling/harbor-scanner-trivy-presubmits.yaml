@@ -1,0 +1,10 @@
+jobName: harbor-scanner-trivy-tooling-presubmit
+runIfChanged: ^build/lib/.*|Common.mk|projects/aquasecurity/harbor-scanner-trivy/.*
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/aquasecurity/harbor-scanner-trivy
+imageBuild: true
+resources:
+  requests:
+    memory: 8Gi
+    cpu: 1024m

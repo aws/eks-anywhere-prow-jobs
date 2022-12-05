@@ -1,0 +1,10 @@
+jobName: aws-otel-collector-tooling-presubmit
+runIfChanged: EKS_DISTRO_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/aws-observability/aws-otel-collector/.*
+imageBuild: true
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/aws-observability/aws-otel-collector
+resources:
+  requests:
+    memory: 16Gi
+    cpu: 4

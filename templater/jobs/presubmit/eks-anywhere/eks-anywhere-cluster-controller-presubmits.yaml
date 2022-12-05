@@ -1,0 +1,9 @@
+jobName: eks-anywhere-cluster-controller-tooling-presubmit
+runIfChanged: ^config/.*|^controllers/.*
+imageBuild: true
+commands:
+- make build-cluster-controller
+resources:
+  requests:
+    memory: 8Gi
+    cpu: 1024m

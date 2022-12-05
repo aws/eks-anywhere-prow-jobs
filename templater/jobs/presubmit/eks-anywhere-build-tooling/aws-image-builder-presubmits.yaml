@@ -1,0 +1,10 @@
+jobName: aws-image-builder-presubmit
+runIfChanged: ^build/lib/.*|Common.mk|projects/aws/image-builder/.*
+imageBuild: true
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/aws/image-builder
+resources:
+  requests:
+    memory: 4Gi
+    cpu: 1024m

@@ -1,0 +1,10 @@
+jobName: eks-anywhere-diagnostic-collector-tooling-presubmit
+runIfChanged: EKS_DISTRO_BASE_TAG_FILE|EKSD_LATEST_RELEASES|^build/lib/.*|Common.mk|projects/aws/eks-anywhere/.*
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/aws/eks-anywhere
+imageBuild: true
+resources:
+  requests:
+    memory: 8Gi
+    cpu: 1024m

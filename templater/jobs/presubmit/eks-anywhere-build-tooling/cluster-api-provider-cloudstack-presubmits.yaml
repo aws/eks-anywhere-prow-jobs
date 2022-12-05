@@ -1,0 +1,10 @@
+jobName: cluster-api-provider-cloudstack-tooling-presubmit
+runIfChanged: EKS_DISTRO_MINIMAL_BASE_NONROOT_TAG_FILE|^build/lib/.*|Common.mk|projects/kubernetes-sigs/cluster-api-provider-cloudstack/.*
+imageBuild: true
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/kubernetes-sigs/cluster-api-provider-cloudstack
+resources:
+  requests:
+    memory: 16Gi
+    cpu: 4

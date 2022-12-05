@@ -1,6 +1,6 @@
 module github.com/aws/eks-anywhere-prow-jobs
 
-go 1.13
+go 1.16
 
 replace (
 	github.com/containerd/containerd => github.com/containerd/containerd v1.4.8
@@ -18,7 +18,7 @@ replace (
 )
 
 require (
-	github.com/golang-jwt/jwt/v4 v4.1.0 // indirect
+	github.com/aws/eks-distro-prow-jobs v0.0.0-20221129183858-71bf109ed586
 	k8s.io/api v0.21.1
 	k8s.io/test-infra v0.0.0-20210608224924-94f3f2343d63
 	sigs.k8s.io/yaml v1.2.0

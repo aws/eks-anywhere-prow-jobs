@@ -1,0 +1,150 @@
+# Copyright Amazon.com Inc. or its affiliates. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+{{ .editWarning }}
+
+{{ $builderBaseImage := printf "%s:%s" "public.ecr.aws/eks-distro-build-tooling/builder-base" .builderBaseTag -}}
+periodics:
+- name: {{ .prowjobName }}
+  cron: "{{ .cronExpression }}"
+  cluster: "{{ .cluster }}"
+  decoration_config:
+    {{- if .timeout }}
+    timeout: {{ .timeout }}
+    {{- end }}
+    gcs_configuration:
+      bucket: {{ .bucket }}
+      path_strategy: explicit
+    s3_credentials_secret: s3-credentials
+  {{- if .extraRefs }}
+  extra_refs:
+  {{- range .extraRefs }}
+  - org: {{ .Org }}
+    repo: {{ .Repo }}
+    base_ref: {{ .BaseRef }}
+  {{- end }}
+  {{- end }}
+  {{- if or .imageBuild .localRegistry .prCreation }}
+  labels:
+    {{- if .imageBuild }}
+    image-build: "true"
+    {{- end }}
+    {{- if .localRegistry }}
+    local-registry: "true"
+    {{- end }}
+    {{- if .prCreation }}
+    pr-creation: "true"
+    {{- end }}
+  {{- end }}
+  spec:
+    {{- if .architecture }}
+    nodeSelector:
+      arch: "{{ .architecture }}"
+    {{- end }}
+    serviceaccountName: {{ .serviceAccountName }}
+    automountServiceAccountToken: {{ or .automountServiceAccountToken false}}
+    containers:
+    - name: build-container
+      image: {{ or .runtimeImage $builderBaseImage }}
+      command:
+      - bash
+      - -c
+      - >
+        {{- if .imageBuild }}
+        trap 'touch /status/done && rm -rf /home/prow/go/src/' EXIT
+        &&
+        build/lib/buildkit_check.sh
+        &&
+        {{- end }}
+{{ .command | indent 8 }}
+      {{- if or .projectPath .envVars }}
+      env:
+      {{- if .projectPath }}
+      - name: PROJECT_PATH
+        value: "{{ .projectPath }}"
+      {{- end }}
+      {{- if .envVars }}
+      {{- range .envVars }}
+      - name: {{ .Name }}
+        value: "{{ .Value }}"
+      {{- end }}
+      {{- end }}
+      {{- end }}
+      {{- if .resources }}
+      resources:
+        {{- if .resources.Requests }}
+        requests:
+          memory: "{{ .resources.Requests.Memory }}"
+          cpu: "{{ .resources.Requests.CPU }}"
+        {{- end }}
+        {{- if .resources.Limits }}
+        limits:
+          memory: "{{ .resources.Limits.Memory }}"
+          cpu: "{{ .resources.Limits.CPU }}"
+        {{- end }}
+      {{- end }}
+      {{- if .volumeMounts }}
+      volumeMounts:
+      {{- range .volumeMounts }}
+      - name: {{ .Name }}
+        mountPath: {{ .MountPath }}
+        readOnly: {{ .ReadOnly }}
+      {{- end }}
+      {{- end }}
+    {{- if .imageBuild }}
+    - name: buildkitd
+      image: moby/buildkit:{{ .buildkitImageTag }}
+      command:
+      - sh
+      args:
+      - /script/entrypoint.sh
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+    {{- end }}
+    {{- if .localRegistry }}
+    - name: registry
+      image: registry:2
+      command:
+      - sh
+      args:
+      - /registry-script/entrypoint.sh
+      readinessProbe:
+        httpGet:
+          path: /
+          port: 5000
+        initialDelaySeconds: 5
+        periodSeconds: 3
+      resources:
+        requests:
+          memory: "1Gi"
+          cpu: "256m"
+        limits:
+          memory: "1Gi"
+          cpu: "256m"
+    {{- end }}
+    {{- if .volumes }}
+    volumes:
+    {{- range .volumes }}
+    - name: {{ .Name }}
+      {{- if eq .VolumeType "hostPath" }}
+      hostPath:
+        path: {{ .HostPath.Path }}
+      {{- else if eq .VolumeType "secret" }}
+      secret:
+        defaultMode: {{ .Secret.DefaultMode }}
+        secretName: {{ .Secret.Name }}
+      {{- end}}
+    {{- end }}
+    {{- end }}

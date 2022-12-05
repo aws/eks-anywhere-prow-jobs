@@ -1,0 +1,24 @@
+jobName: eks-anywhere-e2e-cleanup-periodic
+cronExpression: 0 */1 * * *
+cluster: prow-presubmits-cluster
+serviceaccountName: presubmits-build-account
+bucket: s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp
+commands:
+- make e2e-cleanup
+envVars:
+- name: TEST_ROLE_ARN
+  value: arn:aws:iam::025778587028:role/EksaTestCleanUpBuildRole
+- name: INTEGRATION_TEST_STORAGE_BUCKET
+  value: testbuildstack-025778587-eksaintegrationtestresou-1tqbb00woona4
+- name: INTEGRATION_TEST_MAX_INSTANCE_AGE
+  value: 16200
+- name: INTEGRATION_TEST_INSTANCE_TAG
+  value: EKSA-E2E
+extraRefs:
+- org: aws
+  repo: eks-anywhere
+  baseRef: main
+resources:
+  requests:
+    cpu: 1024m
+    memory: 4Gi
