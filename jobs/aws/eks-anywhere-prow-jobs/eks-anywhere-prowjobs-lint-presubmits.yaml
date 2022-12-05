@@ -43,12 +43,10 @@ presubmits:
         - >
           make verify-prowjobs -C $PROJECT_PATH
           &&
-          make lint -C $LINT_PROJECT_PATH
+          make
         env:
         - name: PROJECT_PATH
           value: "templater"
-        - name: LINT_PROJECT_PATH
-          value: "linter"
         resources:
           requests:
             memory: "8Gi"
