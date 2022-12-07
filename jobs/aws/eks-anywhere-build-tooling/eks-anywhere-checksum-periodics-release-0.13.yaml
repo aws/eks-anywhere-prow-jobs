@@ -19,7 +19,7 @@
 ################################################################################
 
 periodics:
-- name: eks-anywhere-attribution-periodic-release-0-12
+- name: eks-anywhere-checksum-periodic-release-0-13
   cron: "0 8 * * 1-5"
   cluster: "prow-postsubmits-cluster"
   decoration_config:
@@ -31,7 +31,7 @@ periodics:
   extra_refs:
   - org: aws
     repo: eks-anywhere-build-tooling
-    base_ref: release-0.12
+    base_ref: release-0.13
   labels:
     image-build: "true"
   spec:
@@ -50,10 +50,10 @@ periodics:
         &&
         build/lib/buildkit_check.sh
         &&
-        make update-attribution-files
+        make update-checksum-files
       env:
       - name: PULL_BASE_REF
-        value: "release-0.12"
+        value: "release-0.13"
       resources:
         requests:
           memory: "16Gi"
