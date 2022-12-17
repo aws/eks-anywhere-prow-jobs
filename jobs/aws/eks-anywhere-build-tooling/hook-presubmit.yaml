@@ -49,9 +49,9 @@ presubmits:
           &&
           build/lib/buildkit_check.sh
           &&
-          scripts/local_registry_check.sh
+          build/lib/scripts/local_registry_check.sh
           &&
-          if $(make check-project-path-exists); then make build images -C $PROJECT_PATH; fi
+          if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
         env:
         - name: PROJECT_PATH
           value: "projects/tinkerbell/hook"

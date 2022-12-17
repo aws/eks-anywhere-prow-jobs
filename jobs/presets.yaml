@@ -38,19 +38,6 @@ presets:
     value: "true"
   - name: GOPROXY
     value: "http://athens-proxy.default.svc.cluster.local"
-  volumeMounts:
-  - name: docker-registry-config
-    readOnly: false
-    mountPath: /root/.docker
-  - name: run-buildkit
-    readOnly: false
-    mountPath: /run/buildkit
-  - name: entrypoint
-    readOnly: false
-    mountPath: /script
-  - name: status
-    readOnly: false
-    mountPath: /status
   volumes:
   # The files in this repo update the respective configmaps
   # via the config-updater plugin in plugins.yaml for hook
@@ -75,3 +62,16 @@ presets:
     valueFrom:
       fieldRef:
         fieldPath: metadata.name
+  volumeMounts:
+  - name: docker-registry-config
+    readOnly: false
+    mountPath: /root/.docker
+  - name: run-buildkit
+    readOnly: false
+    mountPath: /run/buildkit
+  - name: entrypoint
+    readOnly: false
+    mountPath: /script
+  - name: status
+    readOnly: false
+    mountPath: /status
