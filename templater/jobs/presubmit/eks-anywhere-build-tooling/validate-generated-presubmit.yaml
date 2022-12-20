@@ -2,6 +2,7 @@ jobName: validate-generated-presubmit
 runIfChanged: ^build/lib/.*|Common.mk|Makefile|EKSD_LATEST_RELEASES|GIT_TAG|staging-build.yml|.*buildspec.*
 commands:
 - if [ -f build/lib/generate_staging_buildspec.sh ]; then make validate-generated; fi
+- trap 'touch /status/done && rm -rf /home/prow/go/src/' EXIT
 resources:
   requests:
     memory: 8Gi

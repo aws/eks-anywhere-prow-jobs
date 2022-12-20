@@ -67,7 +67,7 @@ periodics:
         build/lib/buildkit_check.sh
         &&
         {{- if .localRegistry }}
-        build/lib/scripts/local_registry_check.sh
+        build/lib/local_registry_check.sh
         &&
         {{- end}}
         {{- end }}
