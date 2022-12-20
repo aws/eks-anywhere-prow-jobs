@@ -1,8 +1,8 @@
 jobName: linux-bootconfig-presubmit
 runIfChanged: ^build/lib/.*|Common.mk|projects/torvalds/linux/.*
 commands:
-- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
 - trap 'touch /status/done && rm -rf /home/prow/go/src/' EXIT
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
 projectPath: projects/torvalds/linux
 envVars:
 - name: ARTIFACTS_BUCKET

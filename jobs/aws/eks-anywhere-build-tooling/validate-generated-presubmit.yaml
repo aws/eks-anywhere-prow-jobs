@@ -43,9 +43,9 @@ presubmits:
         - bash
         - -c
         - >
-          if [ -f build/lib/generate_staging_buildspec.sh ]; then make validate-generated; fi
-          &&
           trap 'touch /status/done && rm -rf /home/prow/go/src/' EXIT
+          &&
+          if [ -f build/lib/generate_staging_buildspec.sh ]; then make validate-generated; fi
         resources:
           requests:
             memory: "8Gi"

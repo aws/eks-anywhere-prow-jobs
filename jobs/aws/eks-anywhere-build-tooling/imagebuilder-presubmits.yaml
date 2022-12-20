@@ -43,9 +43,9 @@ presubmits:
         - bash
         - -c
         - >
-          if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
-          &&
           trap 'touch /status/done && rm -rf /home/prow/go/src/' EXIT
+          &&
+          if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
         env:
         - name: PROJECT_PATH
           value: "projects/kubernetes-sigs/image-builder"
