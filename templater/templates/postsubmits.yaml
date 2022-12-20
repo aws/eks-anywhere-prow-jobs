@@ -80,10 +80,6 @@ postsubmits:
           &&
           build/lib/buildkit_check.sh
           &&
-          {{- if .localRegistry }}
-          build/lib/scripts/local_registry_check.sh
-          &&
-          {{- end}}
           {{- end }}
 {{ .command | indent 10 }}
         {{- if or .projectPath .envVars }}

@@ -34,7 +34,6 @@ presubmits:
     labels:
       image-build: "true"
       local-registry: "true"
-      disk-usage: "true"
     spec:
       serviceaccountName: presubmits-build-account
       automountServiceAccountToken: false
@@ -48,8 +47,6 @@ presubmits:
           trap 'touch /status/done && rm -rf /home/prow/go/src/' EXIT
           &&
           build/lib/buildkit_check.sh
-          &&
-          build/lib/scripts/local_registry_check.sh
           &&
           if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
         env:
@@ -82,9 +79,3 @@ presubmits:
             port: 5000
           initialDelaySeconds: 5
           periodSeconds: 3
-      - command:
-        - sh
-        args:
-        - /disk-usage-script/entrypoint.sh
-        image: public.ecr.aws/amazonlinux/amazonlinux:2
-        name: disk-monitor
