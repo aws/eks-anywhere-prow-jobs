@@ -1,7 +1,6 @@
 jobName: imagebuilder-presubmit
 runIfChanged: EKSD_LATEST_RELEASES|^build/lib/.*|Common.mk|projects/kubernetes-sigs/image-builder/.*
 commands:
-- trap 'touch /status/done && rm -rf /home/prow/go/src/' EXIT
 - if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
 projectPath: projects/kubernetes-sigs/image-builder
 envVars:
