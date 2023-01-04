@@ -102,7 +102,6 @@ func main() {
 					"cluster":                      cluster,
 					"bucket":                       bucket,
 					"projectPath":                  jobConfig.ProjectPath,
-					"diskUsage":                    true,
 				}
 
 				err := GenerateProwjob(fileName, template, data)

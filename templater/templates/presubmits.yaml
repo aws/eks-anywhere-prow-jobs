@@ -45,7 +45,7 @@ presubmits:
         bucket: {{ .bucket }}
         path_strategy: explicit
       s3_credentials_secret: s3-credentials
-    {{- if or .imageBuild .localRegistry .prCreation .diskUsage }}
+    {{- if or .imageBuild .localRegistry .prCreation }}
     labels:
       {{- if .imageBuild }}
       image-build: "true"
@@ -56,9 +56,6 @@ presubmits:
       {{- if .prCreation }}
       pr-creation: "true"
       {{- end }}
-      {{- if .diskUsage }}
-      disk-usage: "true"
-      {{- end}}
     {{- end }}
     spec:
       serviceaccountName: {{ .serviceAccountName }}
@@ -143,14 +140,6 @@ presubmits:
             port: 5000
           initialDelaySeconds: 5
           periodSeconds: 3
-      {{- end }}
-      {{- if .diskUsage }}
-      - command:
-        - sh
-        args:
-        - /disk-usage-script/entrypoint.sh
-        image: public.ecr.aws/amazonlinux/amazonlinux:2
-        name: disk-monitor
       {{- end }}
       {{- if .volumes }}
       volumes:
