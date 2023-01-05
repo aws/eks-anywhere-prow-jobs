@@ -43,6 +43,8 @@ presubmits:
         - bash
         - -c
         - >
+          trap 'touch /status/done && rm -rf /home/prow/go/src/' EXIT
+          &&
           make unit-test -C $PROJECT_PATH
         env:
         - name: PROJECT_PATH

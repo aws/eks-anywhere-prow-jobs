@@ -48,6 +48,8 @@ presubmits:
           &&
           build/lib/buildkit_check.sh
           &&
+          build/lib/local_registry_check.sh
+          &&
           if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
         env:
         - name: PROJECT_PATH

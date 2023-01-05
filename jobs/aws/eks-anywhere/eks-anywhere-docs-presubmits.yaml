@@ -41,6 +41,8 @@ presubmits:
         - bash
         - -c
         - >
+          trap 'touch /status/done && rm -rf /home/prow/go/src/' EXIT
+          &&
           make build -C docs
           &&
           mv ./docs/public/* /logs/artifacts

@@ -41,6 +41,8 @@ presubmits:
         - bash
         - -c
         - >
+          trap 'touch /status/done && rm -rf /home/prow/go/src/' EXIT
+          &&
           make verify-prowjobs -C $PROJECT_PATH
           &&
           make
