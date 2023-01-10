@@ -20,7 +20,7 @@
 
 periodics:
 - name: eks-anywhere-generate-golden-files-periodic
-  cron: "0 8 * * 1-5"
+  cron: "8 * * * 1-5"
   cluster: "prow-presubmits-cluster"
   decoration_config:
     timeout: 3h
