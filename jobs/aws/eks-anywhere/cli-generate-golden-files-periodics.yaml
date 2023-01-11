@@ -20,10 +20,10 @@
 
 periodics:
 - name: eks-anywhere-generate-golden-files-periodic
-  cron: "0 8 * * 1-5"
+  cron: "8 * * * 1-5"
   cluster: "prow-presubmits-cluster"
   decoration_config:
-    timeout: 3h
+    timeout: 30m
     gcs_configuration:
       bucket: s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp
       path_strategy: explicit
