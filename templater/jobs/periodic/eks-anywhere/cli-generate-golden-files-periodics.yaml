@@ -1,6 +1,6 @@
 jobName: eks-anywhere-generate-golden-files-periodic
-cronExpression: 0 8 * * 1-5
-timeout: 3h
+cronExpression: 8 * * * 1-5
+timeout: 30m
 commands:
 - make update-golden-files
 cluster: prow-presubmits-cluster
