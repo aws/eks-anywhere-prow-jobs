@@ -1,17 +1,17 @@
-jobName: eks-anywhere-attribution-periodic-release-0-13
+jobName: eks-anywhere-checksum-periodic-release-0-14
 cronExpression: 0 8 * * 1-5
 timeout: 4h
 commands:
-- make update-attribution-files
+- make update-checksum-files
 imageBuild: true
 architecture: AMD64
 envVars:
 - name: PULL_BASE_REF
-  value: release-0.13
+  value: release-0.14
 extraRefs:
 - org: aws
   repo: eks-anywhere-build-tooling
-  baseRef: release-0.13
+  baseRef: release-0.14
 resources:
   requests:
     cpu: 5
