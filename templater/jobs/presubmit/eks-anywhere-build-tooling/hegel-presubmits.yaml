@@ -1,0 +1,10 @@
+jobName: hegel-tooling-presubmit
+runIfChanged: EKS_DISTRO_MINIMAL_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/tinkerbell/hegel/.*
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/tinkerbell/hegel
+imageBuild: true
+resources:
+  requests:
+    memory: 8Gi
+    cpu: 1024m

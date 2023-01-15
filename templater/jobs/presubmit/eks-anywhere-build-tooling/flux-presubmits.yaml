@@ -1,0 +1,10 @@
+jobName: flux-tooling-presubmit
+runIfChanged: EKSD_LATEST_RELEASES|^build/lib/.*|Common.mk|projects/fluxcd/flux2/.*
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/fluxcd/flux2
+imageBuild: true
+resources:
+  requests:
+    memory: 8Gi
+    cpu: 1024m

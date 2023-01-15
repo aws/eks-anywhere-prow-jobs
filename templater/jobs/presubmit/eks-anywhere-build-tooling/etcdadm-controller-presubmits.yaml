@@ -1,0 +1,10 @@
+jobName: etcdadm-controller-tooling-presubmit
+runIfChanged: EKS_DISTRO_MINIMAL_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/aws/etcdadm-controller/.*
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/aws/etcdadm-controller
+imageBuild: true
+resources:
+  requests:
+    memory: 8Gi
+    cpu: 1024m

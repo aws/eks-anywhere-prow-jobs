@@ -1,0 +1,12 @@
+jobName: imagebuilder-presubmit
+runIfChanged: EKSD_LATEST_RELEASES|^build/lib/.*|Common.mk|projects/kubernetes-sigs/image-builder/.*
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/kubernetes-sigs/image-builder
+envVars:
+- name: ARTIFACTS_BUCKET
+  value: s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f
+resources:
+  requests:
+    memory: 16Gi
+    cpu: 4

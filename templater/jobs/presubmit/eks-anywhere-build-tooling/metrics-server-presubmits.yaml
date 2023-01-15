@@ -1,0 +1,10 @@
+jobName: metrics-server-presubmit
+runIfChanged: ^build/lib/.*|Common.mk|projects/kubernetes-sigs/metrics-server/.*
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/kubernetes-sigs/metrics-server
+imageBuild: true
+resources:
+  requests:
+    memory: 16Gi
+    cpu: 4

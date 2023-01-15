@@ -1,0 +1,10 @@
+jobName: local-path-provisioner-tooling-presubmit
+runIfChanged: EKS_DISTRO_MINIMAL_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/rancher/local-path-provisioner/.*
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/rancher/local-path-provisioner
+imageBuild: true
+resources:
+  requests:
+    memory: 8Gi
+    cpu: 1024m

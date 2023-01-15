@@ -1,0 +1,8 @@
+jobName: eks-anywhere-mocks-presubmits
+runIfChanged: Makefile|cmd/.*|flux/.*|go.mod|go.sum|hack/.*|internal/.*|pkg/.*
+commands:
+- make verify-mocks
+resources:
+  requests:
+    memory: 4Gi
+    cpu: 1024m

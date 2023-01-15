@@ -117,7 +117,7 @@ func BucketCheck(jc *JobConstants) presubmitCheck {
 		if strings.Contains(presubmitConfig.JobBase.Name, "arm64") {
 			return true, 0, ""
 		}
-		
+
 		if presubmitConfig.JobBase.UtilityConfig.DecorationConfig.GCSConfiguration.Bucket != jc.Bucket {
 			return false, findLineNumber(fileContentsString, "bucket:"), fmt.Sprintf(`Incorrect bucket configuration, please configure S3 bucket as => bucket: %s`, jc.Bucket)
 		}
@@ -191,7 +191,7 @@ func getFilesChanged(gitRoot string, pullBaseSha string, pullPullSha string) ([]
 
 	filesChanged := strings.Fields(string(gitDiffOutput))
 	for _, file := range filesChanged {
-		if strings.Contains(file, "presubmits") {
+		if strings.Contains(file, "presubmits") && strings.HasPrefix(file, "jobs") && strings.HasSuffix(file, "yaml") {
 			presubmitFiles = append(presubmitFiles, file)
 		}
 	}

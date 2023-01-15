@@ -1,0 +1,168 @@
+# Copyright Amazon.com Inc. or its affiliates. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+{{ .editWarning }}
+
+{{ $builderBaseImage := printf "%s:%s" "public.ecr.aws/eks-distro-build-tooling/builder-base" .builderBaseTag -}}
+presubmits:
+  {{ .repoName }}:
+  - name: {{ .prowjobName }}
+    always_run: false
+    run_if_changed: "{{ .runIfChanged }}"
+    {{- if .branches }}
+    branches:
+    {{- range .branches }}
+    - {{ . }}
+    {{- end }}
+    {{- end }}
+    cluster: "{{ .cluster }}"
+    max_concurrency: {{or .maxConcurrency 10 }}
+    skip_report: false
+    {{- if .extraRefs }}
+    extra_refs:
+    {{- range .extraRefs }}
+    - org: {{ .Org }}
+      repo: {{ .Repo }}
+      base_ref: {{ .BaseRef }}
+    {{- end }}
+    {{- end }}
+    decoration_config:
+      {{- if .timeout }}
+      timeout: {{ .timeout }}
+      {{- end }}
+      gcs_configuration:
+        bucket: {{ .bucket }}
+        path_strategy: explicit
+      s3_credentials_secret: s3-credentials
+    {{- if or .imageBuild .localRegistry .prCreation .diskUsage }}
+    labels:
+      {{- if .imageBuild }}
+      image-build: "true"
+      {{- end }}
+      {{- if .localRegistry }}
+      local-registry: "true"
+      {{- end }}
+      {{- if .prCreation }}
+      pr-creation: "true"
+      {{- end }}
+      {{- if .diskUsage }}
+      disk-usage: "true"
+      {{- end}}
+    {{- end }}
+    spec:
+      serviceaccountName: {{ .serviceAccountName }}
+      automountServiceAccountToken: {{ or .automountServiceAccountToken false}}
+      {{- if .architecture }}
+      nodeSelector:
+        arch: "{{ or .architecture }}"
+      {{- end }}
+      containers:
+      - name: build-container
+        image: {{ or .runtimeImage $builderBaseImage }}
+        command:
+        - bash
+        - -c
+        - >
+          trap 'touch /status/done && rm -rf /home/prow/go/src/' EXIT
+          &&
+          {{- if .imageBuild }}
+          build/lib/buildkit_check.sh
+          &&
+          {{- if .localRegistry }}
+          build/lib/local_registry_check.sh
+          &&
+          {{- end}}
+          {{- end}}
+{{ .command | indent 10 }}
+        {{- if or .projectPath .envVars }}
+        env:
+        {{- if .projectPath }}
+        - name: PROJECT_PATH
+          value: "{{ .projectPath }}"
+        {{- end }}
+        {{- if .envVars }}
+        {{- range .envVars }}
+        - name: {{ .Name }}
+          value: "{{ .Value }}"
+        {{- end }}
+        {{- end }}
+        {{- end }}
+        {{- if .resources }}
+        resources:
+          {{- if .resources.Requests }}
+          requests:
+            memory: "{{ .resources.Requests.Memory }}"
+            cpu: "{{ .resources.Requests.CPU }}"
+          {{- end }}
+          {{- if .resources.Limits }}
+          limits:
+            memory: "{{ .resources.Limits.Memory }}"
+            cpu: "{{ .resources.Limits.CPU }}"
+          {{- end}}
+        {{- end }}
+        {{- if .volumeMounts }}
+        volumeMounts:
+        {{- range .volumeMounts }}
+        - name: {{ .Name }}
+          mountPath: {{ .MountPath }}
+          readOnly: {{ .ReadOnly }}
+        {{- end }}
+        {{- end }}
+      {{- if .imageBuild }}
+      - name: buildkitd
+        image: moby/buildkit:{{ .buildkitImageTag }}
+        command:
+        - sh
+        args:
+        - /script/entrypoint.sh
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+      {{- end }}
+      {{- if .localRegistry }}
+      - name: registry
+        image: public.ecr.aws/docker/library/registry:2
+        command:
+        - sh
+        args:
+        - /registry-script/entrypoint.sh
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 5000
+          initialDelaySeconds: 5
+          periodSeconds: 3
+      {{- end }}
+      {{- if .diskUsage }}
+      - command:
+        - sh
+        args:
+        - /disk-usage-script/entrypoint.sh
+        image: public.ecr.aws/amazonlinux/amazonlinux:2
+        name: disk-monitor
+      {{- end }}
+      {{- if .volumes }}
+      volumes:
+      {{- range .volumes }}
+      - name: {{ .Name }}
+        {{- if eq .VolumeType "hostPath"}}
+        hostPath:
+          path: {{ .HostPath.Path }}
+        {{- else if eq .VolumeType "secret"}}
+        secret:
+          secretName: {{ .Secret.Name }}
+          defaultMode: {{ .Secret.DefaultMode }}
+        {{- end}}
+      {{- end }}
+      {{- end }}

@@ -1,0 +1,10 @@
+jobName: kube-rbac-proxy-tooling-presubmit
+runIfChanged: EKS_DISTRO_MINIMAL_BASE_NONROOT_TAG_FILE|^build/lib/.*|Common.mk|projects/brancz/kube-rbac-proxy/.*
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/brancz/kube-rbac-proxy
+imageBuild: true
+resources:
+  requests:
+    memory: 4Gi
+    cpu: 1024m

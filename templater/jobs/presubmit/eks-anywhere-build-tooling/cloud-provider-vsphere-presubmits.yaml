@@ -1,0 +1,10 @@
+jobName: cloud-provider-vsphere-tooling-presubmit
+runIfChanged: EKS_DISTRO_MINIMAL_BASE_TAG_FILE|EKSD_LATEST_RELEASES|^build/lib/.*|Common.mk|projects/kubernetes/cloud-provider-vsphere/.*
+imageBuild: true
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/kubernetes/cloud-provider-vsphere
+resources:
+  requests:
+    memory: 16Gi
+    cpu: 4

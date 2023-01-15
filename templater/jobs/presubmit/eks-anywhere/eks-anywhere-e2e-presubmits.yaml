@@ -1,0 +1,22 @@
+jobName: eks-anywhere-e2e-presubmit
+runIfChanged: Makefile|cmd/.*|flux/.*|go.mod|go.sum|hack/.*|internal/.*|pkg/.*|test/.*|release/.*|controllers/.*
+imageBuild: true
+branches:
+- ^main$
+envVars:
+- name: TEST_ROLE_ARN
+  value: arn:aws:iam::025778587028:role/EksaTestBuildRole
+- name: INTEGRATION_TEST_AL2_AMI_ID
+  value: ami-0b8fba770ae226f0b
+- name: INTEGRATION_TEST_STORAGE_BUCKET
+  value: testbuildstack-025778587-eksaintegrationtestresou-1tqbb00woona4
+- name: INTEGRATION_TEST_INSTANCE_PROFILE
+  value: EksaE2eSsmBuildRole
+- name: IMAGE_REPO
+  value: public.ecr.aws/h1r8a7l5
+commands:
+- set -o pipefail && make docker-e2e-test | while IFS= read -r line; do printf "%s %s\n" "$(date --rfc-3339=seconds)" "$line"; done
+resources:
+  requests:
+    memory: 16Gi
+    cpu: 4

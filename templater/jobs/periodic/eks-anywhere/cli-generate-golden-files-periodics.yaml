@@ -1,0 +1,34 @@
+jobName: eks-anywhere-generate-golden-files-periodic
+cronExpression: 8 * * * 1-5
+timeout: 30m
+commands:
+- make update-golden-files
+cluster: prow-presubmits-cluster
+serviceaccountName: presubmits-build-account
+bucket: s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp
+extraRefs:
+- org: aws
+  repo: eks-anywhere
+  baseRef: main
+resources:
+  requests:
+    cpu: 4
+    memory: 16Gi
+volumeMounts:
+- name: ssh-auth
+  mountPath: /secrets/ssh-secrets
+  readOnly: true
+- name: github-auth
+  mountPath: /secrets/github-secrets
+  readOnly: true
+volumes:
+- name: ssh-auth
+  VolumeType: secret
+  Secret:
+    DefaultMode: 256
+    Name: pr-bot-ssh-secret
+- name: github-auth
+  VolumeType: secret
+  Secret:
+    DefaultMode: 256
+    Name: pr-bot-github-token
