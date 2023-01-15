@@ -19,7 +19,7 @@
 ################################################################################
 
 periodics:
-  - name: eks-anywhere-cli-attribution-periodic
+- name: eks-anywhere-cli-attribution-periodic
   cron: "0 8 * * 1-5"
   cluster: "prow-presubmits-cluster"
   decoration_config:
