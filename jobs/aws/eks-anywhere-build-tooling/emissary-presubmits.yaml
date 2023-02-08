@@ -52,6 +52,8 @@ presubmits:
         env:
         - name: PROJECT_PATH
           value: "projects/emissary-ingress/emissary"
+        - name: PRUNE_BUILDCTL
+          value: "true"
         resources:
           requests:
             memory: "16Gi"
