@@ -6,9 +6,9 @@ commands:
 projectPath: projects/aws/bottlerocket-bootstrap
 envVars:
 - name: ARTIFACTS_BUCKET
-  value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
+  value: s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f
 - name: PRUNE_BUILDCTL
-  value: "true"
+  value: true
 resources:
   requests:
     memory: 16Gi
