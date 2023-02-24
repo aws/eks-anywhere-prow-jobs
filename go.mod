@@ -8,7 +8,11 @@ replace (
 	github.com/miekg/dns => github.com/miekg/dns v1.1.25
 	github.com/nats-io/nats-server/v2 => github.com/nats-io/nats-server/v2 v2.2.0
 	github.com/opencontainers/runc => github.com/opencontainers/runc v1.0.0-rc95
+	github.com/prometheus/client_golang => github.com/prometheus/client_golang v1.11.1
 	github.com/ulikunitz/xz => github.com/ulikunitz/xz v0.5.8
+	golang.org/x/crypto/ssh => golang.org/x/crypto/ssh v0.0.0-20220314234659-1baeb1ce4c0b
+	golang.org/x/net/http => golang.org/x/net/http v0.0.0-20220906165146-f3363e06e74c
+	golang.org/x/text => golang.org/x/text v0.3.8
 	helm.sh/helm/v3 => helm.sh/helm/v3 v3.6.1
 	k8s.io/api => k8s.io/api v0.20.2
 	k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.20.1
