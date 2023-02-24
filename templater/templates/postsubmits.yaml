@@ -31,6 +31,7 @@ postsubmits:
     {{- end }}
     {{- end }}
     cluster: "{{ .cluster }}"
+    error_on_eviction: true
     max_concurrency: {{or .maxConcurrency 10 }}
     skip_report: false
     {{- if .extraRefs }}

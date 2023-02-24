@@ -19,6 +19,7 @@ periodics:
 - name: {{ .prowjobName }}
   cron: "{{ .cronExpression }}"
   cluster: "{{ .cluster }}"
+  error_on_eviction: true
   decoration_config:
     {{- if .timeout }}
     timeout: {{ .timeout }}

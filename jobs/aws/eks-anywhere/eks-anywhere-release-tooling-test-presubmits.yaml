@@ -26,6 +26,7 @@ presubmits:
     branches:
     - ^main$
     cluster: "prow-presubmits-cluster"
+    error_on_eviction: true
     max_concurrency: 1
     skip_report: false
     decoration_config:

@@ -22,6 +22,7 @@ periodics:
 - name: eks-anywhere-generate-golden-files-periodic
   cron: "8 * * * 1-5"
   cluster: "prow-presubmits-cluster"
+  error_on_eviction: true
   decoration_config:
     timeout: 30m
     gcs_configuration:
