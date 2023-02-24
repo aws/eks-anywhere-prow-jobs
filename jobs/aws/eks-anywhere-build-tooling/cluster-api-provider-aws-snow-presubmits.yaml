@@ -24,6 +24,7 @@ presubmits:
     always_run: false
     run_if_changed: "^build/lib/.*|Common.mk|projects/aws/cluster-api-provider-aws-snow/.*"
     cluster: "prow-presubmits-cluster"
+    error_on_eviction: true
     max_concurrency: 10
     skip_report: false
     decoration_config:
