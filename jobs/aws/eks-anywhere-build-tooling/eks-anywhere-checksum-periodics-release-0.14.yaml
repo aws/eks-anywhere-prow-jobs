@@ -35,6 +35,7 @@ periodics:
     base_ref: release-0.14
   labels:
     image-build: "true"
+    disk-usage: "true"
   spec:
     nodeSelector:
       arch: "AMD64"
@@ -75,6 +76,12 @@ periodics:
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
+      - command:
+        - sh
+        args:
+        - /disk-usage-script/entrypoint.sh
+        image: public.ecr.aws/amazonlinux/amazonlinux:2
+        name: disk-monitor
     volumes:
     - name: ssh-auth
       secret:
