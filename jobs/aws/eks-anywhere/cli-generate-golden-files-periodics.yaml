@@ -33,6 +33,8 @@ periodics:
   - org: aws
     repo: eks-anywhere
     base_ref: main
+  labels:
+    disk-usage: "true"
   spec:
     serviceaccountName: presubmits-build-account
     automountServiceAccountToken: false
@@ -55,6 +57,12 @@ periodics:
       - name: github-auth
         mountPath: /secrets/github-secrets
         readOnly: true
+      - command:
+        - sh
+        args:
+        - /disk-usage-script/entrypoint.sh
+        image: public.ecr.aws/amazonlinux/amazonlinux:2
+        name: disk-monitor
     volumes:
     - name: ssh-auth
       secret:

@@ -36,7 +36,7 @@ periodics:
     base_ref: {{ .BaseRef }}
   {{- end }}
   {{- end }}
-  {{- if or .imageBuild .localRegistry .prCreation }}
+  {{- if or .imageBuild .localRegistry .prCreation .diskUsage }}
   labels:
     {{- if .imageBuild }}
     image-build: "true"
@@ -47,6 +47,9 @@ periodics:
     {{- if .prCreation }}
     pr-creation: "true"
     {{- end }}
+    {{- if .diskUsage }}
+    disk-usage: "true"
+    {{- end}}
   {{- end }}
   spec:
     {{- if .architecture }}
@@ -139,6 +142,14 @@ periodics:
           memory: "1Gi"
           cpu: "256m"
     {{- end }}
+    {{- if .diskUsage }}
+      - command:
+        - sh
+        args:
+        - /disk-usage-script/entrypoint.sh
+        image: public.ecr.aws/amazonlinux/amazonlinux:2
+        name: disk-monitor
+      {{- end }}
     {{- if .volumes }}
     volumes:
     {{- range .volumes }}
