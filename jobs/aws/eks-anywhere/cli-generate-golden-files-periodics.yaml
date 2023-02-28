@@ -45,6 +45,8 @@ periodics:
       - bash
       - -c
       - >
+        trap 'touch /status/done && rm -rf /home/prow/go/src/' EXIT
+        &&
         make update-golden-files
       resources:
         requests:

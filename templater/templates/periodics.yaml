@@ -65,9 +65,9 @@ periodics:
       - bash
       - -c
       - >
-        {{- if .imageBuild }}
         trap 'touch /status/done && rm -rf /home/prow/go/src/' EXIT
         &&
+        {{- if .imageBuild }}
         build/lib/buildkit_check.sh
         &&
         {{- if .localRegistry }}

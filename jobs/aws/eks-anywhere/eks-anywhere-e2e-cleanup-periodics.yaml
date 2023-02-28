@@ -44,6 +44,8 @@ periodics:
       - bash
       - -c
       - >
+        trap 'touch /status/done && rm -rf /home/prow/go/src/' EXIT
+        &&
         make e2e-cleanup
       env:
       - name: TEST_ROLE_ARN
