@@ -60,12 +60,12 @@ postsubmits:
         - name: ssh-auth
           mountPath: /secrets/ssh-secrets
           readOnly: true
-      - command:
+      - name: disk-monitor
+        image: public.ecr.aws/amazonlinux/amazonlinux:2
+        command:
         - sh
         args:
         - /disk-usage-script/entrypoint.sh
-        image: public.ecr.aws/amazonlinux/amazonlinux:2
-        name: disk-monitor
       volumes:
       - name: github-auth
         secret:
