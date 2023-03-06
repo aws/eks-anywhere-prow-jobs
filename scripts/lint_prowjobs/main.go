@@ -43,7 +43,7 @@ type JobConstants struct {
 	Cluster            string        `yaml:"cluster"`
 	ServiceAccountName string        `yaml:"serviceAccountName"`
 	DefaultMakeTarget  string        `yaml:"defaultMakeTarget"`
-	EnvVars            []core.EnvVar `json:"env,omitempty"` // format has to be json to match core.EnvVar ((https://pkg.go.dev/k8s.io/api/core/v1#EnvVar)) in order to unmarshall embedded struct
+	EnvVars            []core.EnvVar `json:"env,omitempty"` // format has to be json to match core.EnvVar (https://pkg.go.dev/k8s.io/api/core/v1#EnvVar) in order to unmarshall embedded struct
 }
 
 func (jc *JobConstants) envVarExist(key string) (int, bool) {
@@ -249,7 +249,7 @@ func displayConfigErrors(fileErrorMap map[string][]string) bool {
 
 func main() {
 	var jobConfig config.JobConfig
-	var presubmitErrors = make(map[string][]string)
+	presubmitErrors := make(map[string][]string)
 
 	pullBaseSha := os.Getenv(PULL_BASE_SHA_ENV)
 	pullPullSha := os.Getenv(PULL_PULL_SHA_ENV)

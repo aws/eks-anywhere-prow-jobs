@@ -14,9 +14,11 @@ import (
 	"github.com/aws/eks-distro-prow-jobs/templater/jobs/utils"
 )
 
-var jobsFolder = "jobs"
-var orgsSupported = []string{"aws"}
-var jobTypes = []string{"periodic", "postsubmit", "presubmit"}
+var (
+	jobsFolder    = "jobs"
+	orgsSupported = []string{"aws"}
+	jobTypes      = []string{"periodic", "postsubmit", "presubmit"}
+)
 
 //go:embed templates/presubmits.yaml
 var presubmitTemplate string
@@ -162,7 +164,6 @@ func useTemplate(jobType string) (string, error) {
 }
 
 func clusterDetails(jobType string, cluster string, bucket string, serviceAccountName string) (string, string, string) {
-
 	if jobType == "presubmit" && len(cluster) == 0 {
 		cluster = "prow-presubmits-cluster"
 		bucket = "s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp"
