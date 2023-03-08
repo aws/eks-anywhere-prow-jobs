@@ -20,7 +20,7 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: cloud-provider-vsphere-tooling-presubmit
+  - name: cloud-provider-vsphere-1-24-tooling-presubmit
     always_run: false
     run_if_changed: "EKS_DISTRO_MINIMAL_BASE_TAG_FILE|EKSD_LATEST_RELEASES|^build/lib/.*|Common.mk|projects/kubernetes/cloud-provider-vsphere/.*"
     cluster: "prow-presubmits-cluster"
@@ -53,6 +53,8 @@ presubmits:
         env:
         - name: PROJECT_PATH
           value: "projects/kubernetes/cloud-provider-vsphere"
+        - name: RELEASE_BRANCH
+          value: "1-24"
         - name: PRUNE_BUILDCTL
           value: "true"
         resources:
