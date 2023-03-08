@@ -11,7 +11,7 @@ envVars:
   value: true
 resources:
   requests:
-    cpu: 4
+    cpu: 8
     memory: 16Gi
         
         

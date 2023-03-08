@@ -9,6 +9,6 @@ envVars:
 imageBuild: true
 resources:
   requests:
-    memory: 8Gi
-    cpu: 1024m
+    memory: 16Gi
+    cpu: 4
 

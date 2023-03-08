@@ -6,5 +6,5 @@ commands:
 projectPath: projects/kubernetes-sigs/cluster-api
 resources:
   requests:
-    memory: 8Gi
-    cpu: 2048m
+    memory: 16Gi
+    cpu: 4
