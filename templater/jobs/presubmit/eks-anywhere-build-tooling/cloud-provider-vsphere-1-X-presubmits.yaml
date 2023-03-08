@@ -1,4 +1,4 @@
-jobName: cloud-provider-vsphere-tooling-presubmit
+jobName: cloud-provider-vsphere-{{ .releaseBranch }}-tooling-presubmit
 runIfChanged: EKS_DISTRO_MINIMAL_BASE_TAG_FILE|EKSD_LATEST_RELEASES|^build/lib/.*|Common.mk|projects/kubernetes/cloud-provider-vsphere/.*
 imageBuild: true
 commands:
@@ -9,5 +9,7 @@ resources:
     memory: 16Gi
     cpu: 4
 envVars:
+  - name: RELEASE_BRANCH
+    value: {{ .releaseBranch }}
   - name: PRUNE_BUILDCTL
     value: true

@@ -20,7 +20,7 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: imagebuilder-presubmit
+  - name: imagebuilder-1-22-presubmit
     always_run: false
     run_if_changed: "EKSD_LATEST_RELEASES|^build/lib/.*|Common.mk|projects/kubernetes-sigs/image-builder/.*"
     cluster: "prow-presubmits-cluster"
@@ -50,6 +50,8 @@ presubmits:
         env:
         - name: PROJECT_PATH
           value: "projects/kubernetes-sigs/image-builder"
+        - name: RELEASE_BRANCH
+          value: "1-22"
         - name: ARTIFACTS_BUCKET
           value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
         resources:
