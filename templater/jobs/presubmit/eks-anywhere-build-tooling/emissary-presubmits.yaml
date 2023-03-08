@@ -7,7 +7,7 @@ imageBuild: true
 resources:
   requests:
     memory: 16Gi
-    cpu: 4
+    cpu: 8
 envVars:
   - name: PRUNE_BUILDCTL
     value: true

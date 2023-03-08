@@ -55,8 +55,8 @@ presubmits:
           value: "projects/aquasecurity/trivy"
         resources:
           requests:
-            memory: "8Gi"
-            cpu: "1024m"
+            memory: "16Gi"
+            cpu: "4"
       - name: buildkitd
         image: moby/buildkit:v0.10.5-rootless
         command:

@@ -9,5 +9,5 @@ envVars:
   value: s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f
 resources:
   requests:
-    memory: 4Gi
-    cpu: 1024m
+    memory: 16Gi
+    cpu: 4
