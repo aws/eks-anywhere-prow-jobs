@@ -53,6 +53,11 @@ presubmits:
         env:
         - name: PROJECT_PATH
           value: "projects/fluxcd/source-controller"
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: public-access-github-token
+              key: token
         - name: BINARY_PLATFORMS
           value: "linux/amd64"
         - name: FAKE_ARM_ARTIFACTS_FOR_VALIDATION

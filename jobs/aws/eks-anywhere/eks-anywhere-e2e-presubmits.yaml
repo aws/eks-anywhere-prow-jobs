@@ -53,6 +53,11 @@ presubmits:
           &&
           set -o pipefail && make docker-e2e-test | while IFS= read -r line; do printf "%s %s\n" "$(date --rfc-3339=seconds)" "$line"; done
         env:
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: public-access-github-token
+              key: token
         - name: TEST_ROLE_ARN
           value: "arn:aws:iam::025778587028:role/EksaTestBuildRole"
         - name: INTEGRATION_TEST_AL2_AMI_ID

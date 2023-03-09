@@ -56,6 +56,11 @@ presubmits:
         env:
         - name: PROJECT_PATH
           value: "projects/tinkerbell/hook"
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: public-access-github-token
+              key: token
         - name: IMAGE_REPO
           value: "localhost:5000"
         resources:

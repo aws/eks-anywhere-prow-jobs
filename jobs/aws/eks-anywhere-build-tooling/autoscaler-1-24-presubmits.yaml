@@ -53,6 +53,11 @@ presubmits:
         env:
         - name: PROJECT_PATH
           value: "projects/kubernetes/autoscaler"
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: public-access-github-token
+              key: token
         - name: RELEASE_BRANCH
           value: "1-24"
         - name: PRUNE_BUILDCTL

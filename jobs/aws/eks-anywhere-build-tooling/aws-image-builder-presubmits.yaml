@@ -53,6 +53,11 @@ presubmits:
         env:
         - name: PROJECT_PATH
           value: "projects/aws/image-builder"
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: public-access-github-token
+              key: token
         resources:
           requests:
             memory: "4Gi"

@@ -92,6 +92,11 @@ presubmits:
         - name: PROJECT_PATH
           value: "{{ .projectPath }}"
         {{- end }}
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: public-access-github-token
+              key: token
         {{- if .envVars }}
         {{- range .envVars }}
         - name: {{ .Name }}
