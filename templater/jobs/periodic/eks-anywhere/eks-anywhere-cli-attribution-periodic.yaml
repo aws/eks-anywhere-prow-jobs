@@ -1,4 +1,4 @@
-jobName: eks-anywhere-attribution-files-periodic
+jobName: eks-anywhere-cli-attribution-periodic
 cronExpression: 0 8 * * 1-5
 timeout: 3h
 commands:

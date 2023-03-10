@@ -1,4 +1,4 @@
-jobName: eks-anywhere-attribution-files-presubmit
+jobName: eks-anywhere-cli-attribution-presubmit
 runIfChanged: Makefile|cmd/.*|flux/.*|go.mod|go.sum|hack/.*|internal/.*|pkg/.*|test/.*|release/.*|controllers/.*
 commands:
 - make generate-attribution
