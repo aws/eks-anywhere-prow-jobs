@@ -19,7 +19,7 @@
 ################################################################################
 
 periodics:
-- name: eks-anywhere-attribution-files-periodic
+- name: eks-anywhere-cli-attribution-periodic
   cron: "0 8 * * 1-5"
   cluster: "prow-presubmits-cluster"
   error_on_eviction: true
