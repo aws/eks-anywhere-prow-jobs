@@ -23,3 +23,13 @@ page](http://aws.amazon.com/security/vulnerability-reporting/). Please do
 ## License
 
 This project is licensed under the Apache-2.0 License.
+
+## Adding/Removing Kubernetes Versions
+
+Kubernetes/Release branch versions are managed [here](https://github.com/aws/eks-distro-prow-jobs/blob/c23ec5a128f01b11672886da3c9a6da3c2bb846b/templater/jobs/utils/utils.go#L16).
+
+To update the templates, update the eks-distro-prow-jobs module:
+```
+go get github.com/aws/eks-distro-prow-jobs
+make prowjobs -C templater
+```
