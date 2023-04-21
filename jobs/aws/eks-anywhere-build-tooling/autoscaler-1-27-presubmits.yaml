@@ -20,7 +20,7 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: autoscaler-1-26-presubmit
+  - name: autoscaler-1-27-presubmit
     always_run: false
     run_if_changed: "EKS_DISTRO_MINIMAL_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/kubernetes/autoscaler/.*"
     cluster: "prow-presubmits-cluster"
@@ -49,7 +49,7 @@ presubmits:
           &&
           build/lib/buildkit_check.sh
           &&
-          if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+          if make check-for-supported-release-branch -C $PROJECT_PATH; then if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi; fi
         env:
         - name: PROJECT_PATH
           value: "projects/kubernetes/autoscaler"
@@ -59,7 +59,7 @@ presubmits:
               name: public-access-github-token
               key: token
         - name: RELEASE_BRANCH
-          value: "1-26"
+          value: "1-27"
         - name: PRUNE_BUILDCTL
           value: "true"
         resources:
