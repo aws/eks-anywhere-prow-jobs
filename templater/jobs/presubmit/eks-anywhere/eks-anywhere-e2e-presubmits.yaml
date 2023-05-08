@@ -7,7 +7,7 @@ envVars:
 - name: TEST_ROLE_ARN
   value: arn:aws:iam::025778587028:role/EksaTestBuildRole
 - name: INTEGRATION_TEST_AL2_AMI_ID
-  value: ami-0eff44993f8c469bb
+  value: ami-0aa6e25e32d8320a3
 - name: INTEGRATION_TEST_STORAGE_BUCKET
   value: testbuildstack-025778587-eksaintegrationtestresou-1tqbb00woona4
 - name: INTEGRATION_TEST_INSTANCE_PROFILE
