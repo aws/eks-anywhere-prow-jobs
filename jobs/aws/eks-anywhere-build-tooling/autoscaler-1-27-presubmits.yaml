@@ -50,8 +50,8 @@ presubmits:
           build/lib/buildkit_check.sh
           &&
           if make check-for-supported-release-branch -C $PROJECT_PATH; then if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi; fi
-          env:
-          - name: PROJECT_PATH
+        env:
+        - name: PROJECT_PATH
           value: "projects/kubernetes/autoscaler"
         - name: GITHUB_TOKEN
           valueFrom:
