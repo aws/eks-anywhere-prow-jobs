@@ -1,9 +1,12 @@
-jobName: cloud-provider-aws-tooling-presubmit
+jobName: cloud-provider-aws-{{ .releaseBranch }}-tooling-presubmit
 runIfChanged: ^build/lib/.*|Common.mk|projects/kubernetes/cloud-provider-aws/.*
 imageBuild: true
 commands:
 - if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
 projectPath: projects/kubernetes/cloud-provider-aws
+envVars:
+- name: RELEASE_BRANCH
+  value: {{ .releaseBranch }}
 resources:
   requests:
     memory: 16Gi

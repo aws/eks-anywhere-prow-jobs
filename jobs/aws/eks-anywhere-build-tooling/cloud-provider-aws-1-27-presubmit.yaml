@@ -20,7 +20,7 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: cloud-provider-aws-tooling-presubmit
+  - name: cloud-provider-aws-1-27-tooling-presubmit
     always_run: false
     run_if_changed: "^build/lib/.*|Common.mk|projects/kubernetes/cloud-provider-aws/.*"
     cluster: "prow-presubmits-cluster"
@@ -49,7 +49,7 @@ presubmits:
           &&
           build/lib/buildkit_check.sh
           &&
-          if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+          if make check-for-supported-release-branch -C $PROJECT_PATH; then if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi; fi
         env:
         - name: PROJECT_PATH
           value: "projects/kubernetes/cloud-provider-aws"
@@ -58,6 +58,8 @@ presubmits:
             secretKeyRef:
               name: public-access-github-token
               key: token
+        - name: RELEASE_BRANCH
+          value: "1-27"
         resources:
           requests:
             memory: "16Gi"
