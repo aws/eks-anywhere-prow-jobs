@@ -20,7 +20,7 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: cloud-provider-aws-tooling-presubmit
+  - name: cloud-provider-aws-1-27-tooling-presubmit
     always_run: false
     run_if_changed: "^build/lib/.*|Common.mk|projects/kubernetes/cloud-provider-aws/.*"
     cluster: "prow-presubmits-cluster"
@@ -58,6 +58,8 @@ presubmits:
             secretKeyRef:
               name: public-access-github-token
               key: token
+        - name: RELEASE_BRANCH
+          value: "1-27"
         resources:
           requests:
             memory: "16Gi"
