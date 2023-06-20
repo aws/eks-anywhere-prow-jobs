@@ -1,4 +1,4 @@
-jobName: eks-anywhere-packages-image-tooling-presubmit
+jobName: eks-anywhere-packages-image-tooling-{{ .releaseBranch }}-presubmit
 runIfChanged: EKS_DISTRO_MINIMAL_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/aws/eks-anywhere-packages/.*
 commands:
 - if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
@@ -7,6 +7,8 @@ imageBuild: true
 envVars:
 - name: ARTIFACTS_BUCKET
   value: s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f
+- name: RELEASE_BRANCH
+  value: {{ .releaseBranch }}
 resources:
   requests:
     memory: 16Gi
