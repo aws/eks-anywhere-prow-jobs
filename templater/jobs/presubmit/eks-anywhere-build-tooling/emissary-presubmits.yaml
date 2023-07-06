@@ -1,5 +1,5 @@
 jobName: emissary-tooling-presubmit
-runIfChanged: EKS_DISTRO_MINIMAL_BASE_PYTHON_TAG_FILE|^build/lib/.*|Common.mk|projects/emissary-ingress/emissary/.*
+runIfChanged: EKS_DISTRO_MINIMAL_BASE_PYTHON_3.9_AL2023_TAG_FILE|^build/lib/.*|Common.mk|projects/emissary-ingress/emissary/.*
 commands:
 - if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
 projectPath: projects/emissary-ingress/emissary
