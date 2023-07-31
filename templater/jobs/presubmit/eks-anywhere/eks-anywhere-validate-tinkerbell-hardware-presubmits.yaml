@@ -1,0 +1,10 @@
+jobName: eks-anywhere-validate-tinkerbell-hardware-presubmit
+runIfChanged: test/e2e/TINKERBELL_HARDWARE_COUNT.yaml|test/e2e/tinkerbell_test.go 
+branches:
+- ^main$
+commands:
+- set -o pipefail && make validate-tinkerbell-hardware-requirements | while IFS= read -r line; do printf "%s %s\n" "$(date --rfc-3339=seconds)" "$line"; done
+resources:
+  requests:
+    memory: 4Gi
+    cpu: 1024m
