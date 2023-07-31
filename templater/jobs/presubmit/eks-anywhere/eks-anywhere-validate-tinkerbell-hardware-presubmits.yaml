@@ -3,8 +3,8 @@ runIfChanged: test/e2e/TINKERBELL_HARDWARE_COUNT.yaml|test/e2e/tinkerbell_test.g
 branches:
 - ^main$
 commands:
-- set -o pipefail && make validate-tinkerbell-hardware-requirements | while IFS= read -r line; do printf "%s %s\n" "$(date --rfc-3339=seconds)" "$line"; done
+- make validate-tinkerbell-hardware-requirements
 resources:
   requests:
-    memory: 4Gi
-    cpu: 1024m
+    memory: 16Gi
+    cpu: 4
