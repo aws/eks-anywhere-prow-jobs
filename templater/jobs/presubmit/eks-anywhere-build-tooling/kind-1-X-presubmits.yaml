@@ -1,10 +1,12 @@
-jobName: kind-tooling-presubmit
+jobName: kind-{{ .releaseBranch }}-tooling-presubmit
 runIfChanged: EKS_DISTRO_MINIMAL_BASE_KIND_AL2023_TAG_FILE|EKSD_LATEST_RELEASES|^build/lib/.*|Common.mk|projects/kubernetes-sigs/kind/.*
 commands:
 - if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
 projectPath: projects/kubernetes-sigs/kind
 imageBuild: true
 envVars:
+- name: RELEASE_BRANCH
+  value: {{ .releaseBranch }}
 - name: ARTIFACTS_BUCKET
   value: s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f
 resources:
