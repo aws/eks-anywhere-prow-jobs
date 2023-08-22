@@ -20,7 +20,7 @@
 
 presubmits:
   aws/eks-anywhere:
-  - name: eks-anywhere-mocks-presubmits
+  - name: eks-anywhere-generate-files-presubmits
     always_run: false
     run_if_changed: "Makefile|cmd/.*|flux/.*|go.mod|go.sum|hack/.*|internal/.*|pkg/.*"
     cluster: "prow-presubmits-cluster"
@@ -46,7 +46,7 @@ presubmits:
         - >
           trap 'touch /status/done && rm -rf /home/prow/go/src/' EXIT
           &&
-          make verify-mocks
+          make verify-generate-files
         resources:
           requests:
             memory: "4Gi"
