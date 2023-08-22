@@ -1,7 +1,7 @@
-jobName: eks-anywhere-mocks-presubmits
+jobName: eks-anywhere-generate-files-presubmits
 runIfChanged: Makefile|cmd/.*|flux/.*|go.mod|go.sum|hack/.*|internal/.*|pkg/.*
 commands:
-- make verify-mocks
+- make verify-generate-files
 resources:
   requests:
     memory: 4Gi
