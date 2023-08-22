@@ -20,7 +20,7 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: imagebuilder-1-27-presubmit
+  - name: imagebuilder-1-28-presubmit
     always_run: false
     run_if_changed: "EKSD_LATEST_RELEASES|^build/lib/.*|Common.mk|projects/kubernetes-sigs/image-builder/.*"
     cluster: "prow-presubmits-cluster"
@@ -46,7 +46,7 @@ presubmits:
         - >
           trap 'touch /status/done && rm -rf /home/prow/go/src/' EXIT
           &&
-          if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+          if make check-for-supported-release-branch -C $PROJECT_PATH; then if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi; fi
         env:
         - name: PROJECT_PATH
           value: "projects/kubernetes-sigs/image-builder"
@@ -56,7 +56,7 @@ presubmits:
               name: public-access-github-token
               key: token
         - name: RELEASE_BRANCH
-          value: "1-27"
+          value: "1-28"
         - name: ARTIFACTS_BUCKET
           value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
         resources:

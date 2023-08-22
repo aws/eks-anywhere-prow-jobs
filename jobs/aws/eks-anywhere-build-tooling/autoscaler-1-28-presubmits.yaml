@@ -20,9 +20,9 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: imagebuilder-1-27-presubmit
+  - name: autoscaler-1-28-presubmit
     always_run: false
-    run_if_changed: "EKSD_LATEST_RELEASES|^build/lib/.*|Common.mk|projects/kubernetes-sigs/image-builder/.*"
+    run_if_changed: "EKS_DISTRO_MINIMAL_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/kubernetes/autoscaler/.*"
     cluster: "prow-presubmits-cluster"
     error_on_eviction: true
     max_concurrency: 10
@@ -33,6 +33,7 @@ presubmits:
         path_strategy: explicit
       s3_credentials_secret: s3-credentials
     labels:
+      image-build: "true"
       disk-usage: "true"
     spec:
       serviceaccountName: presubmits-build-account
@@ -46,23 +47,34 @@ presubmits:
         - >
           trap 'touch /status/done && rm -rf /home/prow/go/src/' EXIT
           &&
-          if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+          build/lib/buildkit_check.sh
+          &&
+          if make check-for-supported-release-branch -C $PROJECT_PATH; then if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi; fi
         env:
         - name: PROJECT_PATH
-          value: "projects/kubernetes-sigs/image-builder"
+          value: "projects/kubernetes/autoscaler"
         - name: GITHUB_TOKEN
           valueFrom:
             secretKeyRef:
               name: public-access-github-token
               key: token
         - name: RELEASE_BRANCH
-          value: "1-27"
-        - name: ARTIFACTS_BUCKET
-          value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
+          value: "1-28"
+        - name: PRUNE_BUILDCTL
+          value: "true"
         resources:
           requests:
             memory: "16Gi"
             cpu: "8"
+      - name: buildkitd
+        image: moby/buildkit:v0.10.5-rootless
+        command:
+        - sh
+        args:
+        - /script/entrypoint.sh
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
       - command:
         - sh
         args:

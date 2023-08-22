@@ -122,6 +122,8 @@ github.com/aws/aws-sdk-go v1.38.49 h1:E31vxjCe6a5I+mJLmUGaZobiWmg9KdWaud9IfceYeY
 github.com/aws/aws-sdk-go v1.38.49/go.mod h1:hcU610XS61/+aQV88ixoOzUoG7v3b31pl2zKMmprdro=
 github.com/aws/eks-distro-prow-jobs v0.0.0-20230626210800-7a7514c11d1e h1:DHORXbA4ZxS1POxNbr0Ohi37WAgRb65pHw7MdjggLd8=
 github.com/aws/eks-distro-prow-jobs v0.0.0-20230626210800-7a7514c11d1e/go.mod h1:0h3ZPkmlIYWd7LDruGdmsIC095TQmYcZzwoAIgN63r0=
+github.com/aws/eks-distro-prow-jobs v0.0.0-20230821225131-297acd8b8329 h1:7ZHojsrYydKcGONf+hPc4RgchJxgkpcGDe96UERQ0gE=
+github.com/aws/eks-distro-prow-jobs v0.0.0-20230821225131-297acd8b8329/go.mod h1:0h3ZPkmlIYWd7LDruGdmsIC095TQmYcZzwoAIgN63r0=
 github.com/benbjohnson/clock v1.0.3/go.mod h1:bGMdMPoPVvcYyt1gHDf4J2KE153Yf9BuiUKYMaxlTDM=
 github.com/benbjohnson/clock v1.1.0 h1:Q92kusRqC1XV2MjkWETPvjJVqKetz1OzxZB7mHJLju8=
 github.com/benbjohnson/clock v1.1.0/go.mod h1:J11/hYXuz8f4ySSvYwY0FKfm+ezbsZBKZxNJlLklBHA=
