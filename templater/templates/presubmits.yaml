@@ -110,6 +110,9 @@ presubmits:
           requests:
             memory: "{{ .resources.Requests.Memory }}"
             cpu: "{{ .resources.Requests.CPU }}"
+            {{- if .resources.Requests.EphemeralStorage }}
+            ephemeral-storage: "{{ .resources.Requests.EphemeralStorage }}"
+            {{- end }}
           {{- end }}
           {{- if .resources.Limits }}
           limits:

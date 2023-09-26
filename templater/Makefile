@@ -1,3 +1,10 @@
+ifneq ($(filter true,$(CI) $(CODEBUILD_CI)),)
+GOLANG_VERSION?="1.20"
+GO_VERSION ?= $(shell source ../scripts/go.sh && get_go_path $(GOLANG_VERSION))
+GO=$(GO_VERSION)/go
+else
+GO=$(shell which go)
+endif
 BIN_DIR := bin
 SCRIPTS_DIR := scripts
 
@@ -7,19 +14,19 @@ all: build prowjobs
 .PHONY: build
 build:  ## Build templater binary
 build: fmt generate vet
-	go build -o ./$(BIN_DIR)/generate-prowjobs github.com/aws/eks-anywhere-prow-jobs/templater
+	$(GO) build -o ./$(BIN_DIR)/generate-prowjobs github.com/aws/eks-anywhere-prow-jobs/templater
 
 get:
-	go get -u ./...
+	$(GO) get -u ./...
 
 fmt: ## Run go fmt against code.
-	go fmt ./...
+	$(GO) fmt ./...
 
 generate: ## Run go generate against code.
-	go generate ./...
+	$(GO) generate ./...
 
 vet: ## Run go vet against code.
-	go vet ./...
+	$(GO) vet ./...
 
 .PHONY: clean
 clean:

@@ -1,4 +1,10 @@
-GOLANG_VERSION?="1.16"
+ifneq ($(filter true,$(CI) $(CODEBUILD_CI)),)
+GOLANG_VERSION?="1.20"
+GO_VERSION ?= $(shell source scripts/go.sh && get_go_path $(GOLANG_VERSION))
+GO=$(GO_VERSION)/go
+else
+GO=$(shell which go)
+endif
 export PULL_BASE_SHA?=$(shell git show -s --format=%H upstream/main)
 export PULL_PULL_SHA?=$(shell git show -s --format=%H)
 
@@ -12,15 +18,15 @@ default: build lint
 
 .PHONY: fmt
 fmt: ## Run go fmt against code.
-	go fmt scripts/lint_prowjobs/main.go
+	$(GO) fmt scripts/lint_prowjobs/main.go
 
 .PHONY: vet
 vet: ## Run go vet against code.
-	go vet scripts/lint_prowjobs/main.go
+	$(GO) vet scripts/lint_prowjobs/main.go
 
 .PHONY: build
 build: fmt vet ## Build linter
-	go build -o ./$(BIN_DIR)/prow-linter github.com/aws/eks-anywhere-prow-jobs/scripts/lint_prowjobs
+	$(GO) build -o ./$(BIN_DIR)/prow-linter github.com/aws/eks-anywhere-prow-jobs/scripts/lint_prowjobs
 
 .PHONY: lint
 lint: build ## Run linter
