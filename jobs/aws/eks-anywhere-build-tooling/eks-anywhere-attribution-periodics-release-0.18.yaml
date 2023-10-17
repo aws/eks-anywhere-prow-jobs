@@ -19,7 +19,7 @@
 ################################################################################
 
 periodics:
-- name: eks-anywhere-attribution-periodic-release-0-17
+- name: eks-anywhere-attribution-periodic-release-0-18
   cron: "0 8 * * 1-5"
   cluster: "prow-postsubmits-cluster"
   error_on_eviction: true
@@ -32,7 +32,7 @@ periodics:
   extra_refs:
   - org: aws
     repo: eks-anywhere-build-tooling
-    base_ref: release-0.17
+    base_ref: release-0.18
   labels:
     image-build: "true"
     disk-usage: "true"
@@ -55,7 +55,7 @@ periodics:
         make update-attribution-files
       env:
       - name: PULL_BASE_REF
-        value: "release-0.17"
+        value: "release-0.18"
       resources:
         requests:
           memory: "16Gi"
