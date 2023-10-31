@@ -92,6 +92,8 @@ github.com/aws/aws-sdk-go v1.38.49 h1:E31vxjCe6a5I+mJLmUGaZobiWmg9KdWaud9IfceYeY
 github.com/aws/aws-sdk-go v1.38.49/go.mod h1:hcU610XS61/+aQV88ixoOzUoG7v3b31pl2zKMmprdro=
 github.com/aws/eks-distro-prow-jobs v0.0.0-20230925180819-6e50b75c71ff h1:QVfhK8ISkc7oLOCyr4rr2UJtCPXEKxq8dDKjcdKWF8M=
 github.com/aws/eks-distro-prow-jobs v0.0.0-20230925180819-6e50b75c71ff/go.mod h1:MTav5aI4L5Bm4grltYO5lD1T/K+ZEzgz63eLJmFkQ+g=
+github.com/aws/eks-distro-prow-jobs v0.0.0-20231031170721-af7b8b58cf08 h1:fQrbQRw+CL4nct5Aa+tKH+148dGLRX979/HWl84r9ow=
+github.com/aws/eks-distro-prow-jobs v0.0.0-20231031170721-af7b8b58cf08/go.mod h1:MTav5aI4L5Bm4grltYO5lD1T/K+ZEzgz63eLJmFkQ+g=
 github.com/benbjohnson/clock v1.3.0 h1:ip6w0uFQkncKQ979AypyG0ER7mqUSBdKLOgAle/AT8A=
 github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973/go.mod h1:Dwedo/Wpr24TaqPxmxbtue+5NUziq4I4S80YR8gNf3Q=
 github.com/beorn7/perks v1.0.0/go.mod h1:KWe93zE9D1o94FZ5RNwFwVgaQK1VOXiVxmqh+CedLV8=

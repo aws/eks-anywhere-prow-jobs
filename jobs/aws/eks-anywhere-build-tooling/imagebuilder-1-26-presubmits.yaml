@@ -59,6 +59,9 @@ presubmits:
           value: "1-26"
         - name: ARTIFACTS_BUCKET
           value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
+        securityContext:
+          runAsUser: 1100
+          runAsGroup: 1100
         resources:
           requests:
             memory: "16Gi"

@@ -105,6 +105,8 @@ func main() {
 					"bucket":                       bucket,
 					"projectPath":                  jobConfig.ProjectPath,
 					"diskUsage":                    true,
+					"runAsUser":                    jobConfig.RunAsUser,
+					"runAsGroup":                   jobConfig.RunAsGroup,
 				}
 
 				err := GenerateProwjob(fileName, template, data)
