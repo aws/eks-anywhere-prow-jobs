@@ -68,6 +68,15 @@ presubmits:
       nodeSelector:
         arch: "{{ or .architecture }}"
       {{- end }}
+      {{- if or .runAsUser .runAsGroup }}
+      securityContext:
+        {{- if .runAsUser }}
+        runAsUser: {{ .runAsUser }}
+        {{- end }}
+        {{- if .runAsGroup }}
+        runAsGroup: {{ .runAsGroup }}
+        {{- end }}
+      {{- end }}
       containers:
       - name: build-container
         image: {{ or .runtimeImage $builderBaseImage }}
@@ -103,15 +112,6 @@ presubmits:
           value: "{{ .Value }}"
         {{- end }}
         {{- end }}
-        {{- end }}
-        {{- if or .runAsUser .runAsGroup }}
-        securityContext:
-          {{- if .runAsUser }}
-          runAsUser: {{ .runAsUser }}
-          {{- end }}
-          {{- if .runAsGroup }}
-          runAsGroup: {{ .runAsGroup }}
-          {{- end }}
         {{- end }}
         {{- if .resources }}
         resources:
