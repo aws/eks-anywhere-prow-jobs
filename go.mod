@@ -3,7 +3,7 @@ module github.com/aws/eks-anywhere-prow-jobs
 go 1.20
 
 require (
-	github.com/aws/eks-distro-prow-jobs v0.0.0-20230925180819-6e50b75c71ff
+	github.com/aws/eks-distro-prow-jobs v0.0.0-20231031170721-af7b8b58cf08
 	k8s.io/api v0.27.2
 	k8s.io/test-infra v0.0.0-20230830195447-b32980305a76
 	sigs.k8s.io/yaml v1.3.0

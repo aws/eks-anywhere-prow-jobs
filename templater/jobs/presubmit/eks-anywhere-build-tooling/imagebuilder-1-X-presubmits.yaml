@@ -12,3 +12,5 @@ resources:
   requests:
     memory: 16Gi
     cpu: 8
+runAsUser: 1100
+runAsGroup: 1100
