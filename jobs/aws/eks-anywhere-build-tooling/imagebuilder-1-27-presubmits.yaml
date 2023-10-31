@@ -37,6 +37,9 @@ presubmits:
     spec:
       serviceaccountName: presubmits-build-account
       automountServiceAccountToken: false
+      securityContext:
+        runAsUser: 1100
+        runAsGroup: 1100
       containers:
       - name: build-container
         image: public.ecr.aws/eks-distro-build-tooling/builder-base:standard-a19fc328d20553856310b2a580838c97fa0cca6d.2
@@ -59,9 +62,6 @@ presubmits:
           value: "1-27"
         - name: ARTIFACTS_BUCKET
           value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
-        securityContext:
-          runAsUser: 1100
-          runAsGroup: 1100
         resources:
           requests:
             memory: "16Gi"
