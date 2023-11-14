@@ -9,7 +9,7 @@ envVars:
 - name: ARTIFACTS_BUCKET
   value: s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f
 - name: CODEBUILD_ROLE_ARN
-  value: arn:aws:iam::857151390494:role/CodeBuildStandardRole
+  value: arn:aws:iam::857151390494:role/ImageBuilderPresubmitRole
 resources:
   requests:
     memory: 16Gi
