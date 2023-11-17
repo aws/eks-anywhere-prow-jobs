@@ -1,0 +1,13 @@
+jobName: eks-a-upgrader-image-presubmits
+runIfChanged: EKS_DISTRO_MINIMAL_BASE_GLIBC_TAG_FILE|EKSD_LATEST_RELEASES|^build/lib/.*|projects/aws/upgrader/.*
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/aws/upgrader
+imageBuild: true
+envVars:
+- name: ARTIFACTS_BUCKET
+  value: s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f
+resources:
+  requests:
+    memory: 8Gi
+    cpu: 1024m
