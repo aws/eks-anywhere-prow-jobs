@@ -22,7 +22,7 @@ presubmits:
   aws/eks-anywhere-build-tooling:
   - name: eks-a-upgrader-image-presubmits
     always_run: false
-    run_if_changed: "EKS_DISTRO_MINIMAL_BASE_TAG_FILE|EKSD_LATEST_RELEASES|^build/lib/.*|projects/aws/upgrader/.*|projects/containerd/.*|projects/kubernetes-sigs/cri-tools/.*"
+    run_if_changed: "EKS_DISTRO_MINIMAL_BASE_GLIBC_TAG_FILE|EKSD_LATEST_RELEASES|^build/lib/.*|projects/aws/upgrader/.*"
     cluster: "prow-presubmits-cluster"
     error_on_eviction: true
     max_concurrency: 10
@@ -62,8 +62,8 @@ presubmits:
           value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
         resources:
           requests:
-            memory: "16Gi"
-            cpu: "4"
+            memory: "8Gi"
+            cpu: "1024m"
       - name: buildkitd
         image: moby/buildkit:v0.10.5-rootless
         command:
