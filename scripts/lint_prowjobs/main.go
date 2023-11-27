@@ -158,6 +158,8 @@ func MakeTargetCheck(jc *JobConstants) presubmitCheck {
 		if strings.Contains(presubmitConfig.JobBase.Name, "e2e") ||
 			strings.Contains(presubmitConfig.JobBase.Name, "lint") ||
 			strings.Contains(presubmitConfig.JobBase.Name, "generate-files") ||
+			strings.Contains(presubmitConfig.JobBase.Name, "bundle") ||
+			strings.Contains(presubmitConfig.JobBase.Name, "eks-a-release") ||
 			presubmitConfig.JobBase.Name == "eks-anywhere-attribution-files-presubmit" ||
 			presubmitConfig.JobBase.Name == "eks-anywhere-cluster-controller-tooling-presubmit" ||
 			presubmitConfig.JobBase.Name == "eks-anywhere-release-tooling-presubmit" ||

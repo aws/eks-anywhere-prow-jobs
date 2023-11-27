@@ -1,0 +1,10 @@
+jobName: eks-anywhere-development-eks-a-release-presubmit
+runIfChanged: release/triggers/eks-a-release/development/*
+branches: 
+- ^release-.*$
+commands:
+- make validate-triggers TYPE=eks-a ENV=development
+resources:
+  requests:
+    memory: 1Gi
+    cpu: 512m

@@ -1,0 +1,10 @@
+jobName: eks-anywhere-development-bundle-presubmit
+runIfChanged: release/triggers/bundle-release/development/*
+branches: 
+- ^release-.*$
+commands:
+- make validate-triggers TYPE=bundle ENV=development
+resources:
+  requests:
+    memory: 1Gi
+    cpu: 512m
