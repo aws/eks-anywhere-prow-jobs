@@ -1,0 +1,10 @@
+jobName: eks-anywhere-production-bundle-presubmit
+runIfChanged: release/triggers/bundle-release/production/*
+branches: 
+- ^release-.*$
+commands:
+- make validate-triggers TYPE=bundle ENV=production
+resources:
+  requests:
+    memory: 1Gi
+    cpu: 512m
