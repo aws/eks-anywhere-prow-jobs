@@ -20,7 +20,7 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: cloud-provider-vsphere-1-28-tooling-presubmit
+  - name: cloud-provider-vsphere-1-29-tooling-presubmit
     always_run: false
     run_if_changed: "EKS_DISTRO_MINIMAL_BASE_TAG_FILE|EKSD_LATEST_RELEASES|^build/lib/.*|Common.mk|projects/kubernetes/cloud-provider-vsphere/.*"
     cluster: "prow-presubmits-cluster"
@@ -49,7 +49,7 @@ presubmits:
           &&
           build/lib/buildkit_check.sh
           &&
-          if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+          if make check-for-supported-release-branch -C $PROJECT_PATH; then if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi; fi
         env:
         - name: PROJECT_PATH
           value: "projects/kubernetes/cloud-provider-vsphere"
@@ -59,7 +59,7 @@ presubmits:
               name: public-access-github-token
               key: token
         - name: RELEASE_BRANCH
-          value: "1-28"
+          value: "1-29"
         - name: PRUNE_BUILDCTL
           value: "true"
         resources:
