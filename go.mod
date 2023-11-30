@@ -1,9 +1,9 @@
 module github.com/aws/eks-anywhere-prow-jobs
 
-go 1.20
+go 1.21
 
 require (
-	github.com/aws/eks-distro-prow-jobs v0.0.0-20231031170721-af7b8b58cf08
+	github.com/aws/eks-distro-prow-jobs v0.0.0-20231121185634-6ba53d350673
 	k8s.io/api v0.27.2
 	k8s.io/test-infra v0.0.0-20230830195447-b32980305a76
 	sigs.k8s.io/yaml v1.3.0
@@ -96,14 +96,14 @@ require (
 	go.uber.org/zap v1.25.0 // indirect
 	go4.org v0.0.0-20201209231011-d4a079459e60 // indirect
 	gocloud.dev v0.19.0 // indirect
-	golang.org/x/crypto v0.11.0 // indirect
+	golang.org/x/crypto v0.14.0 // indirect
 	golang.org/x/exp v0.0.0-20230307190834-24139beb5833 // indirect
-	golang.org/x/net v0.12.0 // indirect
+	golang.org/x/net v0.17.0 // indirect
 	golang.org/x/oauth2 v0.9.0 // indirect
 	golang.org/x/sync v0.3.0 // indirect
-	golang.org/x/sys v0.10.0 // indirect
-	golang.org/x/term v0.10.0 // indirect
-	golang.org/x/text v0.11.0 // indirect
+	golang.org/x/sys v0.13.0 // indirect
+	golang.org/x/term v0.13.0 // indirect
+	golang.org/x/text v0.13.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
 	golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2 // indirect
 	gomodules.xyz/jsonpatch/v2 v2.3.0 // indirect

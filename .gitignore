@@ -1,3 +1,4 @@
 bin
+.DS_STORE
 .idea/
 templater/BUILDER_BASE_TAG_FILE
