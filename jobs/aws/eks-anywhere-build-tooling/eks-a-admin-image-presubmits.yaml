@@ -65,7 +65,7 @@ presubmits:
             memory: "8Gi"
             cpu: "1024m"
       - name: buildkitd
-        image: moby/buildkit:v0.12.3-rootless
+        image: moby/buildkit:v0.12.5-rootless
         command:
         - sh
         args:
