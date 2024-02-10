@@ -31,3 +31,5 @@ env:
   value: EksaE2eSsmBuildRole
 - name: IMAGE_REPO
   value: public.ecr.aws/h1r8a7l5
+- name: BOTTLEROCKET_CLOUDFRONT_ENDPOINT
+  value: d3r9quwvrhi0m2.cloudfront.net
