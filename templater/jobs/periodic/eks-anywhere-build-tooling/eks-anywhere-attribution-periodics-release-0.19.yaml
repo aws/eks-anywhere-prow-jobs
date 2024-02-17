@@ -1,0 +1,36 @@
+jobName: eks-anywhere-attribution-periodic-release-0-19
+cronExpression: 0 8 * * 1-5
+timeout: 4h
+commands:
+- make update-attribution-files
+imageBuild: true
+architecture: AMD64
+envVars:
+- name: PULL_BASE_REF
+  value: release-0.19
+extraRefs:
+- org: aws
+  repo: eks-anywhere-build-tooling
+  baseRef: release-0.19
+resources:
+  requests:
+    cpu: 5
+    memory: 16Gi
+volumeMounts:
+- name: ssh-auth
+  mountPath: /secrets/ssh-secrets
+  readOnly: true
+- name: github-auth
+  mountPath: /secrets/github-secrets
+  readOnly: true
+volumes:
+- name: ssh-auth
+  VolumeType: secret
+  Secret:
+    DefaultMode: 256
+    Name: pr-bot-ssh-secret
+- name: github-auth
+  VolumeType: secret
+  Secret:
+    DefaultMode: 256
+    Name: pr-bot-github-token
