@@ -4,6 +4,7 @@ go 1.21
 
 require (
 	github.com/aws/eks-distro-prow-jobs v0.0.0-20231121185634-6ba53d350673
+	github.com/ghodss/yaml v1.0.0
 	k8s.io/api v0.27.2
 	k8s.io/test-infra v0.0.0-20230830195447-b32980305a76
 	sigs.k8s.io/yaml v1.3.0
@@ -34,7 +35,6 @@ require (
 	github.com/felixge/fgprof v0.9.1 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/fvbommel/sortorder v1.0.1 // indirect
-	github.com/ghodss/yaml v1.0.0 // indirect
 	github.com/go-kit/log v0.2.1 // indirect
 	github.com/go-logfmt/logfmt v0.5.1 // indirect
 	github.com/go-logr/logr v1.2.4 // indirect
@@ -113,7 +113,7 @@ require (
 	google.golang.org/genproto/googleapis/api v0.0.0-20230530153820-e85fd2cbaebc // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20230530153820-e85fd2cbaebc // indirect
 	google.golang.org/grpc v1.56.3 // indirect
-	google.golang.org/protobuf v1.30.0 // indirect
+	google.golang.org/protobuf v1.33.0 // indirect
 	gopkg.in/fsnotify.v1 v1.4.7 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/ini.v1 v1.62.0 // indirect
