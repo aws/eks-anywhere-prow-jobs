@@ -1,5 +1,5 @@
 jobName: eks-anywhere-cli-attribution-presubmit
-runIfChanged: Makefile|cmd/.*|flux/.*|go.mod|go.sum|hack/.*|internal/.*|pkg/.*|test/.*|release/.*|controllers/.*
+runIfChanged: Makefile|cmd/.*|flux/.*|go.mod|go.sum|hack/.*|internal/.*|pkg/.*|test/.*|controllers/.*
 commands:
 - make generate-attribution
 resources:

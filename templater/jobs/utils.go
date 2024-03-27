@@ -8,9 +8,8 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/ghodss/yaml"
-
 	"github.com/aws/eks-distro-prow-jobs/templater/jobs/types"
+	"github.com/ghodss/yaml"
 )
 
 var releaseBranches = []string{
@@ -37,7 +36,7 @@ func GetJobsByType(repos []string, jobType string) (map[string]map[string]types.
 	return jobsListByType, nil
 }
 
-func AppendMap(current map[string]interface{}, new map[string]interface{}) map[string]interface{} {
+func AppendMap(current, new map[string]interface{}) map[string]interface{} {
 	newMap := map[string]interface{}{}
 	for k, v := range current {
 		newMap[k] = v
