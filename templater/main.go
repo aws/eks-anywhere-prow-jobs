@@ -9,9 +9,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/aws/eks-anywhere-prow-jobs/templater/jobs"
 	"github.com/aws/eks-distro-prow-jobs/templater/jobs/types"
 	"github.com/aws/eks-distro-prow-jobs/templater/jobs/utils"
+
+	"github.com/aws/eks-anywhere-prow-jobs/templater/jobs"
 )
 
 var (
@@ -165,7 +166,7 @@ func useTemplate(jobType string) (string, error) {
 	}
 }
 
-func clusterDetails(jobType string, cluster string, bucket string, serviceAccountName string) (string, string, string) {
+func clusterDetails(jobType, cluster, bucket, serviceAccountName string) (string, string, string) {
 	if jobType == "presubmit" && len(cluster) == 0 {
 		cluster = "prow-presubmits-cluster"
 		bucket = "s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp"

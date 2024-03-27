@@ -64,7 +64,7 @@ type UnmarshaledJobConfig struct {
 
 type presubmitCheck func(presubmitConfig config.Presubmit, fileContentsString string) (passed bool, lineNo int, errorMessage string)
 
-func findLineNumber(fileContentsString string, searchString string) int {
+func findLineNumber(fileContentsString, searchString string) int {
 	fileLines := strings.Split(fileContentsString, "\n")
 
 	for lineNo, fileLine := range fileLines {
@@ -185,7 +185,7 @@ func MakeTargetCheck(jc *JobConstants) presubmitCheck {
 	})
 }
 
-func getFilesChanged(gitRoot string, pullBaseSha string, pullPullSha string) ([]string, error) {
+func getFilesChanged(gitRoot, pullBaseSha, pullPullSha string) ([]string, error) {
 	presubmitFiles := []string{}
 	gitDiffCommand := []string{"git", "-C", gitRoot, "diff", "--name-only", pullBaseSha, pullPullSha}
 	fmt.Println("\n", strings.Join(gitDiffCommand, " "))
