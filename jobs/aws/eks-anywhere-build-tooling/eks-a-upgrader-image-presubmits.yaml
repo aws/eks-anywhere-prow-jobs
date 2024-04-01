@@ -64,6 +64,7 @@ presubmits:
           requests:
             memory: "8Gi"
             cpu: "1024m"
+            ephemeral-storage: "50Gi"
       - name: buildkitd
         image: moby/buildkit:v0.12.5-rootless
         command:
