@@ -20,7 +20,7 @@
 
 presubmits:
   aws/eks-anywhere:
-  - name: eks-anywhere-generate-files-presubmits
+  - name: eks-anywhere-generate-files-presubmit
     always_run: false
     run_if_changed: "Makefile|cmd/.*|flux/.*|go.mod|go.sum|hack/.*|internal/.*|pkg/.*"
     cluster: "prow-presubmits-cluster"

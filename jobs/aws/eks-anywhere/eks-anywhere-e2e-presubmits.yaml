@@ -22,7 +22,7 @@ presubmits:
   aws/eks-anywhere:
   - name: eks-anywhere-e2e-presubmit
     always_run: false
-    run_if_changed: "Makefile|cmd/.*|flux/.*|go.mod|go.sum|hack/.*|internal/.*|pkg/.*|test/.*|controllers/.*"
+    run_if_changed: "^Makefile|^cmd/.*|^go.mod$|^go.sum$|hack/.*|internal/.*|^pkg/.*|test/.*|controllers/.*"
     branches:
     - ^main$
     cluster: "prow-presubmits-cluster"

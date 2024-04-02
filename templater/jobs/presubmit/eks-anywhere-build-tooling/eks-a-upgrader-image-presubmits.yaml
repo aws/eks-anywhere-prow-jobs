@@ -1,4 +1,4 @@
-jobName: eks-a-upgrader-image-presubmits
+jobName: eks-a-upgrader-image-presubmit
 runIfChanged: EKS_DISTRO_MINIMAL_BASE_GLIBC_TAG_FILE|EKSD_LATEST_RELEASES|^build/lib/.*|projects/aws/upgrader/.*
 commands:
 - if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi

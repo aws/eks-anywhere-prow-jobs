@@ -20,7 +20,7 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: eks-a-upgrader-image-presubmits
+  - name: eks-a-upgrader-image-presubmit
     always_run: false
     run_if_changed: "EKS_DISTRO_MINIMAL_BASE_GLIBC_TAG_FILE|EKSD_LATEST_RELEASES|^build/lib/.*|projects/aws/upgrader/.*"
     cluster: "prow-presubmits-cluster"
