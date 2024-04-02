@@ -1,5 +1,5 @@
 jobName: eks-anywhere-cluster-controller-tooling-presubmit
-runIfChanged: ^config/.*|^controllers/.*
+runIfChanged: ^config/.*|^controllers/.*|^manager/.*
 imageBuild: true
 commands:
 - make build-cluster-controller

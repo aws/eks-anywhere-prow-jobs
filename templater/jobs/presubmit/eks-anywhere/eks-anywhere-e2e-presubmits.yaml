@@ -1,5 +1,5 @@
 jobName: eks-anywhere-e2e-presubmit
-runIfChanged: Makefile|cmd/.*|flux/.*|go.mod|go.sum|hack/.*|internal/.*|pkg/.*|test/.*|controllers/.*
+runIfChanged: ^Makefile|^cmd/.*|^go.mod$|^go.sum$|hack/.*|internal/.*|^pkg/.*|test/.*|controllers/.*
 imageBuild: true
 branches:
 - ^main$
