@@ -18,6 +18,7 @@ var releaseBranches = []string{
 	"1-27",
 	"1-28",
 	"1-29",
+	"1-30",
 }
 
 func GetJobsByType(repos []string, jobType string) (map[string]map[string]types.JobConfig, error) {

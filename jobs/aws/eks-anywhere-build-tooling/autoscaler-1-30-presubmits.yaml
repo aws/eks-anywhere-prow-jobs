@@ -20,9 +20,9 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: cloud-provider-aws-1-29-tooling-presubmit
+  - name: autoscaler-1-30-presubmit
     always_run: false
-    run_if_changed: "^build/lib/.*|Common.mk|projects/kubernetes/cloud-provider-aws/.*"
+    run_if_changed: "EKS_DISTRO_MINIMAL_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/kubernetes/autoscaler/.*"
     cluster: "prow-presubmits-cluster"
     error_on_eviction: true
     max_concurrency: 10
@@ -49,21 +49,23 @@ presubmits:
           &&
           build/lib/buildkit_check.sh
           &&
-          if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+          if make check-for-supported-release-branch -C $PROJECT_PATH; then if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi; fi
         env:
         - name: PROJECT_PATH
-          value: "projects/kubernetes/cloud-provider-aws"
+          value: "projects/kubernetes/autoscaler"
         - name: GITHUB_TOKEN
           valueFrom:
             secretKeyRef:
               name: public-access-github-token
               key: token
         - name: RELEASE_BRANCH
-          value: "1-29"
+          value: "1-30"
+        - name: PRUNE_BUILDCTL
+          value: "true"
         resources:
           requests:
             memory: "16Gi"
-            cpu: "4"
+            cpu: "8"
       - name: buildkitd
         image: moby/buildkit:v0.12.5-rootless
         command:
