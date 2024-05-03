@@ -61,7 +61,7 @@ presubmits:
         - name: TEST_ROLE_ARN
           value: "arn:aws:iam::025778587028:role/EksaTestBuildRole"
         - name: INTEGRATION_TEST_AL2_AMI_ID
-          value: "ami-05cb180c97c725c65"
+          value: "ami-001d69cfd804e66d2"
         - name: INTEGRATION_TEST_STORAGE_BUCKET
           value: "testbuildstack-025778587-eksaintegrationtestresou-1tqbb00woona4"
         - name: INTEGRATION_TEST_INSTANCE_PROFILE
