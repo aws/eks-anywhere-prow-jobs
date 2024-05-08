@@ -11,7 +11,7 @@ envVars:
 - name: CODEBUILD_ROLE_ARN
   value: arn:aws:iam::857151390494:role/ImageBuilderPresubmitRole
 - name: BOTTLEROCKET_CLOUDFRONT_ENDPOINT
-  value: d3r9quwvrhi0m2.cloudfront.net
+  value: d157u5k0sfp276.cloudfront.net
 resources:
   requests:
     memory: 16Gi
