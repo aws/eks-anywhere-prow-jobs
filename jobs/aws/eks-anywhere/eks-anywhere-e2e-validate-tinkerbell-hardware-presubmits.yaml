@@ -23,8 +23,6 @@ presubmits:
   - name: eks-anywhere-e2e-validate-tinkerbell-hardware-presubmit
     always_run: false
     run_if_changed: "test/e2e/TINKERBELL_HARDWARE_COUNT.yaml|test/e2e/tinkerbell_test.go"
-    branches:
-    - ^main$
     cluster: "prow-presubmits-cluster"
     error_on_eviction: true
     max_concurrency: 10
