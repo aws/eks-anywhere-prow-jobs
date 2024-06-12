@@ -23,8 +23,6 @@ presubmits:
   - name: eks-anywhere-e2e-presubmit
     always_run: false
     run_if_changed: "^Makefile|^cmd/.*|^go.mod$|^go.sum$|hack/.*|internal/.*|^pkg/.*|test/.*|controllers/.*"
-    branches:
-    - ^main$
     cluster: "prow-presubmits-cluster"
     error_on_eviction: true
     max_concurrency: 10

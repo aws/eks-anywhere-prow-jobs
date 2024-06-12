@@ -1,7 +1,5 @@
 jobName: eks-anywhere-e2e-validate-tinkerbell-hardware-presubmit
 runIfChanged: test/e2e/TINKERBELL_HARDWARE_COUNT.yaml|test/e2e/tinkerbell_test.go 
-branches:
-- ^main$
 commands:
 - make validate-tinkerbell-hardware-requirements
 resources:
