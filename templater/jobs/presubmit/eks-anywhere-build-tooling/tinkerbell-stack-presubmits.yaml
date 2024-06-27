@@ -1,4 +1,4 @@
-jobName: charts-presubmit
+jobName: tinkerbell-stack-presubmit
 runIfChanged: ^build/lib/.*|Common.mk|projects/tinkerbell/charts/.*
 commands:
 - if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
