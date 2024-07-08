@@ -1,5 +1,7 @@
 jobName: metallb-tooling-presubmit
 runIfChanged: EKS_DISTRO_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/metallb/metallb/.*
+branches:
+- ^main$
 commands:
 - if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
 projectPath: projects/metallb/metallb

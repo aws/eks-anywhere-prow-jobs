@@ -23,6 +23,8 @@ presubmits:
   - name: trivy-tooling-presubmit
     always_run: false
     run_if_changed: "^build/lib/.*|Common.mk|projects/aquasecurity/trivy/.*"
+    branches:
+    - ^main$
     cluster: "prow-presubmits-cluster"
     error_on_eviction: true
     max_concurrency: 10

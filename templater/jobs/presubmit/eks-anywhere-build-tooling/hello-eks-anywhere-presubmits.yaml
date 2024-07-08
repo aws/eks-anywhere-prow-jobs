@@ -1,5 +1,7 @@
 jobName: hello-eks-anywhere-tooling-presubmit
 runIfChanged: EKS_DISTRO_MINIMAL_BASE_NGINX_TAG_FILE|^build/lib/.*|Common.mk|projects/aws-containers/hello-eks-anywhere/.*
+branches:
+- ^main$
 commands:
 - if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
 projectPath: projects/aws-containers/hello-eks-anywhere
