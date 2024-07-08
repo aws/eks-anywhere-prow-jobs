@@ -1,5 +1,7 @@
 jobName: harbor-tooling-presubmit
 runIfChanged: EKS_DISTRO_BASE_TAG_FILE|EKS_DISTRO_MINIMAL_BASE_NGINX_TAG_FILE|EKS_DISTRO_MINIMAL_BASE_GLIBC_TAG_FILE|^build/lib/.*|Common.mk|projects/goharbor/harbor/.*
+branches:
+- ^main$
 commands:
 - if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
 projectPath: projects/goharbor/harbor

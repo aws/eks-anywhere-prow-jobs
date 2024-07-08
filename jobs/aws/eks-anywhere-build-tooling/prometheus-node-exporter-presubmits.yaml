@@ -23,6 +23,8 @@ presubmits:
   - name: prometheus-node-exporter-tooling-presubmit
     always_run: false
     run_if_changed: "EKS_DISTRO_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/prometheus/node_exporter/.*"
+    branches:
+    - ^main$
     cluster: "prow-presubmits-cluster"
     error_on_eviction: true
     max_concurrency: 10
