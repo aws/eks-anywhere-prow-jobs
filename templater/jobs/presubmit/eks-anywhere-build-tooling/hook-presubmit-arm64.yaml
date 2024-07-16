@@ -1,0 +1,22 @@
+jobName: hook-tooling-presubmit-arm64
+runIfChanged: EKS_DISTRO_MINIMAL_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/tinkerbell/hook/.*
+cluster: prow-postsubmits-cluster
+serviceaccountName: postsubmits-build-account
+bucket: s3://prowdataclusterstack-316434458-prowbucket7c73355c-1n9f9v93wpjcm
+architecture: ARM64
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/tinkerbell/hook
+imageBuild: true
+localRegistry: true
+envVars:
+- name: BINARY_PLATFORMS
+  value: linux/arm64
+- name: IMAGE_PLATFORMS
+  value: linux/arm64
+- name: IMAGE_REPO
+  value: localhost:5000
+resources:
+  requests:
+    memory: 8Gi
+    cpu: 1024m

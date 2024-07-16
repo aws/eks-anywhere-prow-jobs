@@ -20,16 +20,16 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: hook-tooling-presubmit
+  - name: hook-tooling-presubmit-arm64
     always_run: false
     run_if_changed: "EKS_DISTRO_MINIMAL_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/tinkerbell/hook/.*"
-    cluster: "prow-presubmits-cluster"
+    cluster: "prow-postsubmits-cluster"
     error_on_eviction: true
     max_concurrency: 10
     skip_report: false
     decoration_config:
       gcs_configuration:
-        bucket: s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp
+        bucket: s3://prowdataclusterstack-316434458-prowbucket7c73355c-1n9f9v93wpjcm
         path_strategy: explicit
       s3_credentials_secret: s3-credentials
     labels:
@@ -37,8 +37,10 @@ presubmits:
       local-registry: "true"
       disk-usage: "true"
     spec:
-      serviceaccountName: presubmits-build-account
+      serviceaccountName: postsubmits-build-account
       automountServiceAccountToken: false
+      nodeSelector:
+        arch: "ARM64"
       containers:
       - name: build-container
         image: public.ecr.aws/eks-distro-build-tooling/builder-base:standard-9be578bba75e08f01086ce11820e3ab6cdf63601.2
@@ -62,17 +64,16 @@ presubmits:
             secretKeyRef:
               name: public-access-github-token
               key: token
+        - name: BINARY_PLATFORMS
+          value: "linux/arm64"
+        - name: IMAGE_PLATFORMS
+          value: "linux/arm64"
         - name: IMAGE_REPO
           value: "localhost:5000"
-        - name: IMAGE_PLATFORMS
-          value: "linux/amd64"
-        - name: FAKE_ARM_ARTIFACTS_FOR_VALIDATION
-          value: "true"
         resources:
           requests:
-            memory: "16Gi"
-            cpu: "8"
-            ephemeral-storage: "50Gi"
+            memory: "8Gi"
+            cpu: "1024m"
       - name: buildkitd
         image: moby/buildkit:v0.12.5-rootless
         command:
