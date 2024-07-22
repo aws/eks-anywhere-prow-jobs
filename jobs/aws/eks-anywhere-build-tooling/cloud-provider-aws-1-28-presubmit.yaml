@@ -23,6 +23,8 @@ presubmits:
   - name: cloud-provider-aws-1-28-tooling-presubmit
     always_run: false
     run_if_changed: "^build/lib/.*|Common.mk|projects/kubernetes/cloud-provider-aws/.*"
+    branches:
+    - ^main$
     cluster: "prow-presubmits-cluster"
     error_on_eviction: true
     max_concurrency: 10

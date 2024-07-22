@@ -1,5 +1,7 @@
 jobName: cloud-provider-aws-{{ .releaseBranch }}-tooling-presubmit
 runIfChanged: ^build/lib/.*|Common.mk|projects/kubernetes/cloud-provider-aws/.*
+branches:
+- ^main$
 imageBuild: true
 commands:
 - if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
