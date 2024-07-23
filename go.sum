@@ -91,8 +91,6 @@ github.com/aws/aws-sdk-go v1.19.18/go.mod h1:KmX6BPdI08NWTb3/sm4ZGu5ShLoqVDhKgpi
 github.com/aws/aws-sdk-go v1.19.45/go.mod h1:KmX6BPdI08NWTb3/sm4ZGu5ShLoqVDhKgpiN924inxo=
 github.com/aws/aws-sdk-go v1.38.49 h1:E31vxjCe6a5I+mJLmUGaZobiWmg9KdWaud9IfceYeYQ=
 github.com/aws/aws-sdk-go v1.38.49/go.mod h1:hcU610XS61/+aQV88ixoOzUoG7v3b31pl2zKMmprdro=
-github.com/aws/eks-distro-prow-jobs v0.0.0-20231121185634-6ba53d350673 h1:XiHHZUoUM4s2SqOzZbYevh44pvyU6is9E2ZtLePRRz8=
-github.com/aws/eks-distro-prow-jobs v0.0.0-20231121185634-6ba53d350673/go.mod h1:Piilw12Sy+npxRwwBM7ApgaWz2Zk8NqHqdFpLhkVi/8=
 github.com/aws/eks-distro-prow-jobs v0.0.0-20240531063932-da35904783d2 h1:Cb7Cnf3U9/XYKpbXQOD4hcU05ean8iL4WxRPsDUQNk8=
 github.com/aws/eks-distro-prow-jobs v0.0.0-20240531063932-da35904783d2/go.mod h1:YQynplr1bQPGD3ZWznZ2m6DVhT1/djrRHGMS9uLrYKk=
 github.com/benbjohnson/clock v1.3.0 h1:ip6w0uFQkncKQ979AypyG0ER7mqUSBdKLOgAle/AT8A=
