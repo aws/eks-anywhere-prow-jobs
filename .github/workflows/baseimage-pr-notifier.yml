@@ -5,9 +5,13 @@ on:
 jobs:
   baseimage-pr-notifier:
     runs-on: ubuntu-latest
-    
-    if: ${{ contains(github.event.pull_request.title, 'Update base image') }}
+
     steps:
-      - run: curl -d '{"key":"base image"}' -X POST $SLACK_WEBHOOK
+      - run: |
+          if [[ "${{ github.event.pull_request.title }}" =~ "Update base image" ]]; then
+            curl -d '{"key":"builder-base image"}' -X POST $SLACK_WEBHOOK
+          fi
+          exit 0
+        shell: bash
         env:
           SLACK_WEBHOOK : ${{ secrets.SLACK_WEBHOOK_URL }}
