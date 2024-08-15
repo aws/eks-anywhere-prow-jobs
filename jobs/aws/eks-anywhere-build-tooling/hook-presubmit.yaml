@@ -62,6 +62,8 @@ presubmits:
             secretKeyRef:
               name: public-access-github-token
               key: token
+        - name: ARTIFACTS_BUCKET
+          value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
         - name: IMAGE_REPO
           value: "localhost:5000"
         - name: IMAGE_PLATFORMS
