@@ -8,10 +8,11 @@ jobs:
 
     steps:
       - run: |
-          if [[ "${{ github.event.pull_request.title }}" =~ "Update base image" ]]; then
+          if [[ "$PR_TITLE" =~ "Update base image" ]]; then
             curl -d '{"key":"builder-base image"}' -X POST $SLACK_WEBHOOK
           fi
           exit 0
         shell: bash
         env:
-          SLACK_WEBHOOK : ${{ secrets.SLACK_WEBHOOK_URL }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
