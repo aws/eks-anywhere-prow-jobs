@@ -6,9 +6,11 @@ projectPath: projects/linuxkit/linuxkit
 envVars:
 - name: ARTIFACTS_BUCKET
   value: s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f
+- name: PRUNE_BUILDCTL
+  value: true
 imageBuild: true
 resources:
   requests:
     memory: 16Gi
     cpu: 4
-
+    ephemeral-storage: 50Gi
