@@ -61,10 +61,13 @@ presubmits:
               key: token
         - name: ARTIFACTS_BUCKET
           value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
+        - name: PRUNE_BUILDCTL
+          value: "true"
         resources:
           requests:
             memory: "16Gi"
             cpu: "4"
+            ephemeral-storage: "50Gi"
       - name: buildkitd
         image: moby/buildkit:v0.12.5-rootless
         command:
