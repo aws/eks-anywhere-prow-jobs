@@ -20,9 +20,9 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: boots-tooling-presubmit
+  - name: ipxedust-presubmit
     always_run: false
-    run_if_changed: "EKS_DISTRO_MINIMAL_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/tinkerbell/boots/.*"
+    run_if_changed: "^build/lib/.*|Common.mk|projects/tinkerbell/ipxedust/.*"
     cluster: "prow-presubmits-cluster"
     error_on_eviction: true
     max_concurrency: 10
@@ -33,7 +33,6 @@ presubmits:
         path_strategy: explicit
       s3_credentials_secret: s3-credentials
     labels:
-      image-build: "true"
       disk-usage: "true"
     spec:
       serviceaccountName: presubmits-build-account
@@ -48,32 +47,21 @@ presubmits:
         - >
           trap 'touch /status/done && rm -rf /home/prow/go/src/' EXIT
           &&
-          build/lib/buildkit_check.sh
-          &&
           if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
         env:
         - name: PROJECT_PATH
-          value: "projects/tinkerbell/boots"
+          value: "projects/tinkerbell/ipxedust"
         - name: GITHUB_TOKEN
           valueFrom:
             secretKeyRef:
               name: public-access-github-token
               key: token
-        - name: ARTIFACTS_BUCKET
-          value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
+        - name: BINARY_PLATFORMS
+          value: "linux/amd64"
         resources:
           requests:
-            memory: "16Gi"
-            cpu: "8"
-      - name: buildkitd
-        image: moby/buildkit:v0.12.5-rootless
-        command:
-        - sh
-        args:
-        - /script/entrypoint.sh
-        securityContext:
-          runAsUser: 1000
-          runAsGroup: 1000
+            memory: "8Gi"
+            cpu: "1024m"
       - command:
         - sh
         args:
