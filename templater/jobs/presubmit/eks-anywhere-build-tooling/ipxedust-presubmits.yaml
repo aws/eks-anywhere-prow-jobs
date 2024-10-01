@@ -1,0 +1,12 @@
+jobName: ipxedust-presubmit
+runIfChanged: ^build/lib/.*|Common.mk|projects/tinkerbell/ipxedust/.*
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/tinkerbell/ipxedust
+envVars:
+- name: BINARY_PLATFORMS
+  value: linux/amd64
+resources:
+  requests:
+    memory: 8Gi
+    cpu: 1024m
