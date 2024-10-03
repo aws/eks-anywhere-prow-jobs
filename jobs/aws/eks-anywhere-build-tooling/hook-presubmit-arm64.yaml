@@ -74,6 +74,8 @@ presubmits:
           value: "localhost:5000"
         - name: IMAGE_TAG_SUFFIX
           value: "-arm64"
+        - name: LINUXKIT_IMAGE_REPO
+          value: "857151390494.dkr.ecr.us-west-2.amazonaws.com"
         - name: ADDITIONAL_IMAGE_CACHE_REPOS
           value: "857151390494.dkr.ecr.us-west-2.amazonaws.com"
         resources:
