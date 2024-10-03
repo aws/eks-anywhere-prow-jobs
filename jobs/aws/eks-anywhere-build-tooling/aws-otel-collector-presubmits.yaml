@@ -61,6 +61,8 @@ presubmits:
             secretKeyRef:
               name: public-access-github-token
               key: token
+        - name: ADDITIONAL_IMAGE_CACHE_REPOS
+          value: "857151390494.dkr.ecr.us-west-2.amazonaws.com"
         resources:
           requests:
             memory: "16Gi"

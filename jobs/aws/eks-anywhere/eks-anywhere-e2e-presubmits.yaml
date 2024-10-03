@@ -67,6 +67,8 @@ presubmits:
           value: "EksaE2eSsmBuildRole"
         - name: IMAGE_REPO
           value: "public.ecr.aws/h1r8a7l5"
+        - name: ADDITIONAL_IMAGE_CACHE_REPOS
+          value: "857151390494.dkr.ecr.us-west-2.amazonaws.com"
         resources:
           requests:
             memory: "16Gi"

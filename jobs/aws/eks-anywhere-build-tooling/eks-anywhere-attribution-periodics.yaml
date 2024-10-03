@@ -54,6 +54,9 @@ periodics:
         build/lib/buildkit_check.sh
         &&
         make update-attribution-files
+      env:
+      - name: ADDITIONAL_IMAGE_CACHE_REPOS
+        value: "857151390494.dkr.ecr.us-west-2.amazonaws.com"
       resources:
         requests:
           memory: "16Gi"

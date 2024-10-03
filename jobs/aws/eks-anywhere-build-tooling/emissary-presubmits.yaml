@@ -63,6 +63,8 @@ presubmits:
               key: token
         - name: PRUNE_BUILDCTL
           value: "true"
+        - name: ADDITIONAL_IMAGE_CACHE_REPOS
+          value: "857151390494.dkr.ecr.us-west-2.amazonaws.com"
         resources:
           requests:
             memory: "16Gi"
