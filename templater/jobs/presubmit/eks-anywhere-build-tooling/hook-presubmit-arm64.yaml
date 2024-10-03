@@ -18,6 +18,8 @@ envVars:
   value: linux/arm64
 - name: IMAGE_REPO
   value: localhost:5000
+- name: IMAGE_TAG_SUFFIX
+  value: -arm64
 resources:
   requests:
     memory: 8Gi

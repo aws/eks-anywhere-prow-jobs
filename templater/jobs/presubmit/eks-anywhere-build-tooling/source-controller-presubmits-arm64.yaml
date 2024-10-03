@@ -14,6 +14,8 @@ envVars:
   value: linux/arm64
 - name: ARTIFACTS_BUCKET
   value: s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f
+- name: IMAGE_TAG_SUFFIX
+  value: -arm64
 imageBuild: true
 resources:
   requests:
