@@ -16,6 +16,8 @@ envVars:
   value: true
 - name: LINUXKIT_IMAGE_REPO
   value: 857151390494.dkr.ecr.us-west-2.amazonaws.com
+- name: IMAGE_TAG_SUFFIX
+  value: -amd64
 resources:
   requests:
     memory: 16Gi

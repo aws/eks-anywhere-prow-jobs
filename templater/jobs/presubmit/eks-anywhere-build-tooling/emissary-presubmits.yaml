@@ -13,3 +13,5 @@ resources:
 envVars:
   - name: PRUNE_BUILDCTL
     value: true
+  - name: IMAGE_TAG_SUFFIX
+    value: -amd64

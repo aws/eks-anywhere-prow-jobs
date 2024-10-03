@@ -8,6 +8,8 @@ envVars:
   value: s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f
 - name: PRUNE_BUILDCTL
   value: true
+- name: IMAGE_TAG_SUFFIX
+  value: -amd64
 imageBuild: true
 resources:
   requests:

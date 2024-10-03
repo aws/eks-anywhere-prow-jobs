@@ -61,6 +61,8 @@ presubmits:
               key: token
         - name: ARTIFACTS_BUCKET
           value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
+        - name: IMAGE_TAG_SUFFIX
+          value: "-amd64"
         - name: ADDITIONAL_IMAGE_CACHE_REPOS
           value: "857151390494.dkr.ecr.us-west-2.amazonaws.com"
         resources:
