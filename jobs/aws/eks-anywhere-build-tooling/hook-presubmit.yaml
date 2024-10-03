@@ -70,6 +70,8 @@ presubmits:
           value: "linux/amd64"
         - name: FAKE_ARM_BINARIES_FOR_VALIDATION
           value: "true"
+        - name: LINUXKIT_IMAGE_REPO
+          value: "857151390494.dkr.ecr.us-west-2.amazonaws.com"
         resources:
           requests:
             memory: "16Gi"
