@@ -74,6 +74,10 @@ func main() {
 					envVars = append(envVars, &types.EnvVar{Name: "USE_BUILDX", Value: "true"})
 				}
 
+				if jobConfig.ImageBuild {
+					envVars = append(envVars, &types.EnvVar{Name: "ADDITIONAL_IMAGE_CACHE_REPOS", Value: "857151390494.dkr.ecr.us-west-2.amazonaws.com"})
+				}
+
 				cluster, bucket, serviceAccountName := clusterDetails(jobType, jobConfig.Cluster, jobConfig.Bucket, jobConfig.ServiceAccountName)
 
 				data := map[string]interface{}{

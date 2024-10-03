@@ -51,6 +51,14 @@ presubmits:
           build/lib/buildkit_check.sh
           &&
           make build-cluster-controller
+        env:
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: public-access-github-token
+              key: token
+        - name: ADDITIONAL_IMAGE_CACHE_REPOS
+          value: "857151390494.dkr.ecr.us-west-2.amazonaws.com"
         resources:
           requests:
             memory: "8Gi"

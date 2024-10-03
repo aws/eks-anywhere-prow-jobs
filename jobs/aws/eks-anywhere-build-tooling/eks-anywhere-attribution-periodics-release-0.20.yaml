@@ -57,6 +57,8 @@ periodics:
       env:
       - name: PULL_BASE_REF
         value: "release-0.20"
+      - name: ADDITIONAL_IMAGE_CACHE_REPOS
+        value: "857151390494.dkr.ecr.us-west-2.amazonaws.com"
       resources:
         requests:
           memory: "16Gi"

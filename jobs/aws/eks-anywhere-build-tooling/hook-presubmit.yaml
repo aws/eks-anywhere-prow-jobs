@@ -72,6 +72,8 @@ presubmits:
           value: "true"
         - name: LINUXKIT_IMAGE_REPO
           value: "857151390494.dkr.ecr.us-west-2.amazonaws.com"
+        - name: ADDITIONAL_IMAGE_CACHE_REPOS
+          value: "857151390494.dkr.ecr.us-west-2.amazonaws.com"
         resources:
           requests:
             memory: "16Gi"

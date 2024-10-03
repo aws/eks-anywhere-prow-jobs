@@ -67,6 +67,8 @@ presubmits:
           value: "linux/arm64"
         - name: ARTIFACTS_BUCKET
           value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
+        - name: ADDITIONAL_IMAGE_CACHE_REPOS
+          value: "857151390494.dkr.ecr.us-west-2.amazonaws.com"
         resources:
           requests:
             memory: "8Gi"
