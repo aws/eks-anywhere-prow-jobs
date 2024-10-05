@@ -20,23 +20,25 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: dhcp-presubmit
+  - name: linux-bootconfig-presubmit-arm64
     always_run: false
-    run_if_changed: "^build/lib/.*|Common.mk|projects/isc-projects/dhcp/.*"
-    cluster: "prow-presubmits-cluster"
+    run_if_changed: "^build/lib/.*|Common.mk|projects/torvalds/linux/.*"
+    cluster: "prow-postsubmits-cluster"
     error_on_eviction: true
     max_concurrency: 10
     skip_report: false
     decoration_config:
       gcs_configuration:
-        bucket: s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp
+        bucket: s3://prowdataclusterstack-316434458-prowbucket7c73355c-1n9f9v93wpjcm
         path_strategy: explicit
       s3_credentials_secret: s3-credentials
     labels:
       disk-usage: "true"
     spec:
-      serviceaccountName: presubmits-build-account
+      serviceaccountName: postsubmits-build-account
       automountServiceAccountToken: false
+      nodeSelector:
+        arch: "ARM64"
       containers:
       - name: build-container
         image: public.ecr.aws/eks-distro-build-tooling/builder-base:standard-946434fec4d4cf83ead400d26741f6668d4aee8b.2
@@ -50,7 +52,7 @@ presubmits:
           if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
         env:
         - name: PROJECT_PATH
-          value: "projects/isc-projects/dhcp"
+          value: "projects/torvalds/linux"
         - name: GITHUB_TOKEN
           valueFrom:
             secretKeyRef:
@@ -59,11 +61,11 @@ presubmits:
         - name: ARTIFACTS_BUCKET
           value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
         - name: BINARY_PLATFORMS
-          value: "linux/amd64"
+          value: "linux/arm64"
         resources:
           requests:
-            memory: "16Gi"
-            cpu: "4"
+            memory: "4Gi"
+            cpu: "1024m"
       - command:
         - sh
         args:
