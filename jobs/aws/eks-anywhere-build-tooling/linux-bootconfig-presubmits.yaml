@@ -58,6 +58,8 @@ presubmits:
               key: token
         - name: ARTIFACTS_BUCKET
           value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
+        - name: BINARY_PLATFORMS
+          value: "linux/amd64"
         resources:
           requests:
             memory: "16Gi"

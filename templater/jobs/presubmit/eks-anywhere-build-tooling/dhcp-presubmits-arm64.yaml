@@ -1,5 +1,9 @@
-jobName: dhcp-presubmit
+jobName: dhcp-presubmit-arm64
 runIfChanged: ^build/lib/.*|Common.mk|projects/isc-projects/dhcp/.*
+cluster: prow-postsubmits-cluster
+serviceaccountName: postsubmits-build-account
+bucket: s3://prowdataclusterstack-316434458-prowbucket7c73355c-1n9f9v93wpjcm
+architecture: ARM64
 commands:
 - if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
 projectPath: projects/isc-projects/dhcp
@@ -7,7 +11,7 @@ envVars:
 - name: ARTIFACTS_BUCKET
   value: s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f
 - name: BINARY_PLATFORMS
-  value: linux/amd64
+  value: linux/arm64
 resources:
   requests:
     memory: 16Gi
