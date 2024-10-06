@@ -1,8 +1,8 @@
-jobName: linux-bootconfig-presubmit
-runIfChanged: ^build/lib/.*|Common.mk|projects/torvalds/linux/.*
+jobName: dhcp-presubmit-amd64
+runIfChanged: ^build/lib/.*|Common.mk|projects/isc-projects/dhcp/.*
 commands:
 - if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
-projectPath: projects/torvalds/linux
+projectPath: projects/isc-projects/dhcp
 envVars:
 - name: ARTIFACTS_BUCKET
   value: s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f

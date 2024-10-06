@@ -20,24 +20,26 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: runc-tooling-presubmit
+  - name: linuxkit-tooling-presubmit-arm64
     always_run: false
-    run_if_changed: "build/lib/.*|Common.mk|projects/opencontainers/runc/.*"
-    cluster: "prow-presubmits-cluster"
+    run_if_changed: "^build/lib/.*|Common.mk|projects/linuxkit/linuxkit/.*"
+    cluster: "prow-postsubmits-cluster"
     error_on_eviction: true
     max_concurrency: 10
     skip_report: false
     decoration_config:
       gcs_configuration:
-        bucket: s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp
+        bucket: s3://prowdataclusterstack-316434458-prowbucket7c73355c-1n9f9v93wpjcm
         path_strategy: explicit
       s3_credentials_secret: s3-credentials
     labels:
       image-build: "true"
       disk-usage: "true"
     spec:
-      serviceaccountName: presubmits-build-account
+      serviceaccountName: postsubmits-build-account
       automountServiceAccountToken: false
+      nodeSelector:
+        arch: "ARM64"
       containers:
       - name: build-container
         image: public.ecr.aws/eks-distro-build-tooling/builder-base:standard-946434fec4d4cf83ead400d26741f6668d4aee8b.2
@@ -53,22 +55,27 @@ presubmits:
           if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
         env:
         - name: PROJECT_PATH
-          value: "projects/opencontainers/runc"
+          value: "projects/linuxkit/linuxkit"
         - name: GITHUB_TOKEN
           valueFrom:
             secretKeyRef:
               name: public-access-github-token
               key: token
-        - name: BINARY_PLATFORMS
-          value: "linux/amd64"
         - name: ARTIFACTS_BUCKET
           value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
+        - name: PRUNE_BUILDCTL
+          value: "true"
+        - name: IMAGE_TAG_SUFFIX
+          value: "-arm64"
+        - name: BINARY_PLATFORMS
+          value: "linux/arm64"
         - name: ADDITIONAL_IMAGE_CACHE_REPOS
           value: "857151390494.dkr.ecr.us-west-2.amazonaws.com"
         resources:
           requests:
             memory: "16Gi"
             cpu: "4"
+            ephemeral-storage: "50Gi"
       - name: buildkitd
         image: moby/buildkit:v0.12.5-rootless
         command:
