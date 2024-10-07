@@ -1,4 +1,4 @@
-jobName: ipxedust-presubmit
+jobName: ipxedust-presubmit-amd64
 runIfChanged: ^build/lib/.*|Common.mk|projects/tinkerbell/ipxedust/.*
 commands:
 - if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi

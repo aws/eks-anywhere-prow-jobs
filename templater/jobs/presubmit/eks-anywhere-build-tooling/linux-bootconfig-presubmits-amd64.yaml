@@ -1,14 +1,13 @@
-jobName: runc-tooling-presubmit
-runIfChanged: build/lib/.*|Common.mk|projects/opencontainers/runc/.*
+jobName: linux-bootconfig-presubmit-amd64
+runIfChanged: ^build/lib/.*|Common.mk|projects/torvalds/linux/.*
 commands:
 - if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
-projectPath: projects/opencontainers/runc
+projectPath: projects/torvalds/linux
 envVars:
-- name: BINARY_PLATFORMS
-  value: linux/amd64
 - name: ARTIFACTS_BUCKET
   value: s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f
-imageBuild: true
+- name: BINARY_PLATFORMS
+  value: linux/amd64
 resources:
   requests:
     memory: 16Gi

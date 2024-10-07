@@ -20,9 +20,9 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: ipxedust-presubmit
+  - name: linux-bootconfig-presubmit-amd64
     always_run: false
-    run_if_changed: "^build/lib/.*|Common.mk|projects/tinkerbell/ipxedust/.*"
+    run_if_changed: "^build/lib/.*|Common.mk|projects/torvalds/linux/.*"
     cluster: "prow-presubmits-cluster"
     error_on_eviction: true
     max_concurrency: 10
@@ -50,18 +50,20 @@ presubmits:
           if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
         env:
         - name: PROJECT_PATH
-          value: "projects/tinkerbell/ipxedust"
+          value: "projects/torvalds/linux"
         - name: GITHUB_TOKEN
           valueFrom:
             secretKeyRef:
               name: public-access-github-token
               key: token
+        - name: ARTIFACTS_BUCKET
+          value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
         - name: BINARY_PLATFORMS
           value: "linux/amd64"
         resources:
           requests:
-            memory: "8Gi"
-            cpu: "1024m"
+            memory: "16Gi"
+            cpu: "4"
       - command:
         - sh
         args:

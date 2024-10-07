@@ -1,4 +1,4 @@
-jobName: containerd-tooling-presubmit
+jobName: containerd-tooling-presubmit-amd64
 runIfChanged: build/lib/.*|Common.mk|projects/containerd/containerd/.*
 commands:
 - if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi

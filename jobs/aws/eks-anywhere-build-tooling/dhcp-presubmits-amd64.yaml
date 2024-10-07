@@ -20,9 +20,9 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: hook-tooling-presubmit
+  - name: dhcp-presubmit-amd64
     always_run: false
-    run_if_changed: "EKS_DISTRO_MINIMAL_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/tinkerbell/hook/.*"
+    run_if_changed: "^build/lib/.*|Common.mk|projects/isc-projects/dhcp/.*"
     cluster: "prow-presubmits-cluster"
     error_on_eviction: true
     max_concurrency: 10
@@ -33,8 +33,6 @@ presubmits:
         path_strategy: explicit
       s3_credentials_secret: s3-credentials
     labels:
-      image-build: "true"
-      local-registry: "true"
       disk-usage: "true"
     spec:
       serviceaccountName: presubmits-build-account
@@ -49,14 +47,10 @@ presubmits:
         - >
           trap 'touch /status/done && rm -rf /home/prow/go/src/' EXIT
           &&
-          build/lib/buildkit_check.sh
-          &&
-          build/lib/local_registry_check.sh
-          &&
           if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
         env:
         - name: PROJECT_PATH
-          value: "projects/tinkerbell/hook"
+          value: "projects/isc-projects/dhcp"
         - name: GITHUB_TOKEN
           valueFrom:
             secretKeyRef:
@@ -64,44 +58,12 @@ presubmits:
               key: token
         - name: ARTIFACTS_BUCKET
           value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
-        - name: IMAGE_REPO
-          value: "localhost:5000"
-        - name: IMAGE_PLATFORMS
+        - name: BINARY_PLATFORMS
           value: "linux/amd64"
-        - name: FAKE_ARM_BINARIES_FOR_VALIDATION
-          value: "true"
-        - name: LINUXKIT_IMAGE_REPO
-          value: "857151390494.dkr.ecr.us-west-2.amazonaws.com"
-        - name: IMAGE_TAG_SUFFIX
-          value: "-amd64"
-        - name: ADDITIONAL_IMAGE_CACHE_REPOS
-          value: "857151390494.dkr.ecr.us-west-2.amazonaws.com"
         resources:
           requests:
             memory: "16Gi"
-            cpu: "8"
-            ephemeral-storage: "50Gi"
-      - name: buildkitd
-        image: moby/buildkit:v0.12.5-rootless
-        command:
-        - sh
-        args:
-        - /script/entrypoint.sh
-        securityContext:
-          runAsUser: 1000
-          runAsGroup: 1000
-      - name: registry
-        image: public.ecr.aws/docker/library/registry:2
-        command:
-        - sh
-        args:
-        - /registry-script/entrypoint.sh
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 5000
-          initialDelaySeconds: 5
-          periodSeconds: 3
+            cpu: "4"
       - command:
         - sh
         args:

@@ -1,18 +1,15 @@
-jobName: linuxkit-tooling-presubmit
-runIfChanged: ^build/lib/.*|Common.mk|projects/linuxkit/linuxkit/.*
+jobName: runc-tooling-presubmit-amd64
+runIfChanged: build/lib/.*|Common.mk|projects/opencontainers/runc/.*
 commands:
 - if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
-projectPath: projects/linuxkit/linuxkit
+projectPath: projects/opencontainers/runc
 envVars:
+- name: BINARY_PLATFORMS
+  value: linux/amd64
 - name: ARTIFACTS_BUCKET
   value: s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f
-- name: PRUNE_BUILDCTL
-  value: true
-- name: IMAGE_TAG_SUFFIX
-  value: -amd64
 imageBuild: true
 resources:
   requests:
     memory: 16Gi
     cpu: 4
-    ephemeral-storage: 50Gi
