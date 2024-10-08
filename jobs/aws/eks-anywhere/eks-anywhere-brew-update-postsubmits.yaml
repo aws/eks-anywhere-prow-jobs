@@ -48,7 +48,6 @@ postsubmits:
       containers:
       - name: build-container
         image: public.ecr.aws/eks-distro-build-tooling/builder-base:standard-28b4873f3cf874f08f46be06510bd931658072d9.2
-
         command:
         - bash
         - -c
