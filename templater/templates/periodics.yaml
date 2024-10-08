@@ -14,7 +14,7 @@
 #
 {{ .editWarning }}
 
-{{ $builderBaseImage := printf "%s:%s" "public.ecr.aws/eks-distro-build-tooling/builder-base" .builderBaseTag -}}
+{{ $builderBaseImage := printf "%s:%s" "public.ecr.aws/eks-distro-build-tooling/builder-base" .builderBaseTag | trim -}}
 periodics:
 - name: {{ .prowjobName }}
   cron: "{{ .cronExpression }}"
