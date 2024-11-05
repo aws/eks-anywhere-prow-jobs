@@ -83,10 +83,12 @@ func EnvVarsCheck(jc *JobConstants) presubmitCheck {
 			for _, env := range container.Env {
 				if index, exists := jc.envVarExist(env.Name); exists {
 					// check deepequal in case we decide to support EnvVarSource values in the future
-					if jobs.IsCuratedPackagesPresubmit(presubmitConfig.JobBase.Name) {
-						jc.EnvVars[index].Value = "s3://codebuildprojectstack-be-pipelineoutputartifactsb-jvwhrzx05xwq"
+					jcEnvVar := jc.EnvVars[index]
+					// update the artifacts bucket env value if it is a curated packages presubmit job
+					if env.Name == "ARTIFACTS_BUCKET" && jobs.IsCuratedPackagesPresubmit(presubmitConfig.JobBase.Name) {
+						jcEnvVar.Value = "s3://codebuildprojectstack-be-pipelineoutputartifactsb-jvwhrzx05xwq"
 					}
-					if env != jc.EnvVars[index] {
+					if env != jcEnvVar {
 						lineToFind := fmt.Sprintf("name: %s", env.Name)
 						correctiveAction := fmt.Sprintf("Incorrect env var declared for %s in the %s container, update it to %s", env.Name, container.Name, env)
 						return false, findLineNumber(fileContentsString, lineToFind), correctiveAction
