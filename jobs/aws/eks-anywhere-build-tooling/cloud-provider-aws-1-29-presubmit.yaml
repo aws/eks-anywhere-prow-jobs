@@ -63,7 +63,7 @@ presubmits:
         - name: RELEASE_BRANCH
           value: "1-29"
         - name: ADDITIONAL_IMAGE_CACHE_REPOS
-          value: "857151390494.dkr.ecr.us-west-2.amazonaws.com"
+          value: "067575901363.dkr.ecr.us-west-2.amazonaws.com"
         resources:
           requests:
             memory: "16Gi"

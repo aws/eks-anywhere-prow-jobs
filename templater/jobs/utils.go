@@ -3,6 +3,7 @@ package jobs
 import (
 	"bytes"
 	"fmt"
+	"os"
 	"path/filepath"
 	"strings"
 	"text/template"

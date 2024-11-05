@@ -74,7 +74,24 @@ func main() {
 				}
 
 				if jobConfig.ImageBuild {
-					envVars = append(envVars, &types.EnvVar{Name: "ADDITIONAL_IMAGE_CACHE_REPOS", Value: "857151390494.dkr.ecr.us-west-2.amazonaws.com"})
+					if strings.Contains(jobConfig.JobName, "autoscaler") ||
+						strings.Contains(jobConfig.JobName, "cloud-provider-aws") ||
+						strings.Contains(jobConfig.JobName, "harbor") ||
+						strings.Contains(jobConfig.JobName, "prometheus") ||
+						jobConfig.JobName == "aws-otel-collector-tooling-presubmit" ||
+						jobConfig.JobName == "distribution-tooling-presubmit" ||
+						jobConfig.JobName == "eks-anywhere-packages-image-tooling-presubmit" ||
+						jobConfig.JobName == "emissary-tooling-presubmit" ||
+						jobConfig.JobName == "hello-eks-anywhere-tooling-presubmit" ||
+						jobConfig.JobName == "metallb-tooling-presubmit" ||
+						jobConfig.JobName == "metrics-server-presubmit" ||
+						jobConfig.JobName == "redis-tooling-presubmit" ||
+						jobConfig.JobName == "rolesanywhere-credential-helper-presubmit" ||
+						jobConfig.JobName == "trivy-tooling-presubmit" {
+						envVars = append(envVars, &types.EnvVar{Name: "ADDITIONAL_IMAGE_CACHE_REPOS", Value: "067575901363.dkr.ecr.us-west-2.amazonaws.com"})
+					} else {
+						envVars = append(envVars, &types.EnvVar{Name: "ADDITIONAL_IMAGE_CACHE_REPOS", Value: "857151390494.dkr.ecr.us-west-2.amazonaws.com"})
+					}
 				}
 
 				cluster, bucket, serviceAccountName := clusterDetails(jobType, jobConfig.Cluster, jobConfig.Bucket, jobConfig.ServiceAccountName)
