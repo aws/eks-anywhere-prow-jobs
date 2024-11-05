@@ -29,6 +29,8 @@ import (
 	core "k8s.io/api/core/v1"
 	"k8s.io/test-infra/prow/config"
 	yaml "sigs.k8s.io/yaml"
+
+	"github.com/aws/eks-anywhere-prow-jobs/templater/jobs"
 )
 
 const (
@@ -81,8 +83,7 @@ func EnvVarsCheck(jc *JobConstants) presubmitCheck {
 			for _, env := range container.Env {
 				if index, exists := jc.envVarExist(env.Name); exists {
 					// check deepequal in case we decide to support EnvVarSource values in the future
-					if presubmitConfig.JobBase.Name == "eks-anywhere-packages-image-tooling-presubmit" ||
-						presubmitConfig.JobBase.Name == "harbor-tooling-presubmit" {
+					if jobs.IsCuratedPackagesPresubmit(presubmitConfig.JobBase.Name) {
 						jc.EnvVars[index].Value = "s3://codebuildprojectstack-be-pipelineoutputartifactsb-jvwhrzx05xwq"
 					}
 					if env != jc.EnvVars[index] {

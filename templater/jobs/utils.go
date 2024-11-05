@@ -185,3 +185,20 @@ func GenerateJobConfig(data interface{}, filePath string) (types.JobConfig, erro
 	}
 	return jobConfig, nil
 }
+
+func IsCuratedPackagesPresubmit(config string) bool {
+	return strings.Contains(config, "autoscaler") ||
+			strings.Contains(config, "cloud-provider-aws") ||
+			strings.Contains(config, "harbor") ||
+			strings.Contains(config, "prometheus") ||
+			config == "aws-otel-collector-tooling-presubmit" ||
+			config == "distribution-tooling-presubmit" ||
+			config == "eks-anywhere-packages-image-tooling-presubmit" ||
+			config == "emissary-tooling-presubmit" ||
+			config == "hello-eks-anywhere-tooling-presubmit" ||
+			config == "metallb-tooling-presubmit" ||
+			config == "metrics-server-presubmit" ||
+			config == "redis-tooling-presubmit" ||
+			config == "rolesanywhere-credential-helper-presubmit" ||
+			config == "trivy-tooling-presubmit"
+}
