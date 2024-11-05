@@ -3,7 +3,6 @@ package main
 import (
 	_ "embed"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -127,21 +126,21 @@ func main() {
 func GenerateProwjob(prowjobFileName, templateContent string, data map[string]interface{}) error {
 	bytes, err := utils.ExecuteTemplate(templateContent, data)
 	if err != nil {
-		return fmt.Errorf("error executing template: %v", err)
+		return fmt.Errorf("executing template: %v", err)
 	}
 
 	jobsFolderPath, err := getJobsFolderPath()
 	if err != nil {
-		return fmt.Errorf("error getting jobs folder path: %v", err)
+		return fmt.Errorf("getting jobs folder path: %v", err)
 	}
 
 	prowjobPath := filepath.Join(jobsFolderPath, data["repoName"].(string), prowjobFileName)
 	if err = os.MkdirAll(filepath.Dir(prowjobPath), 0o755); err != nil {
-		return fmt.Errorf("error creating Prowjob directory: %v", err)
+		return fmt.Errorf("creating Prowjob directory: %v", err)
 	}
 
-	if err = ioutil.WriteFile(prowjobPath, bytes, 0o644); err != nil {
-		return fmt.Errorf("error writing to path %s: %v", prowjobPath, err)
+	if err = os.WriteFile(prowjobPath, bytes, 0o644); err != nil {
+		return fmt.Errorf("writing to path %s: %v", prowjobPath, err)
 	}
 
 	return nil
@@ -150,7 +149,7 @@ func GenerateProwjob(prowjobFileName, templateContent string, data map[string]in
 func getJobsFolderPath() (string, error) {
 	gitRootOutput, err := exec.Command("git", "rev-parse", "--show-toplevel").Output()
 	if err != nil {
-		return "", fmt.Errorf("error running the git command: %v", err)
+		return "", fmt.Errorf("running the git command: %v", err)
 	}
 	gitRoot := strings.Fields(string(gitRootOutput))[0]
 
@@ -166,7 +165,7 @@ func useTemplate(jobType string) (string, error) {
 	case "presubmit":
 		return presubmitTemplate, nil
 	default:
-		return "", fmt.Errorf("Unsupported job type: %s", jobType)
+		return "", fmt.Errorf("unsupported job type: %s", jobType)
 	}
 }
 

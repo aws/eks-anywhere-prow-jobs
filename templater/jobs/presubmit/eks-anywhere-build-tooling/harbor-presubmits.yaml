@@ -8,7 +8,7 @@ projectPath: projects/goharbor/harbor
 imageBuild: true
 envVars:
 - name: ARTIFACTS_BUCKET
-  value: s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f
+  value: s3://codebuildprojectstack-be-pipelineoutputartifactsb-jvwhrzx05xwq
 - name: PRUNE_BUILDCTL
   value: true
 - name: IMAGE_TAG_SUFFIX
