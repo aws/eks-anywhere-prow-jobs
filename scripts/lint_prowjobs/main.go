@@ -18,7 +18,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
@@ -30,6 +29,8 @@ import (
 	core "k8s.io/api/core/v1"
 	"k8s.io/test-infra/prow/config"
 	yaml "sigs.k8s.io/yaml"
+
+	"github.com/aws/eks-anywhere-prow-jobs/templater/jobs"
 )
 
 const (
@@ -82,6 +83,9 @@ func EnvVarsCheck(jc *JobConstants) presubmitCheck {
 			for _, env := range container.Env {
 				if index, exists := jc.envVarExist(env.Name); exists {
 					// check deepequal in case we decide to support EnvVarSource values in the future
+					if jobs.IsCuratedPackagesPresubmit(presubmitConfig.JobBase.Name) {
+						jc.EnvVars[index].Value = "s3://codebuildprojectstack-be-pipelineoutputartifactsb-jvwhrzx05xwq"
+					}
 					if env != jc.EnvVars[index] {
 						lineToFind := fmt.Sprintf("name: %s", env.Name)
 						correctiveAction := fmt.Sprintf("Incorrect env var declared for %s in the %s container, update it to %s", env.Name, container.Name, env)
@@ -106,7 +110,7 @@ func AlwaysRunCheck() presubmitCheck {
 func SkipReportCheck() presubmitCheck {
 	return presubmitCheck(func(presubmitConfig config.Presubmit, fileContentsString string) (bool, int, string) {
 		if presubmitConfig.Reporter.SkipReport {
-			return false, findLineNumber(fileContentsString, "skip_report:"), "Please set always_run to false"
+			return false, findLineNumber(fileContentsString, "skip_report:"), "Please set skip_report to false"
 		}
 		return true, 0, ""
 	})
@@ -217,7 +221,7 @@ func unmarshalJobFile(filePath string, jobConfig *config.JobConfig) *Unmarshaled
 }
 
 func unmarshalYamlFile(filePath string, data interface{}) string {
-	fileContents, fileReadError := ioutil.ReadFile(filePath)
+	fileContents, fileReadError := os.ReadFile(filePath)
 
 	if fileReadError != nil {
 		log.Fatalf("Error reading contents of %s: %v", filePath, fileReadError)

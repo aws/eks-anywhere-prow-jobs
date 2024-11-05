@@ -61,13 +61,13 @@ presubmits:
               name: public-access-github-token
               key: token
         - name: ARTIFACTS_BUCKET
-          value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
+          value: "s3://codebuildprojectstack-be-pipelineoutputartifactsb-jvwhrzx05xwq"
         - name: PRUNE_BUILDCTL
           value: "true"
         - name: IMAGE_TAG_SUFFIX
           value: "-amd64"
         - name: ADDITIONAL_IMAGE_CACHE_REPOS
-          value: "857151390494.dkr.ecr.us-west-2.amazonaws.com"
+          value: "067575901363.dkr.ecr.us-west-2.amazonaws.com"
         resources:
           requests:
             memory: "16Gi"
