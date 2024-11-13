@@ -22,7 +22,7 @@ presubmits:
   aws/eks-anywhere-build-tooling:
   - name: harbor-scanner-trivy-tooling-presubmit
     always_run: false
-    run_if_changed: "^build/lib/.*|Common.mk|projects/aquasecurity/harbor-scanner-trivy/.*"
+    run_if_changed: "^build/lib/.*|Common.mk|projects/goharbor/harbor-scanner-trivy/.*"
     branches:
     - ^main$
     cluster: "prow-presubmits-cluster"
@@ -54,7 +54,7 @@ presubmits:
           if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
         env:
         - name: PROJECT_PATH
-          value: "projects/aquasecurity/harbor-scanner-trivy"
+          value: "projects/goharbor/harbor-scanner-trivy"
         - name: GITHUB_TOKEN
           valueFrom:
             secretKeyRef:
