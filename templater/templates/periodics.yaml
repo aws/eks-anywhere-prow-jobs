@@ -112,7 +112,7 @@ periodics:
       {{- end }}
     {{- if .imageBuild }}
     - name: buildkitd
-      image: moby/buildkit:{{ .buildkitImageTag }}
+      image: {{ .buildkitImageRepo }}:{{ .buildkitImageTag }}
       command:
       - sh
       args:

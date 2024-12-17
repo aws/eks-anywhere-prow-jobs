@@ -14,6 +14,11 @@ import (
 	"github.com/aws/eks-anywhere-prow-jobs/templater/jobs"
 )
 
+const (
+	buildkitImageRepo = "857151390494.dkr.ecr.us-west-2.amazonaws.com/moby/buildkit"
+	buildkitImageTag  = "v0.12.5-rootless"
+)
+
 var (
 	jobsFolder    = "jobs"
 	orgsSupported = []string{"aws"}
@@ -35,8 +40,6 @@ var editWarning string
 //go:generate cp ../BUILDER_BASE_TAG_FILE ./BUILDER_BASE_TAG_FILE
 //go:embed BUILDER_BASE_TAG_FILE
 var builderBaseTag string
-
-var buildkitImageTag = "v0.12.5-rootless"
 
 func main() {
 	jobsFolderPath, err := getJobsFolderPath()
@@ -69,7 +72,7 @@ func main() {
 				envVars := jobConfig.EnvVars
 
 				if jobConfig.UseDockerBuildX {
-					envVars = append(envVars, &types.EnvVar{Name: "BUILDKITD_IMAGE", Value: "moby/buildkit:" + buildkitImageTag})
+					envVars = append(envVars, &types.EnvVar{Name: "BUILDKITD_IMAGE", Value: fmt.Sprintf("%s:%s", buildkitImageRepo, buildkitImageTag)})
 					envVars = append(envVars, &types.EnvVar{Name: "USE_BUILDX", Value: "true"})
 				}
 
@@ -102,6 +105,7 @@ func main() {
 					"serviceAccountName":           serviceAccountName,
 					"command":                      strings.Join(jobConfig.Commands, "\n&&\n"),
 					"builderBaseTag":               builderBaseTag,
+					"buildkitImageRepo":            buildkitImageRepo,
 					"buildkitImageTag":             buildkitImageTag,
 					"resources":                    jobConfig.Resources,
 					"envVars":                      envVars,
