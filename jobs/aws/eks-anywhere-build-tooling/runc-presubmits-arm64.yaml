@@ -71,7 +71,7 @@ presubmits:
             memory: "8Gi"
             cpu: "1024m"
       - name: buildkitd
-        image: 857151390494.dkr.ecr.us-west-2.amazonaws.com/moby/buildkit:v0.12.5-rootless
+        image: 857151390494.dkr.ecr.us-west-2.amazonaws.com/moby/buildkit:v0.18.2-rootless
         command:
         - sh
         args:

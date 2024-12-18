@@ -16,7 +16,7 @@ import (
 
 const (
 	buildkitImageRepo = "857151390494.dkr.ecr.us-west-2.amazonaws.com/moby/buildkit"
-	buildkitImageTag  = "v0.12.5-rootless"
+	buildkitImageTag  = "v0.18.2-rootless"
 )
 
 var (
