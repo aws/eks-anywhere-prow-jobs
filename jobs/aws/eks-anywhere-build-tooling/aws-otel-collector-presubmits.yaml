@@ -42,7 +42,7 @@ presubmits:
       automountServiceAccountToken: false
       containers:
       - name: build-container
-        image: public.ecr.aws/eks-distro-build-tooling/builder-base:standard-64f366ebd742e63458428a84ce147210747620cf.2
+        image: public.ecr.aws/k1e6s8o8/builder-base:standard-64f366ebd742e63458428a84ce147210747620cf.2
         command:
         - bash
         - -c
