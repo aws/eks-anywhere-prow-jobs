@@ -42,7 +42,7 @@ presubmits:
         arch: "ARM64"
       containers:
       - name: build-container
-        image: public.ecr.aws/k1e6s8o8/builder-base:standard-43fb785ea5d4c58dc09aac225827f6e54bacc7f9.2
+        image: public.ecr.aws/eks-distro-build-tooling/builder-base:standard-43fb785ea5d4c58dc09aac225827f6e54bacc7f9.2
         command:
         - bash
         - -c
