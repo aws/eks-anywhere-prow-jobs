@@ -20,9 +20,11 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: cloud-provider-vsphere-1-31-tooling-presubmit
+  - name: cloud-provider-aws-1-32-tooling-presubmit
     always_run: false
-    run_if_changed: "EKS_DISTRO_MINIMAL_BASE_TAG_FILE|EKSD_LATEST_RELEASES|^build/lib/.*|Common.mk|projects/kubernetes/cloud-provider-vsphere/.*"
+    run_if_changed: "^build/lib/.*|Common.mk|projects/kubernetes/cloud-provider-aws/.*"
+    branches:
+    - ^main$
     cluster: "prow-presubmits-cluster"
     error_on_eviction: true
     max_concurrency: 10
@@ -49,21 +51,19 @@ presubmits:
           &&
           build/lib/buildkit_check.sh
           &&
-          if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+          if make check-for-supported-release-branch -C $PROJECT_PATH; then if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi; fi
         env:
         - name: PROJECT_PATH
-          value: "projects/kubernetes/cloud-provider-vsphere"
+          value: "projects/kubernetes/cloud-provider-aws"
         - name: GITHUB_TOKEN
           valueFrom:
             secretKeyRef:
               name: public-access-github-token
               key: token
         - name: RELEASE_BRANCH
-          value: "1-31"
-        - name: PRUNE_BUILDCTL
-          value: "true"
+          value: "1-32"
         - name: ADDITIONAL_IMAGE_CACHE_REPOS
-          value: "857151390494.dkr.ecr.us-west-2.amazonaws.com"
+          value: "067575901363.dkr.ecr.us-west-2.amazonaws.com"
         resources:
           requests:
             memory: "16Gi"
