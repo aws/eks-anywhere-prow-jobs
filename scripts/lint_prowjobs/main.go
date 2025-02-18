@@ -27,7 +27,7 @@ import (
 	"text/tabwriter"
 
 	core "k8s.io/api/core/v1"
-	"k8s.io/test-infra/prow/config"
+	"sigs.k8s.io/prow/pkg/config"
 	yaml "sigs.k8s.io/yaml"
 
 	"github.com/aws/eks-anywhere-prow-jobs/templater/jobs"
