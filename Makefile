@@ -1,5 +1,5 @@
 ifneq ($(filter true,$(CI) $(CODEBUILD_CI)),)
-GOLANG_VERSION?="1.20"
+GOLANG_VERSION?="1.23"
 GO_VERSION ?= $(shell source scripts/go.sh && get_go_path $(GOLANG_VERSION))
 GO=$(GO_VERSION)/go
 else
