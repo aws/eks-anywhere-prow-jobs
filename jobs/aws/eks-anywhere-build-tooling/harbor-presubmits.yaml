@@ -72,6 +72,7 @@ presubmits:
           requests:
             memory: "16Gi"
             cpu: "8"
+            ephemeral-storage: "50Gi"
       - name: buildkitd
         image: 857151390494.dkr.ecr.us-west-2.amazonaws.com/moby/buildkit:v0.18.2-rootless
         command:
