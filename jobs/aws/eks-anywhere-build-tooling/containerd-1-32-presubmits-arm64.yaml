@@ -20,7 +20,7 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: containerd-tooling-presubmit-arm64
+  - name: containerd-tooling-1-32-presubmit-arm64
     always_run: false
     run_if_changed: "^build/lib/.*|Common.mk|projects/containerd/containerd/.*"
     cluster: "prow-postsubmits-cluster"
@@ -64,6 +64,8 @@ presubmits:
           value: "linux/arm64"
         - name: ARTIFACTS_BUCKET
           value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
+        - name: RELEASE_BRANCH
+          value: "1-32"
         - name: ADDITIONAL_IMAGE_CACHE_REPOS
           value: "857151390494.dkr.ecr.us-west-2.amazonaws.com"
         resources:
