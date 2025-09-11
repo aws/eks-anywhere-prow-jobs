@@ -20,11 +20,9 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: autoscaler-1-33-presubmit
+  - name: imagebuilder-1-34-presubmit
     always_run: false
-    run_if_changed: "EKS_DISTRO_MINIMAL_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/kubernetes/autoscaler/.*"
-    branches:
-    - ^main$
+    run_if_changed: "EKSD_LATEST_RELEASES|^build/lib/.*|Common.mk|projects/kubernetes-sigs/image-builder/.*"
     cluster: "prow-presubmits-cluster"
     error_on_eviction: true
     max_concurrency: 10
@@ -35,11 +33,13 @@ presubmits:
         path_strategy: explicit
       s3_credentials_secret: s3-credentials
     labels:
-      image-build: "true"
       disk-usage: "true"
     spec:
       serviceaccountName: presubmits-build-account
       automountServiceAccountToken: false
+      securityContext:
+        runAsUser: 1100
+        runAsGroup: 1100
       containers:
       - name: build-container
         image: public.ecr.aws/eks-distro-build-tooling/builder-base:standard-bacd680902b69e40626a3dc1dd2204d4ae32c46c.2
@@ -49,36 +49,27 @@ presubmits:
         - >
           trap 'touch /status/done && rm -rf /home/prow/go/src/' EXIT
           &&
-          build/lib/buildkit_check.sh
-          &&
-          if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+          if make check-for-supported-release-branch -C $PROJECT_PATH; then if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi; fi
         env:
         - name: PROJECT_PATH
-          value: "projects/kubernetes/autoscaler"
+          value: "projects/kubernetes-sigs/image-builder"
         - name: GITHUB_TOKEN
           valueFrom:
             secretKeyRef:
               name: public-access-github-token
               key: token
         - name: RELEASE_BRANCH
-          value: "1-33"
-        - name: PRUNE_BUILDCTL
-          value: "true"
-        - name: ADDITIONAL_IMAGE_CACHE_REPOS
-          value: "067575901363.dkr.ecr.us-west-2.amazonaws.com"
+          value: "1-34"
+        - name: ARTIFACTS_BUCKET
+          value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
+        - name: CODEBUILD_ROLE_ARN
+          value: "arn:aws:iam::857151390494:role/ImageBuilderPresubmitRole"
+        - name: BOTTLEROCKET_CLOUDFRONT_ENDPOINT
+          value: "d157u5k0sfp276.cloudfront.net"
         resources:
           requests:
             memory: "16Gi"
             cpu: "8"
-      - name: buildkitd
-        image: 857151390494.dkr.ecr.us-west-2.amazonaws.com/moby/buildkit:v0.18.2-rootless
-        command:
-        - sh
-        args:
-        - /script/entrypoint.sh
-        securityContext:
-          runAsUser: 1000
-          runAsGroup: 1000
       - command:
         - sh
         args:
