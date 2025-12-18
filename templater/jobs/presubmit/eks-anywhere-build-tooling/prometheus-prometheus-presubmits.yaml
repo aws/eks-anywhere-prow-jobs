@@ -2,6 +2,9 @@ jobName: prometheus-prometheus-tooling-presubmit
 runIfChanged: EKS_DISTRO_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/prometheus/prometheus/.*
 branches:
 - ^main$
+# Use AL2023 builder-base for Node.js v20 support (required for Prometheus v3 mantine-ui)
+# AL2023 has GLIBC 2.34 which supports Node.js v20, vs AL2 with GLIBC 2.26
+runtimeImage: public.ecr.aws/eks-distro-build-tooling/builder-base:standard-bacd680902b69e40626a3dc1dd2204d4ae32c46c.2023
 commands:
 - if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
 projectPath: projects/prometheus/prometheus
