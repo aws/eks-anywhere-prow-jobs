@@ -42,14 +42,14 @@ presubmits:
         runAsGroup: 1100
       containers:
       - name: build-container
-        image: public.ecr.aws/eks-distro-build-tooling/builder-base:standard-c390691fc6524c276be9dd00e57fe3b37a353711.2
+        image: public.ecr.aws/eks-distro-build-tooling/builder-base:standard-bacd680902b69e40626a3dc1dd2204d4ae32c46c.2
         command:
         - bash
         - -c
         - >
           trap 'touch /status/done && rm -rf /home/prow/go/src/' EXIT
           &&
-          if make check-for-supported-release-branch -C $PROJECT_PATH; then if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi; fi
+          if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
         env:
         - name: PROJECT_PATH
           value: "projects/kubernetes-sigs/image-builder"

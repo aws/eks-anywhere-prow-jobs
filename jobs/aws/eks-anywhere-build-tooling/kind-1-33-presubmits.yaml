@@ -40,7 +40,7 @@ presubmits:
       automountServiceAccountToken: false
       containers:
       - name: build-container
-        image: public.ecr.aws/eks-distro-build-tooling/builder-base:standard-c390691fc6524c276be9dd00e57fe3b37a353711.2
+        image: public.ecr.aws/eks-distro-build-tooling/builder-base:standard-bacd680902b69e40626a3dc1dd2204d4ae32c46c.2
         command:
         - bash
         - -c
@@ -49,7 +49,7 @@ presubmits:
           &&
           build/lib/buildkit_check.sh
           &&
-          if make check-for-supported-release-branch -C $PROJECT_PATH; then if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi; fi
+          if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
         env:
         - name: PROJECT_PATH
           value: "projects/kubernetes-sigs/kind"
@@ -68,6 +68,7 @@ presubmits:
           requests:
             memory: "16Gi"
             cpu: "4"
+            ephemeral-storage: "50Gi"
       - name: buildkitd
         image: 857151390494.dkr.ecr.us-west-2.amazonaws.com/moby/buildkit:v0.18.2-rootless
         command:

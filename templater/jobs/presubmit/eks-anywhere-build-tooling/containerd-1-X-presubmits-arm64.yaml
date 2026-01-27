@@ -1,4 +1,4 @@
-jobName: containerd-tooling-presubmit-arm64
+jobName: containerd-tooling-{{ .releaseBranch }}-presubmit-arm64
 runIfChanged: ^build/lib/.*|Common.mk|projects/containerd/containerd/.*
 cluster: prow-postsubmits-cluster
 serviceaccountName: postsubmits-build-account
@@ -12,6 +12,8 @@ envVars:
   value: linux/arm64
 - name: ARTIFACTS_BUCKET
   value: s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f
+- name: RELEASE_BRANCH
+  value: {{ .releaseBranch }}
 imageBuild: true
 resources:
   requests:

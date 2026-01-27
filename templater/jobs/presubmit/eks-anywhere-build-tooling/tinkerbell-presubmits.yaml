@@ -1,13 +1,13 @@
-jobName: containerd-tooling-presubmit-amd64
-runIfChanged: build/lib/.*|Common.mk|projects/containerd/containerd/.*
+jobName: tinkerbell-tooling-presubmit
+runIfChanged: EKS_DISTRO_MINIMAL_BASE_TAG_FILE|EKS_DISTRO_MINIMAL_BASE_GLIBC_TAG_FILE|^build/lib/.*|Common.mk|projects/tinkerbell/tinkerbell/.*
 commands:
 - if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
-projectPath: projects/containerd/containerd
+projectPath: projects/tinkerbell/tinkerbell
 envVars:
-- name: BINARY_PLATFORMS
-  value: linux/amd64
 - name: ARTIFACTS_BUCKET
   value: s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f
+- name: IMAGE_TAG_SUFFIX
+  value: -amd64
 imageBuild: true
 resources:
   requests:

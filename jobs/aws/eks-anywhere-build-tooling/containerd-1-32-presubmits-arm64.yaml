@@ -20,27 +20,29 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: containerd-tooling-presubmit-amd64
+  - name: containerd-tooling-1-32-presubmit-arm64
     always_run: false
-    run_if_changed: "build/lib/.*|Common.mk|projects/containerd/containerd/.*"
-    cluster: "prow-presubmits-cluster"
+    run_if_changed: "^build/lib/.*|Common.mk|projects/containerd/containerd/.*"
+    cluster: "prow-postsubmits-cluster"
     error_on_eviction: true
     max_concurrency: 10
     skip_report: false
     decoration_config:
       gcs_configuration:
-        bucket: s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp
+        bucket: s3://prowdataclusterstack-316434458-prowbucket7c73355c-1n9f9v93wpjcm
         path_strategy: explicit
       s3_credentials_secret: s3-credentials
     labels:
       image-build: "true"
       disk-usage: "true"
     spec:
-      serviceaccountName: presubmits-build-account
+      serviceaccountName: postsubmits-build-account
       automountServiceAccountToken: false
+      nodeSelector:
+        arch: "ARM64"
       containers:
       - name: build-container
-        image: public.ecr.aws/eks-distro-build-tooling/builder-base:standard-c390691fc6524c276be9dd00e57fe3b37a353711.2
+        image: public.ecr.aws/eks-distro-build-tooling/builder-base:standard-bacd680902b69e40626a3dc1dd2204d4ae32c46c.2
         command:
         - bash
         - -c
@@ -59,15 +61,17 @@ presubmits:
               name: public-access-github-token
               key: token
         - name: BINARY_PLATFORMS
-          value: "linux/amd64"
+          value: "linux/arm64"
         - name: ARTIFACTS_BUCKET
           value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
+        - name: RELEASE_BRANCH
+          value: "1-32"
         - name: ADDITIONAL_IMAGE_CACHE_REPOS
           value: "857151390494.dkr.ecr.us-west-2.amazonaws.com"
         resources:
           requests:
-            memory: "16Gi"
-            cpu: "4"
+            memory: "8Gi"
+            cpu: "1024m"
       - name: buildkitd
         image: 857151390494.dkr.ecr.us-west-2.amazonaws.com/moby/buildkit:v0.18.2-rootless
         command:
