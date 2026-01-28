@@ -1,10 +1,10 @@
 jobName: distribution-tooling-presubmit
-runIfChanged: ^build/lib/.*|Common.mk|projects/distribution/distribution/.*
+runIfChanged: ^build/lib/.*|Common.mk|projects/goharbor/distribution/.*
 branches:
 - ^main$
 commands:
 - if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
-projectPath: projects/distribution/distribution
+projectPath: projects/goharbor/distribution
 imageBuild: true
 resources:
   requests:

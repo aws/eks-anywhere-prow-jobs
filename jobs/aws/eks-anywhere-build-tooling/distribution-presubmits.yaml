@@ -22,7 +22,7 @@ presubmits:
   aws/eks-anywhere-build-tooling:
   - name: distribution-tooling-presubmit
     always_run: false
-    run_if_changed: "^build/lib/.*|Common.mk|projects/distribution/distribution/.*"
+    run_if_changed: "^build/lib/.*|Common.mk|projects/goharbor/distribution/.*"
     branches:
     - ^main$
     cluster: "prow-presubmits-cluster"
@@ -54,7 +54,7 @@ presubmits:
           if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
         env:
         - name: PROJECT_PATH
-          value: "projects/distribution/distribution"
+          value: "projects/goharbor/distribution"
         - name: GITHUB_TOKEN
           valueFrom:
             secretKeyRef:
