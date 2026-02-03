@@ -20,24 +20,26 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: containerd-tooling-1-34-presubmit-amd64
+  - name: containerd-tooling-1-35-presubmit-arm64
     always_run: false
-    run_if_changed: "build/lib/.*|Common.mk|projects/containerd/containerd/.*"
-    cluster: "prow-presubmits-cluster"
+    run_if_changed: "^build/lib/.*|Common.mk|projects/containerd/containerd/.*"
+    cluster: "prow-postsubmits-cluster"
     error_on_eviction: true
     max_concurrency: 10
     skip_report: false
     decoration_config:
       gcs_configuration:
-        bucket: s3://prowpresubmitsdataclusterstack-prowbucket7c73355c-vfwwxd2eb4gp
+        bucket: s3://prowdataclusterstack-316434458-prowbucket7c73355c-1n9f9v93wpjcm
         path_strategy: explicit
       s3_credentials_secret: s3-credentials
     labels:
       image-build: "true"
       disk-usage: "true"
     spec:
-      serviceaccountName: presubmits-build-account
+      serviceaccountName: postsubmits-build-account
       automountServiceAccountToken: false
+      nodeSelector:
+        arch: "ARM64"
       containers:
       - name: build-container
         image: public.ecr.aws/eks-distro-build-tooling/builder-base:standard-700eaf7d638c420c39d9216b76099e6ed240ddfd.2
@@ -49,7 +51,7 @@ presubmits:
           &&
           build/lib/buildkit_check.sh
           &&
-          if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+          if make check-for-supported-release-branch -C $PROJECT_PATH; then if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi; fi
         env:
         - name: PROJECT_PATH
           value: "projects/containerd/containerd"
@@ -59,17 +61,17 @@ presubmits:
               name: public-access-github-token
               key: token
         - name: BINARY_PLATFORMS
-          value: "linux/amd64"
+          value: "linux/arm64"
         - name: ARTIFACTS_BUCKET
           value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
         - name: RELEASE_BRANCH
-          value: "1-34"
+          value: "1-35"
         - name: ADDITIONAL_IMAGE_CACHE_REPOS
           value: "857151390494.dkr.ecr.us-west-2.amazonaws.com"
         resources:
           requests:
-            memory: "16Gi"
-            cpu: "4"
+            memory: "8Gi"
+            cpu: "1024m"
       - name: buildkitd
         image: 857151390494.dkr.ecr.us-west-2.amazonaws.com/moby/buildkit:v0.18.2-rootless
         command:
