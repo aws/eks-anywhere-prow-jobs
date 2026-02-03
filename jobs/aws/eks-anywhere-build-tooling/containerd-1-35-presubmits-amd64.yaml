@@ -20,7 +20,7 @@
 
 presubmits:
   aws/eks-anywhere-build-tooling:
-  - name: containerd-tooling-1-34-presubmit-amd64
+  - name: containerd-tooling-1-35-presubmit-amd64
     always_run: false
     run_if_changed: "build/lib/.*|Common.mk|projects/containerd/containerd/.*"
     cluster: "prow-presubmits-cluster"
@@ -49,7 +49,7 @@ presubmits:
           &&
           build/lib/buildkit_check.sh
           &&
-          if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+          if make check-for-supported-release-branch -C $PROJECT_PATH; then if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi; fi
         env:
         - name: PROJECT_PATH
           value: "projects/containerd/containerd"
@@ -63,7 +63,7 @@ presubmits:
         - name: ARTIFACTS_BUCKET
           value: "s3://projectbuildpipeline-857-pipelineoutputartifactsb-10ajmk30khe3f"
         - name: RELEASE_BRANCH
-          value: "1-34"
+          value: "1-35"
         - name: ADDITIONAL_IMAGE_CACHE_REPOS
           value: "857151390494.dkr.ecr.us-west-2.amazonaws.com"
         resources:
