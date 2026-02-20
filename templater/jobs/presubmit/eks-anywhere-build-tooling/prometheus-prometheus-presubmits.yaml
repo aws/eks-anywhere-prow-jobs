@@ -4,7 +4,7 @@ branches:
 - ^main$
 # Use AL2023 builder-base for Node.js v20 support (required for Prometheus v3 mantine-ui)
 # AL2023 has GLIBC 2.34 which supports Node.js v20, vs AL2 with GLIBC 2.26
-runtimeImage: public.ecr.aws/eks-distro-build-tooling/builder-base:standard-61a752bb8b87fdf9ae895dddd8eea291e7479baf.2
+runtimeImage: public.ecr.aws/eks-distro-build-tooling/builder-base:standard-61a752bb8b87fdf9ae895dddd8eea291e7479baf.2023
 commands:
 - if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
 projectPath: projects/prometheus/prometheus
