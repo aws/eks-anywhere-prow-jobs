@@ -39,7 +39,7 @@ periodics:
     automountServiceAccountToken: false
     containers:
     - name: build-container
-      image: public.ecr.aws/eks-distro-build-tooling/builder-base:standard-61a752bb8b87fdf9ae895dddd8eea291e7479baf.2
+      image: public.ecr.aws/eks-distro-build-tooling/builder-base:standard-5778f99ba1380b088ad6c9c53a0d72866756f08e.2
       command:
       - bash
       - -c
