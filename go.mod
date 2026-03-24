@@ -1,8 +1,8 @@
 module github.com/aws/eks-anywhere-prow-jobs
 
-go 1.23.0
+go 1.25.0
 
-toolchain go1.23.4
+toolchain go1.25.8
 
 require (
 	github.com/aws/eks-distro-prow-jobs v0.0.0-20250212200111-933d8d52eeb2
