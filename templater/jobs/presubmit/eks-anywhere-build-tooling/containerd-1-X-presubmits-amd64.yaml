@@ -3,6 +3,7 @@ runIfChanged: build/lib/.*|Common.mk|projects/containerd/containerd/.*
 commands:
 - if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
 projectPath: projects/containerd/containerd
+runtimeImage: {{ if eq .releaseBranch "1-37" }}public.ecr.aws/eks-distro-build-tooling/builder-base:standard-fc2ac92277cf0ff8fde37bef3c08a1c623670a11.2023{{ else }}""{{ end }}
 envVars:
 - name: BINARY_PLATFORMS
   value: linux/amd64
