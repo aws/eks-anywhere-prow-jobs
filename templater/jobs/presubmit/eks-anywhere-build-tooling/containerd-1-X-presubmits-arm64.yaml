@@ -7,7 +7,6 @@ architecture: ARM64
 commands:
 - if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
 projectPath: projects/containerd/containerd
-runtimeImage: {{ if eq .releaseBranch "1-37" }}public.ecr.aws/eks-distro-build-tooling/builder-base:standard-ce9299c7b5631a8e3d611cfc81831dd52f7dc7b9.2023
 envVars:
 - name: BINARY_PLATFORMS
   value: linux/arm64
