@@ -1,0 +1,12 @@
+jobName: frr-presubmit-amd64
+runIfChanged: ^EKS_DISTRO_MINIMAL_BASE_PYTHON_3[.]11_AL2023_TAG_FILE$|^build/lib/.*|Common.mk|projects/frrouting/frr/.*
+branches:
+- ^main$
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/frrouting/frr
+imageBuild: true
+resources:
+  requests:
+    memory: 16Gi
+    cpu: 4

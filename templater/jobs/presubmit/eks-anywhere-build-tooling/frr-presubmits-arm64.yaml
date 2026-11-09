@@ -1,0 +1,16 @@
+jobName: frr-presubmit-arm64
+runIfChanged: ^EKS_DISTRO_MINIMAL_BASE_PYTHON_3[.]11_AL2023_TAG_FILE$|^build/lib/.*|Common.mk|projects/frrouting/frr/.*
+branches:
+- ^main$
+cluster: prow-postsubmits-cluster
+serviceaccountName: postsubmits-build-account
+bucket: s3://prowdataclusterstack-316434458-prowbucket7c73355c-1n9f9v93wpjcm
+architecture: ARM64
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/frrouting/frr
+imageBuild: true
+resources:
+  requests:
+    memory: 16Gi
+    cpu: 4

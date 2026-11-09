@@ -1,0 +1,12 @@
+jobName: metallb-frr-k8s-tooling-presubmit
+runIfChanged: EKS_DISTRO_BASE_TAG_FILE|EKS_DISTRO_MINIMAL_BASE_TAG_FILE|^build/lib/.*|Common.mk|projects/metallb/frr-k8s/.*
+branches:
+- ^main$
+commands:
+- if $(make check-project-path-exists); then make build -C $PROJECT_PATH; fi
+projectPath: projects/metallb/frr-k8s
+imageBuild: true
+resources:
+  requests:
+    memory: 16Gi
+    cpu: 4
